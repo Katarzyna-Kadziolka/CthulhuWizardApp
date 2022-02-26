@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 defineProps<{
   msg: string;
 }>();
@@ -13,6 +12,7 @@ defineProps<{
       <a target="_blank" href="https://vitejs.dev/">Vite</a> +
       <a target="_blank" href="https://vuejs.org/">Vue 3</a>. What's next?
     </h3>
+    <QBtn color="amber" glossy label="Amber" />
   </div>
 </template>
 
