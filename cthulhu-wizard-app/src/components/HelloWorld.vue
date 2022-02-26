@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 defineProps<{
   msg: string;
 }>();
@@ -15,7 +16,7 @@ defineProps<{
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 h1 {
   font-weight: 500;
   font-size: 2.6rem;
