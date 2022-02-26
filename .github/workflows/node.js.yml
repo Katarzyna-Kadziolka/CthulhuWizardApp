@@ -9,10 +9,6 @@ on:
   pull_request:
     branches: [ develop ]
     
-defaults:
-      run:
-        working-directory: ./cthulhu-wizard-app
-
 jobs:
   build:
 
@@ -20,6 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - run: cd ./cthulhu-wizard-app
     - name: Use Node.js 14x
       uses: actions/setup-node@v2
       with:
