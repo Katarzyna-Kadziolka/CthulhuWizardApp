@@ -11,12 +11,13 @@ on:
     
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./cthulhu-wizard-app
     steps:
     - uses: actions/checkout@v2
-    - run: cd ./cthulhu-wizard-app
+#     - run: cd ./cthulhu-wizard-app
     - name: Use Node.js 14x
       uses: actions/setup-node@v2
       with:
