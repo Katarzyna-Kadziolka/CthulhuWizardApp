@@ -10,19 +10,19 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@quasar/extras": "^1.12.5",
+    "@quasar/extras": "^1.13.6",
     "axios": "^0.26.0",
     "dayjs": "^1.10.7",
     "lodash": "^4.17.21",
     "pinia": "^2.0.11",
-    "quasar": "^2.5.5",
+    "quasar": "^2.6.6",
     "vee-validate": "^4.5.9",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@quasar/vite-plugin": "^1.0.5",
+    "@quasar/vite-plugin": "^1.0.9",
     "@rushstack/eslint-patch": "^1.1.0",
     "@types/jsdom": "^16.2.14",
     "@types/node": "^16.11.25",

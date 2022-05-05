@@ -14,6 +14,11 @@ const router = createRouter({
       name: "wizard",
       component: import("../features/wizard/WizardPage.vue"),
     },
+    {
+      path: "/login",
+      name: "login",
+      component: import("../features/auth/LoginPage.vue"),
+    },
   ],
 });
 
