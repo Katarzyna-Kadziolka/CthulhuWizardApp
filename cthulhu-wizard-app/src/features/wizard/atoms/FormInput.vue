@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, Props } from "vue";
+import { ref } from "vue";
+import IFormInput from "/atoms/IFormInput.ts"
 
 const value = ref(null);
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<IFormInput>(), {
   watermark: {
     default: "",
   },

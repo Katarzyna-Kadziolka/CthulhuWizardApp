@@ -1,7 +1,6 @@
 import type { QInputProps } from 'quasar';
-import type { TypeOf } from 'yup';
 
-export default interface IFormInput {
+export interface IFormInput {
     watermark: String;
     hasTooltip: Boolean;
     tooltipText: String;
