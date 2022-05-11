@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, Props } from "vue";
 
 const value = ref(null);
-const props = defineProps({
+const props = withDefaults(defineProps<Props>(), {
   watermark: {
-    type: String,
     default: "",
   },
   hasTooltip: {
-    type: Boolean,
     default: false,
   },
   tooltipText: {
-    type: String,
     default: "",
   },
+  fieldType: {
+    default: 'text',
+  }
 });
 </script>
 
 <template>
-  <QInput v-model="value" filled :label="watermark">
+  <QInput v-model="value" filled :label="watermark" :type="'text'">
     <QTooltip
       v-if="hasTooltip"
       anchor="center right"

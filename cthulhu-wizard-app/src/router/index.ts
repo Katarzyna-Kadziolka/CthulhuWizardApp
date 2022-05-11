@@ -12,12 +12,12 @@ const router = createRouter({
     {
       path: "/wizard",
       name: "wizard",
-      component: import("../features/wizard/WizardPage.vue"),
+      component: () => import("../features/wizard/WizardPage.vue"),
     },
     {
       path: "/login",
       name: "login",
-      component: import("../features/auth/LoginPage.vue"),
+      component: () => import("../features/auth/LoginPage.vue"),
     },
   ],
 });
