@@ -1,26 +1,20 @@
 <script setup lang="ts">
+import { QInput } from "quasar";
 import { ref } from "vue";
-import IFormInput from "/atoms/IFormInput.ts"
+import type { IFormInput } from "./IFormInput";
 
 const value = ref(null);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<IFormInput>(), {
-  watermark: {
-    default: "",
-  },
-  hasTooltip: {
-    default: false,
-  },
-  tooltipText: {
-    default: "",
-  },
-  fieldType: {
-    default: 'text',
-  }
+  watermark: "",
+  hasTooltip: false,
+  tooltipText: "",
+  fieldType: "text",
 });
 </script>
 
 <template>
-  <QInput v-model="value" filled :label="watermark" :type="'text'">
+  <QInput v-model="value" filled :label="watermark" :type="fieldType">
     <QTooltip
       v-if="hasTooltip"
       anchor="center right"

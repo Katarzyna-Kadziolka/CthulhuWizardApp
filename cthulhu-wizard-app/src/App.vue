@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
 import RouterLinkBase from "./components/atoms/RouterLinkBase.vue";
 import { useQuasar } from "quasar";
 const $q = useQuasar();

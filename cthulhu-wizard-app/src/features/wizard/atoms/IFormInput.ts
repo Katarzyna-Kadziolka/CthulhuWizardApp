@@ -1,8 +1,8 @@
-import type { QInputProps } from 'quasar';
+import type { QInputProps } from "quasar";
 
 export interface IFormInput {
-    watermark: String;
-    hasTooltip: Boolean;
-    tooltipText: String;
-    fieldType: QInputProps['type'];
+  watermark: string;
+  hasTooltip: boolean;
+  tooltipText: string;
+  fieldType: QInputProps["type"];
 }
