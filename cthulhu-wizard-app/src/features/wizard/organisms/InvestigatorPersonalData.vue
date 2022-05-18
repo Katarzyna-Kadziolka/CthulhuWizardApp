@@ -2,8 +2,21 @@
 import { ref } from "vue";
 import FormInput from "../atoms/FormInput.vue";
 import { Gender } from "../types/Gender";
-const gender = ref(Gender.Male);
-const options = [Gender.Male, Gender.Female, Gender.Other];
+import * as yup from "yup";
+import type { CreateInvestigator } from "../types/CreateInvestigator";
+const genderOptions = [Gender.Male, Gender.Female, Gender.Other];
+const investigator = ref<CreateInvestigator>({
+  FirstName: "" as string,
+  LastName: "" as string,
+  Age: 0 as number,
+  Gender: Gender.Male as Gender,
+  BirthPlace: "" as string,
+  LivingPlace: "" as string,
+});
+let createInvestigatorSchema = yup.object().shape({
+  FirstName: yup.string().required(),
+  Age: yup.number().min(15).max(90),
+});
 </script>
 
 <template>
@@ -16,6 +29,7 @@ const options = [Gender.Male, Gender.Female, Gender.Other];
     <div class="row justify-between q-col-gutter-md q-mb-md">
       <div class="col-6">
         <FormInput
+          v-model="investigator.FirstName"
           watermark="Name"
           :has-tooltip="true"
           tooltip-text="Investigator's first name"
@@ -40,9 +54,9 @@ const options = [Gender.Male, Gender.Female, Gender.Other];
       </div>
       <div class="col-6">
         <QSelect
-          v-model="gender"
+          v-model="investigator.Gender"
           filled
-          :options="options"
+          :options="genderOptions"
           label="Gender"
           stack-label
           dense
