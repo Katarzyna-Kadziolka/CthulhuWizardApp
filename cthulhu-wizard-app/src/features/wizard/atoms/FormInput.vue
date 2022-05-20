@@ -3,14 +3,13 @@ import { QInput } from "quasar";
 import type { QInputProps } from "quasar";
 import { computed } from "@vue/reactivity";
 
-interface FormInput {
-  modelValue: string;
+export interface FormInput {
+  modelValue: string | number;
   watermark: string;
   hasTooltip: boolean;
   tooltipText: string;
   fieldType?: QInputProps["type"];
 }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<FormInput>(), {
   modelValue: "",
   watermark: "",
@@ -20,7 +19,7 @@ const props = withDefaults(defineProps<FormInput>(), {
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: string): void;
+  (e: "update:modelValue", value: string | number): void;
 }>();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -28,7 +27,7 @@ const value = computed({
   get() {
     return props.modelValue;
   },
-  set(value: string) {
+  set(value: string | number) {
     emit("update:modelValue", value);
   },
 });
