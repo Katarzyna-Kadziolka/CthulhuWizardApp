@@ -1,28 +1,20 @@
 <script setup lang="ts">
-import { ref, computed, watch } from "vue";
+import { computed, watch } from "vue";
 import FormInput from "../atoms/FormInput.vue";
 import { Gender } from "../types/Gender";
 import * as yup from "yup";
 import { investigatorStore } from "@/stores/investigatorStore";
-import type { Investigator } from "../types/Investigator";
 const store = investigatorStore();
 const genderOptions = [Gender.Male, Gender.Female, Gender.Other];
-const investigator = ref<Investigator>({
-  Id: store.investigator.Id,
-  FirstName: store.investigator.FirstName,
-  LastName: store.investigator.LastName,
-  Age: store.investigator.Age,
-  Gender: store.investigator.Gender,
-  BirthPlace: store.investigator.BirthPlace,
-  LivingPlace: store.investigator.LivingPlace,
-});
+const investigator = store.investigator;
+
 const createInvestigatorSchema = yup.object().shape({
   FirstName: yup.string().required(),
   Age: yup.number().min(15).max(90),
 });
 const errors = computed(() => {
   try {
-    createInvestigatorSchema.validateSync(investigator.value, {
+    createInvestigatorSchema.validateSync(investigator, {
       abortEarly: false,
     });
     return [];
@@ -35,7 +27,7 @@ const emit = defineEmits<{
   (e: "validationChanged", value: boolean): void;
 }>();
 watch(errors, () => {
-  emit("validationChanged", errors.value === []);
+  emit("validationChanged", errors.value.length === 0);
 });
 </script>
 
@@ -57,7 +49,7 @@ watch(errors, () => {
       </div>
       <div class="col-6">
         <FormInput
-          v-model="investigator.Age"
+          v-model.number="investigator.Age"
           watermark="Age"
           :has-tooltip="true"
           tooltip-text="Age range 18-90"

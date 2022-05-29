@@ -4,7 +4,7 @@ export interface NavigationButtons {
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<NavigationButtons>(), {
-  formIsValid: true,
+  formIsValid: false,
 });
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const emit = defineEmits<{
