@@ -4,7 +4,7 @@ import type { CreateInvestigator } from "./../features/wizard/types/CreateInvest
 
 class investigatorService {
   create(investigator: CreateInvestigator): Promise<Investigator> {
-    return http.post("/Investigator", investigator);
+    return http.post("/Investigators", investigator);
   }
 }
 

@@ -9,8 +9,8 @@ const store = investigatorStore();
 const investigator = store.investigator;
 
 const createInvestigatorSchema = yup.object().shape({
-  FirstName: yup.string().required(),
-  Age: yup.number().min(15).max(90),
+  FirstName: yup.string().required("Name cannot be empty"),
+  Age: yup.number().typeError("Age cannot be empty").required().min(15).max(90),
 });
 const errors = computed(() => {
   try {
@@ -20,7 +20,7 @@ const errors = computed(() => {
     return [];
   } catch (error) {
     const validationError = error as yup.ValidationError;
-    return validationError.errors;
+    return validationError.inner;
   }
 });
 const emit = defineEmits<{
@@ -42,6 +42,7 @@ watch(errors, () => {
         class="investigator-personal-data-form__input"
         watermark="Name"
         tooltip="Investigator's first name"
+        :error="errors.find((a) => a.path === 'FirstName')"
       />
       <FormInput
         v-model="investigator.LastName"
@@ -55,6 +56,7 @@ watch(errors, () => {
         watermark="Age"
         tooltip="Age range 18-90"
         field-type="number"
+        :error="errors.find((a) => a.path === 'Age')"
       />
       <FormInput
         v-model="investigator.BirthPlace"
@@ -107,7 +109,7 @@ watch(errors, () => {
     margin-bottom: 0.8rem;
   }
   &__input {
-    margin-bottom: 1rem;
+    margin-bottom: 0.3rem;
   }
   &__radio-buttons {
     display: flex;

@@ -2,6 +2,8 @@
 import { QInput } from "quasar";
 import type { QInputProps } from "quasar";
 import { computed } from "@vue/reactivity";
+import type * as yup from "yup";
+import { ref } from "vue";
 
 const props = withDefaults(
   defineProps<{
@@ -9,12 +11,14 @@ const props = withDefaults(
     watermark: string;
     tooltip: string | undefined;
     fieldType?: QInputProps["type"];
+    error?: yup.ValidationError;
   }>(),
   {
     modelValue: "",
     watermark: "",
     tooltip: "",
     fieldType: "text",
+    error: undefined,
   }
 );
 
@@ -31,10 +35,21 @@ const value = computed({
     emit("update:modelValue", value);
   },
 });
+const isDirty = ref(false);
 </script>
 
 <template>
-  <QInput v-model="value" filled :label="watermark" :type="fieldType" dense>
+  <QInput
+    v-model="value"
+    bottom-slots
+    filled
+    :label="props.watermark"
+    :type="fieldType"
+    :error="isDirty && props.error !== undefined"
+    :error-message="props.error?.message"
+    dense
+    @blur="isDirty = true"
+  >
     <QTooltip
       v-if="props.tooltip"
       anchor="center right"
