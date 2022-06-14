@@ -1,11 +1,13 @@
 <script setup lang="ts">
-export interface NavigationButtons {
-  formIsValid: boolean;
-}
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const props = withDefaults(defineProps<NavigationButtons>(), {
-  formIsValid: false,
-});
+const props = withDefaults(
+  defineProps<{
+    formIsValid: boolean;
+  }>(),
+  {
+    formIsValid: false,
+  }
+);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const emit = defineEmits<{
   (e: "nextButtonClicked", value: void): void;

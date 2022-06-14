@@ -16,8 +16,8 @@ function toggleRightDrawer() {
     <QHeader elevated class="bg-primary text-white">
       <QToolbar>
         <QToolbarTitle>
-          <QAvatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
+          <QAvatar size="lx">
+            <img src="./assets/cthulhu-logo.png" />
           </QAvatar>
           <RouterLinkBase link="/" class="header"
             >Cthulhu Wizard Creator</RouterLinkBase

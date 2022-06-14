@@ -3,20 +3,20 @@ import { QInput } from "quasar";
 import type { QInputProps } from "quasar";
 import { computed } from "@vue/reactivity";
 
-export interface FormInput {
-  modelValue: string | number;
-  watermark: string;
-  hasTooltip: boolean;
-  tooltipText: string;
-  fieldType?: QInputProps["type"];
-}
-const props = withDefaults(defineProps<FormInput>(), {
-  modelValue: "",
-  watermark: "",
-  hasTooltip: false,
-  tooltipText: "",
-  fieldType: "text",
-});
+const props = withDefaults(
+  defineProps<{
+    modelValue: string | number;
+    watermark: string;
+    tooltip: string | undefined;
+    fieldType?: QInputProps["type"];
+  }>(),
+  {
+    modelValue: "",
+    watermark: "",
+    tooltip: "",
+    fieldType: "text",
+  }
+);
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: string | number): void;
@@ -36,12 +36,12 @@ const value = computed({
 <template>
   <QInput v-model="value" filled :label="watermark" :type="fieldType" dense>
     <QTooltip
-      v-if="hasTooltip"
+      v-if="props.tooltip"
       anchor="center right"
       self="center left"
       :offset="[10, 10]"
     >
-      {{ tooltipText }}
+      {{ tooltip }}
     </QTooltip>
   </QInput>
 </template>

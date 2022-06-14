@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, watch } from "vue";
-import FormInput from "../atoms/FormInput.vue";
+import FormInput from "@/components/atoms/FormInputBase.vue";
 import { Gender } from "../types/Gender";
 import * as yup from "yup";
 import { investigatorStore } from "@/stores/investigatorStore";
+import RadioButtonBase from "../../../components/atoms/RadioButtonBase.vue";
 const store = investigatorStore();
-const genderOptions = [Gender.Male, Gender.Female, Gender.Other];
 const investigator = store.investigator;
 
 const createInvestigatorSchema = yup.object().shape({
@@ -32,80 +32,95 @@ watch(errors, () => {
 </script>
 
 <template>
-  <main class="q-ma-lg">
-    <div class="row">
-      <div class="col-12 justify-start">
-        <h5>Investigator's Personal Data</h5>
-      </div>
+  <main class="investigator-personal-data-form">
+    <div class="investigator-personal-data-form__title">
+      <span>Investigator's Personal Data</span>
     </div>
-    <div class="row justify-between q-col-gutter-md q-mb-md">
-      <div class="col-6">
-        <FormInput
-          v-model="investigator.FirstName"
-          watermark="Name"
-          :has-tooltip="true"
-          tooltip-text="Investigator's first name"
-        />
+    <div class="investigator-personal-data-form__inputs">
+      <FormInput
+        v-model="investigator.FirstName"
+        class="investigator-personal-data-form__input"
+        watermark="Name"
+        tooltip="Investigator's first name"
+      />
+      <FormInput
+        v-model="investigator.LastName"
+        class="investigator-personal-data-form__input"
+        watermark="Last Name"
+        tooltip="Investigator's last name"
+      />
+      <FormInput
+        v-model.number="investigator.Age"
+        class="investigator-personal-data-form__input"
+        watermark="Age"
+        tooltip="Age range 18-90"
+        field-type="number"
+      />
+      <FormInput
+        v-model="investigator.BirthPlace"
+        class="investigator-personal-data-form__input"
+        watermark="Birth Place"
+        tooltip="Place where Invetigator has born"
+      />
+      <FormInput
+        v-model="investigator.LivingPlace"
+        class="investigator-personal-data-form__input"
+        watermark="Living Place"
+        tooltip="Place where Investigator is living"
+      />
+      <div class="investigator-personal-data-form__inputs">
+        <div>
+          <span>Gender</span>
+        </div>
+        <div class="investigator-personal-data-form__radio-buttons">
+          <RadioButtonBase
+            v-model="investigator.Gender"
+            class="investigator-personal-data-form__radio-button"
+            :val="Gender.Male"
+          />
+          <RadioButtonBase
+            v-model="investigator.Gender"
+            class="investigator-personal-data-form__radio-button"
+            :val="Gender.Female"
+          />
+          <RadioButtonBase
+            v-model="investigator.Gender"
+            class="investigator-personal-data-form__radio-button"
+            :val="Gender.Other"
+          />
+        </div>
       </div>
-      <div class="col-6">
-        <FormInput
-          v-model.number="investigator.Age"
-          watermark="Age"
-          :has-tooltip="true"
-          tooltip-text="Age range 18-90"
-          field-type="number"
-        />
-      </div>
-    </div>
-    <div class="row justify-between q-col-gutter-md q-mb-md">
-      <div class="col-6">
-        <FormInput
-          v-model="investigator.LastName"
-          watermark="Last Name"
-          :has-tooltip="true"
-          tooltip-text="Investigator's last name"
-        />
-      </div>
-      <div class="col-6">
-        <QSelect
-          v-model="investigator.Gender"
-          filled
-          :options="genderOptions"
-          label="Gender"
-          stack-label
-          dense
-        />
-      </div>
-    </div>
-    <div class="row justify-between q-col-gutter-md q-mb-md">
-      <div class="col-6">
-        <FormInput
-          v-model="investigator.BirthPlace"
-          watermark="Birth Place"
-          :has-tooltip="true"
-          tooltip-text="Place where Invetigator has born"
-        />
-      </div>
-      <div class="col-6">
-        <FormInput
-          v-model="investigator.LivingPlace"
-          watermark="Living Place"
-          :has-tooltip="true"
-          tooltip-text="Place where Investigator is living"
-        />
-      </div>
-    </div>
-    <div v-if="errors">
-      <p v-for="error in errors" :key="error" class="error">{{ error }}</p>
     </div>
   </main>
 </template>
 
-<style lang="scss">
-.padding-between-rows {
-  padding-bottom: 50px;
-}
-.error {
-  color: #b80719;
+<style scoped lang="scss">
+.investigator-personal-data-form {
+  &__title {
+    font-size: 1.3rem;
+    margin-top: 1.8rem;
+    margin-bottom: 1.3rem;
+  }
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.8rem;
+  }
+  &__input {
+    margin-bottom: 1rem;
+  }
+  &__radio-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 0.5rem;
+    @media screen and (max-width: 992px) {
+      flex-direction: column;
+    }
+  }
+  &__radio-button {
+    @media screen and (max-width: 992px) {
+      margin-bottom: 0.5rem;
+    }
+  }
 }
 </style>
