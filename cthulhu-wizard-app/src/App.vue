@@ -16,7 +16,7 @@ function toggleRightDrawer() {
     <QHeader elevated class="bg-primary text-white">
       <QToolbar>
         <QToolbarTitle>
-          <QAvatar size="lx">
+          <QAvatar size="lg">
             <img src="./assets/cthulhu-logo.png" />
           </QAvatar>
           <RouterLinkBase link="/" class="header"
