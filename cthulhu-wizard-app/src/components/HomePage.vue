@@ -11,8 +11,7 @@ import RouterLinkBase from "./atoms/RouterLinkBase.vue";
             <QBtn
               rounded
               label="Create investigator"
-              color="secondary"
-              class="glossy btn-position"
+              class="glossy btn-position bg-secondary text-white"
             ></QBtn>
           </RouterLinkBase>
         </div>

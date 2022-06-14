@@ -19,6 +19,11 @@ const router = createRouter({
       name: "login",
       component: () => import("../features/auth/LoginPage.vue"),
     },
+    {
+      path: "/report-error",
+      name: "reportError",
+      component: () => import("../features/errorReport/ErrorReportPage.vue"),
+    },
   ],
 });
 
