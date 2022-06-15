@@ -94,6 +94,12 @@ watch(errors, () => {
         tooltip="Place where Investigator is living"
       />
     </div>
+    <QBtn
+      label="Random"
+      dense
+      color="secondary"
+      class="investigator-personal-data-form__random"
+    />
   </main>
 </template>
 
@@ -124,6 +130,10 @@ watch(errors, () => {
     @media screen and (max-width: 992px) {
       margin-bottom: 0.5rem;
     }
+  }
+  &__random {
+    width: 100%;
+    margin-bottom: 1rem;
   }
 }
 </style>

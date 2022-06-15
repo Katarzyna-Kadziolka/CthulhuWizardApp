@@ -15,12 +15,12 @@ function toggleRightDrawer() {
   <QLayout view="hHh lpR fFf">
     <QHeader elevated class="bg-primary text-white">
       <QToolbar>
-        <QToolbarTitle>
+        <QToolbarTitle :shrink="true">
           <QAvatar size="lg">
             <img src="./assets/cthulhu-logo.png" />
           </QAvatar>
           <RouterLinkBase link="/" class="header"
-            >Cthulhu Wizard Creator</RouterLinkBase
+            >Cthulhu Wizard</RouterLinkBase
           >
         </QToolbarTitle>
         <QSpace />

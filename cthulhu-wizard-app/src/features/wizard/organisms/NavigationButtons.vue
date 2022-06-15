@@ -3,9 +3,11 @@
 const props = withDefaults(
   defineProps<{
     formIsValid: boolean;
+    rightButtonLable?: string;
   }>(),
   {
     formIsValid: false,
+    rightButtonLable: "Next",
   }
 );
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -15,26 +17,34 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <main class="q-ma-lg">
-    <div class="row justify-between q-col-gutter-md q-mb-md">
-      <div class="col-3">
-        <QBtn color="secondary" label="Return" class="btn-width" />
-      </div>
-      <div class="col-3">
-        <QBtn
-          color="secondary"
-          label="Next"
-          class="btn-width"
-          :disable="!formIsValid"
-          @click="$emit('nextButtonClicked')"
-        />
-      </div>
+  <main>
+    <div class="NavigationButtons__block">
+      <QBtn
+        dense
+        color="secondary"
+        label="Return"
+        class="NavigationButtons__navigation"
+      />
+      <QBtn
+        dense
+        color="secondary"
+        :label="props.rightButtonLable"
+        class="NavigationButtons__navigation"
+        :disable="!formIsValid"
+        @click="$emit('nextButtonClicked')"
+      />
     </div>
   </main>
 </template>
 
 <style lang="scss">
-.btn-width {
-  width: 100%;
+.NavigationButtons {
+  &__navigation {
+    width: 45%;
+  }
+  &__block {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 </style>
