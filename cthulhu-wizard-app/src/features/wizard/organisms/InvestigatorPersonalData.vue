@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed, watch } from "vue";
-import FormInput from "@/components/atoms/FormInputBase.vue";
+import FormInputBase from "@/components/atoms/FormInputBase.vue";
 import { Gender } from "../types/Gender";
 import * as yup from "yup";
 import { investigatorStore } from "@/stores/investigatorStore";
 import RadioButtonBase from "../../../components/atoms/RadioButtonBase.vue";
+import RandomizableInput from "../molecules/RandomizableInput.vue";
 const store = investigatorStore();
 const investigator = store.investigator;
 
@@ -37,20 +38,42 @@ watch(errors, () => {
       <span>Investigator's Personal Data</span>
     </div>
     <div class="investigator-personal-data-form__inputs">
-      <FormInput
+      <div>
+        <span>Gender</span>
+      </div>
+      <div class="investigator-personal-data-form__radio-buttons">
+        <RadioButtonBase
+          v-model="investigator.Gender"
+          class="investigator-personal-data-form__radio-button"
+          :val="Gender.Male"
+        />
+        <RadioButtonBase
+          v-model="investigator.Gender"
+          class="investigator-personal-data-form__radio-button"
+          :val="Gender.Female"
+        />
+        <RadioButtonBase
+          v-model="investigator.Gender"
+          class="investigator-personal-data-form__radio-button"
+          :val="Gender.Other"
+        />
+      </div>
+    </div>
+    <div class="investigator-personal-data-form__inputs">
+      <RandomizableInput
         v-model="investigator.FirstName"
         class="investigator-personal-data-form__input"
         watermark="Name"
         tooltip="Investigator's first name"
         :error="errors.find((a) => a.path === 'FirstName')"
       />
-      <FormInput
+      <RandomizableInput
         v-model="investigator.LastName"
         class="investigator-personal-data-form__input"
         watermark="Last Name"
         tooltip="Investigator's last name"
       />
-      <FormInput
+      <RandomizableInput
         v-model.number="investigator.Age"
         class="investigator-personal-data-form__input"
         watermark="Age"
@@ -58,40 +81,18 @@ watch(errors, () => {
         field-type="number"
         :error="errors.find((a) => a.path === 'Age')"
       />
-      <FormInput
+      <RandomizableInput
         v-model="investigator.BirthPlace"
         class="investigator-personal-data-form__input"
         watermark="Birth Place"
         tooltip="Place where Invetigator has born"
       />
-      <FormInput
+      <RandomizableInput
         v-model="investigator.LivingPlace"
         class="investigator-personal-data-form__input"
         watermark="Living Place"
         tooltip="Place where Investigator is living"
       />
-      <div class="investigator-personal-data-form__inputs">
-        <div>
-          <span>Gender</span>
-        </div>
-        <div class="investigator-personal-data-form__radio-buttons">
-          <RadioButtonBase
-            v-model="investigator.Gender"
-            class="investigator-personal-data-form__radio-button"
-            :val="Gender.Male"
-          />
-          <RadioButtonBase
-            v-model="investigator.Gender"
-            class="investigator-personal-data-form__radio-button"
-            :val="Gender.Female"
-          />
-          <RadioButtonBase
-            v-model="investigator.Gender"
-            class="investigator-personal-data-form__radio-button"
-            :val="Gender.Other"
-          />
-        </div>
-      </div>
     </div>
   </main>
 </template>

@@ -27,7 +27,7 @@ function toggleRightDrawer() {
         <QBtn dense flat round icon="menu" @click="toggleRightDrawer" />
       </QToolbar>
     </QHeader>
-    <QDrawer v-model="rightDrawerOpen" show-if-above side="right" bordered>
+    <QDrawer v-model="rightDrawerOpen" side="right" bordered>
       <div class="menu-buttons">
         <QBtn
           to="/login"
