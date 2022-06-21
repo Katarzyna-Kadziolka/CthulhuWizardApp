@@ -33,7 +33,7 @@ watch(errors, () => {
 </script>
 
 <template>
-  <main class="investigator-personal-data-form">
+  <main>
     <div class="investigator-personal-data-form__title">
       <span>Investigator's Personal Data</span>
     </div>
@@ -60,39 +60,46 @@ watch(errors, () => {
       </div>
     </div>
     <div class="investigator-personal-data-form__inputs">
+      <RandomizableInput>
+        <FormInputBase
+          v-model="investigator.FirstName"
+          class="investigator-personal-data-form__input"
+          watermark="Name"
+          tooltip="Investigator's first name"
+          :error="errors.find((a) => a.path === 'FirstName')"
+        />
+      </RandomizableInput>
+      <RandomizableInput>
+        <FormInputBase
+          v-model="investigator.LastName"
+          class="investigator-personal-data-form__input"
+          watermark="Last Name"
+          tooltip="Investigator's last name"
+      /></RandomizableInput>
       <RandomizableInput
-        v-model="investigator.FirstName"
-        class="investigator-personal-data-form__input"
-        watermark="Name"
-        tooltip="Investigator's first name"
-        :error="errors.find((a) => a.path === 'FirstName')"
-      />
+        ><FormInputBase
+          v-model="investigator.Age"
+          class="investigator-personal-data-form__input"
+          watermark="Age"
+          tooltip="Age range 18-90"
+          field-type="number"
+          :error="errors.find((a) => a.path === 'Age')"
+        />
+      </RandomizableInput>
       <RandomizableInput
-        v-model="investigator.LastName"
-        class="investigator-personal-data-form__input"
-        watermark="Last Name"
-        tooltip="Investigator's last name"
-      />
+        ><FormInputBase
+          v-model="investigator.BirthPlace"
+          class="investigator-personal-data-form__input"
+          watermark="Birth Place"
+          tooltip="Place where Invetigator has born"
+      /></RandomizableInput>
       <RandomizableInput
-        v-model.number="investigator.Age"
-        class="investigator-personal-data-form__input"
-        watermark="Age"
-        tooltip="Age range 18-90"
-        field-type="number"
-        :error="errors.find((a) => a.path === 'Age')"
-      />
-      <RandomizableInput
-        v-model="investigator.BirthPlace"
-        class="investigator-personal-data-form__input"
-        watermark="Birth Place"
-        tooltip="Place where Invetigator has born"
-      />
-      <RandomizableInput
-        v-model="investigator.LivingPlace"
-        class="investigator-personal-data-form__input"
-        watermark="Living Place"
-        tooltip="Place where Investigator is living"
-      />
+        ><FormInputBase
+          v-model="investigator.LivingPlace"
+          class="investigator-personal-data-form__input"
+          watermark="Living Place"
+          tooltip="Place where Investigator is living"
+      /></RandomizableInput>
     </div>
     <QBtn
       label="Random"
@@ -132,7 +139,6 @@ watch(errors, () => {
   }
   &__random {
     width: 100%;
-    margin-bottom: 1rem;
   }
 }
 </style>

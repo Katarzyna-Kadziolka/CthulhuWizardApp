@@ -26,7 +26,7 @@ const emit = defineEmits<{
         dense
         color="secondary"
         label="Back"
-        :disable="props.canGoBack"
+        :disable="!props.canGoBack"
         class="NavigationButtons__navigation"
         @click="$emit('previousButtonClicked')"
       />

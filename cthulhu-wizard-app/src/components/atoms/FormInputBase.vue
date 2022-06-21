@@ -55,6 +55,7 @@ const showTooltip = () => tooltip.value.show();
   >
     <template #append>
       <QBtn
+        v-if="props.tooltip"
         dense
         flat
         size="xs"
@@ -66,10 +67,11 @@ const showTooltip = () => tooltip.value.show();
     <QTooltip
       v-if="props.tooltip"
       ref="tooltip"
+      max-width="70%"
       :offset="[10, 10]"
       no-parent-event
     >
-      {{ props.tooltip }}
+      <div v-html="props.tooltip"></div>
     </QTooltip>
   </QInput>
 </template>
