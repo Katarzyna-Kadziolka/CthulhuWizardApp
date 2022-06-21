@@ -37,6 +37,13 @@ function toggleRightDrawer() {
           label="Login"
         />
         <QBtn
+          to="/settings"
+          dense
+          elevated
+          class="bg-secondary menu-button"
+          label="Settings"
+        />
+        <QBtn
           to="/report-error"
           dense
           elevated
@@ -67,6 +74,5 @@ function toggleRightDrawer() {
   margin-top: 15px;
   margin-left: 10px;
   margin-right: 10px;
-  border-radius: 10px;
 }
 </style>

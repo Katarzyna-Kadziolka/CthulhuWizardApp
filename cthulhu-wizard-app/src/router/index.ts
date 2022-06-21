@@ -24,6 +24,11 @@ const router = createRouter({
       name: "reportError",
       component: () => import("../features/errorReport/ErrorReportPage.vue"),
     },
+    {
+      path: "/settings",
+      name: "settings",
+      component: () => import("../features/settings/SettingsPage.vue"),
+    },
   ],
 });
 

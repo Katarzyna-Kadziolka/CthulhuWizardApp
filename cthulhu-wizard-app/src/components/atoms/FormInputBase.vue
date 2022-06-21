@@ -26,6 +26,8 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: string | number): void;
 }>();
 
+const tooltip = ref();
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const value = computed({
   get() {
@@ -36,6 +38,7 @@ const value = computed({
   },
 });
 const isDirty = ref(false);
+const showTooltip = () => tooltip.value.show();
 </script>
 
 <template>
@@ -50,13 +53,32 @@ const isDirty = ref(false);
     dense
     @blur="isDirty = true"
   >
+    <template #append>
+      <QBtn
+        dense
+        flat
+        size="xs"
+        icon="far fa-question-circle"
+        class="RandomizableInput__icon RandomizableInput__question"
+        @click="showTooltip"
+      />
+    </template>
     <QTooltip
       v-if="props.tooltip"
-      anchor="center right"
-      self="center left"
+      ref="tooltip"
       :offset="[10, 10]"
+      no-parent-event
     >
-      {{ tooltip }}
+      {{ props.tooltip }}
     </QTooltip>
   </QInput>
 </template>
+
+<style scoped lang="scss">
+.FormInputBase {
+  &__tooltipIcon {
+    margin-top: 0.6rem;
+    opacity: 70%;
+  }
+}
+</style>

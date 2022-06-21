@@ -2,17 +2,20 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(
   defineProps<{
-    formIsValid: boolean;
+    canGoNext: boolean;
     rightButtonLable?: string;
+    canGoBack: boolean;
   }>(),
   {
-    formIsValid: false,
+    canGoNext: false,
     rightButtonLable: "Next",
+    canGoBack: true,
   }
 );
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const emit = defineEmits<{
   (e: "nextButtonClicked", value: void): void;
+  (e: "previousButtonClicked", value: void): void;
 }>();
 </script>
 
@@ -22,22 +25,24 @@ const emit = defineEmits<{
       <QBtn
         dense
         color="secondary"
-        label="Return"
+        label="Back"
+        :disable="props.canGoBack"
         class="NavigationButtons__navigation"
+        @click="$emit('previousButtonClicked')"
       />
       <QBtn
         dense
         color="secondary"
         :label="props.rightButtonLable"
         class="NavigationButtons__navigation"
-        :disable="!formIsValid"
+        :disable="!canGoNext"
         @click="$emit('nextButtonClicked')"
       />
     </div>
   </main>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .NavigationButtons {
   &__navigation {
     width: 45%;

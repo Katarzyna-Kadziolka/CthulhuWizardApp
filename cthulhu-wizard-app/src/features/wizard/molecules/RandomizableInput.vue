@@ -2,7 +2,6 @@
 import type { QInputProps } from "quasar";
 import { computed } from "@vue/reactivity";
 import type * as yup from "yup";
-import { ref } from "vue";
 import FormInputBase from "@/components/atoms/FormInputBase.vue";
 
 const props = withDefaults(
@@ -49,7 +48,7 @@ const value = computed({
       dense
       flat
       size="md"
-      class="RandomizableInput__dice"
+      class="RandomizableInput__icon RandomizableInput__dice"
       icon="fas fa-solid fa-dice-six"
     />
   </div>
@@ -64,10 +63,13 @@ const value = computed({
     justify-content: space-between;
     width: 100%;
   }
+  &__icon {
+    opacity: 70%;
+  }
   &__dice {
     height: 70%;
     margin-top: 0.3rem;
-    opacity: 70%;
+    margin-left: 0.3rem;
   }
   &__input {
     width: 85%;

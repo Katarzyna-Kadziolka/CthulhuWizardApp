@@ -107,7 +107,6 @@ watch(errors, () => {
 .investigator-personal-data-form {
   &__title {
     font-size: 1.3rem;
-    margin-top: 1.8rem;
     margin-bottom: 1.3rem;
   }
   &__inputs {
