@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import FormInputBaseVue from "../../../components/atoms/FormInputBase.vue";
-import { ref } from "vue";
 import type * as yup from "yup";
 import { computed } from "@vue/reactivity";
 
@@ -25,6 +24,7 @@ const value = computed({
   },
   set(value: number) {
     emit("update:modelValue", value);
+    console.log(props.error);
   },
 });
 
@@ -32,8 +32,8 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: number): void;
 }>();
 
-const halfValue = ref(Math.floor(+value.value / 2));
-const quarterValue = ref(Math.floor(+value.value / 4));
+const halfValue = computed(() => Math.floor(+value.value / 2));
+const quarterValue = computed(() => Math.floor(+value.value / 4));
 </script>
 
 <template>

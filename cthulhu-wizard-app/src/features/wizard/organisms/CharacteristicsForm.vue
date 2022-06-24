@@ -67,7 +67,7 @@ const characteriscticSchema = yup.object().shape({
 
 const errors = computed(() => {
   try {
-    characteriscticSchema.validateSync(investigator, {
+    characteriscticSchema.validateSync(investigator.Characteristic, {
       abortEarly: false,
     });
     return [];
@@ -77,9 +77,13 @@ const errors = computed(() => {
   }
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const emit = defineEmits<{
-  (e: "update:modelValue", value: string | number): void;
+  (e: "validationChanged", value: boolean): void;
 }>();
+watch(errors, () => {
+  emit("validationChanged", errors.value.length === 0);
+});
 </script>
 
 <template>
@@ -111,7 +115,7 @@ const emit = defineEmits<{
     <div>
       <RandomizableInput>
         <SkillInput
-          v-model="investigator.Characteristic.Strength"
+          v-model.number="investigator.Characteristic.Strength"
           watermark="Strength"
           tooltip="<b>Roll 3D6 and multiply by 5</b><br>Strength measures the muscle power of an investigator"
           :error="errors.find((a) => a.path === 'Strength')"
