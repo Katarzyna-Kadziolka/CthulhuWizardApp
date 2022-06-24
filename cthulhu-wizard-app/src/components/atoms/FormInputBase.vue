@@ -39,6 +39,7 @@ const value = computed({
 });
 const isDirty = ref(false);
 const showTooltip = () => tooltip.value.show();
+const hideTooltip = () => tooltip.value.hide();
 </script>
 
 <template>
@@ -62,6 +63,7 @@ const showTooltip = () => tooltip.value.show();
         icon="far fa-question-circle"
         class="RandomizableInput__icon RandomizableInput__question"
         @click="showTooltip"
+        @blur="hideTooltip"
       />
     </template>
     <QTooltip
