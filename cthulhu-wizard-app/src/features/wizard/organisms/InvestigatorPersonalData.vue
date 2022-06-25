@@ -1,29 +1,17 @@
 <script setup lang="ts">
-import { computed, watch } from "vue";
+import { watch } from "vue";
 import FormInputBase from "@/components/atoms/FormInputBase.vue";
 import { Gender } from "../types/Gender";
-import * as yup from "yup";
 import { investigatorStore } from "@/stores/investigatorStore";
 import RadioButtonBase from "../../../components/atoms/RadioButtonBase.vue";
 import RandomizableInput from "../molecules/RandomizableInput.vue";
+import { useWizard } from "../../composables/Wizard";
+
 const store = investigatorStore();
 const investigator = store.investigator;
+const { getErrors } = useWizard();
 
-const createInvestigatorSchema = yup.object().shape({
-  FirstName: yup.string().required("Name cannot be empty"),
-  Age: yup.number().typeError("Age cannot be empty").required().min(15).max(90),
-});
-const errors = computed(() => {
-  try {
-    createInvestigatorSchema.validateSync(investigator, {
-      abortEarly: false,
-    });
-    return [];
-  } catch (error) {
-    const validationError = error as yup.ValidationError;
-    return validationError.inner;
-  }
-});
+const errors = getErrors(investigator);
 const emit = defineEmits<{
   (e: "validationChanged", value: boolean): void;
 }>();

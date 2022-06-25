@@ -1,0 +1,83 @@
+import type { Characteristic } from "../wizard/types/Characteristic";
+import type { Investigator } from "./../wizard/types/Investigator";
+import * as yup from "yup";
+
+export function getSchemaFor(data: Investigator | Characteristic) {
+  if (isInvestigator(data)) {
+    return yup.object().shape({
+      FirstName: yup.string().required("Name cannot be empty"),
+      Age: yup
+        .number()
+        .typeError("Age cannot be empty")
+        .required()
+        .min(15)
+        .max(90),
+    });
+  }
+  if (isCharacteristic(data)) {
+    return yup.object().shape({
+      Strength: yup
+        .number()
+        .typeError("Strength cannot be empty")
+        .required()
+        .min(15)
+        .max(90),
+      Constitution: yup
+        .number()
+        .typeError("Constitution cannot be empty")
+        .required()
+        .min(15)
+        .max(90),
+      Size: yup
+        .number()
+        .typeError("Size cannot be empty")
+        .required()
+        .min(15)
+        .max(90),
+      Dexterity: yup
+        .number()
+        .typeError("Dexterity cannot be empty")
+        .required()
+        .min(15)
+        .max(90),
+      Appearance: yup
+        .number()
+        .typeError("Appearance cannot be empty")
+        .required()
+        .min(15)
+        .max(90),
+      Intelligence: yup
+        .number()
+        .typeError("Intelligence cannot be empty")
+        .required()
+        .min(15)
+        .max(90),
+      Power: yup
+        .number()
+        .typeError("Power cannot be empty")
+        .required()
+        .min(15)
+        .max(90),
+      Education: yup
+        .number()
+        .typeError("Education cannot be empty")
+        .required()
+        .min(15)
+        .max(90),
+      Luck: yup
+        .number()
+        .typeError("Luck cannot be empty")
+        .required()
+        .min(15)
+        .max(90),
+    });
+  }
+  throw Error("Invalid data type for schema");
+}
+
+function isInvestigator(data: Investigator | Characteristic) {
+  return "FirstName" in data;
+}
+function isCharacteristic(data: Investigator | Characteristic) {
+  return "Strength" in data;
+}
