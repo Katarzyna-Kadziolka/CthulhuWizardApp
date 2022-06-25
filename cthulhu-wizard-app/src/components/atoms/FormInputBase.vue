@@ -56,7 +56,7 @@ const hideTooltip = () => tooltip.value.hide();
   >
     <template #append>
       <QBtn
-        v-if="props.tooltip"
+        v-show="props.tooltip"
         dense
         flat
         size="xs"

@@ -9,14 +9,12 @@ export function useWizard() {
     computed(() => {
       try {
         const schema = getSchemaFor(data);
-        console.log(schema);
         schema.validateSync(data, {
           abortEarly: false,
         });
         return [];
       } catch (error) {
         const validationError = error as yup.ValidationError;
-        console.log(validationError.inner);
         return validationError.inner;
       }
     });

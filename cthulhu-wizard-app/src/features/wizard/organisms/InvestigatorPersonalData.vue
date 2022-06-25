@@ -111,6 +111,7 @@ watch(errors, () => {
   }
   &__input {
     margin-bottom: 0.3rem;
+    min-width: 15rem;
   }
   &__radio-buttons {
     display: flex;
