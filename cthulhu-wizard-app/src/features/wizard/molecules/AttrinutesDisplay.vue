@@ -21,8 +21,6 @@ const hitPoints = getHitPoints(
 );
 const sanity = getSanity(props.investigator.Characteristic.Power);
 const magicPoints = getMagicPoints(props.investigator.Characteristic.Power);
-
-const example = 10;
 </script>
 
 <template>

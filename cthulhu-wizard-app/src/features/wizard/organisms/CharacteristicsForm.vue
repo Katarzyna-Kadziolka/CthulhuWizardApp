@@ -6,6 +6,7 @@ import { watch } from "vue";
 import { useWizard } from "../../composables/Wizard";
 import AgeInfoCard from "../atoms/AgeInfoCard.vue";
 import AttrinutesDisplay from "../molecules/AttrinutesDisplay.vue";
+import FightAttributesDisplay from "../molecules/FightAttributesDisplay.vue";
 
 const store = investigatorStore();
 const investigator = store.investigator;
@@ -151,7 +152,9 @@ watch(errors, () => {
       <div class="characteristic-form__attributes-container">
         <AttrinutesDisplay :investigator="investigator" />
       </div>
-      <div></div>
+      <div class="characteristic-form__attributes-container">
+        <FightAttributesDisplay :investigator="investigator" />
+      </div>
     </div>
   </main>
 </template>
@@ -195,8 +198,6 @@ watch(errors, () => {
   }
   &__attributes-container {
     margin-top: 1.5rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
   }
   &__inputs-container {
     margin-left: 1rem;
