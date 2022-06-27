@@ -18,6 +18,46 @@ export function useWizard() {
         return validationError.inner;
       }
     });
+  const getMovementRate = (
+    strength: number,
+    dexterity: number,
+    size: number,
+    age: number
+  ) =>
+    computed(() => {
+      if (strength < size && dexterity < size) {
+        return GetMovementRateWithAgeImpact(7, age);
+      }
+      if (strength > size && dexterity > size) {
+        return GetMovementRateWithAgeImpact(9, age);
+      }
+      return GetMovementRateWithAgeImpact(8, age);
+    });
 
-  return { getErrors };
+  return { getErrors, getMovementRate };
+}
+
+function GetMovementRateWithAgeImpact(
+  movementRate: number,
+  age: number
+): number {
+  if (age < 40) {
+    return movementRate;
+  }
+  if (age < 50) {
+    return movementRate - 1;
+  }
+  if (age < 60) {
+    return movementRate - 2;
+  }
+  if (age < 70) {
+    return movementRate - 3;
+  }
+  if (age < 80) {
+    return movementRate - 4;
+  }
+  if (age < 90) {
+    return movementRate - 5;
+  }
+  throw Error("Age has invalid value");
 }
