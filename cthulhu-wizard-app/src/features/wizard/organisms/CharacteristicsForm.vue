@@ -50,9 +50,9 @@ watch(errors, () => {
       <span>{{ investigator.Age }} years old</span>
     </div>
     <div class="characteristic-form__age-info">
-      <AgeInfoCard />
+      <AgeInfoCard :age="investigator.Age" />
     </div>
-    <div>
+    <div class="characteristic-form__inputs-container">
       <RandomizableInput class="characteristic-form__input-container">
         <SkillInput
           v-model.number="investigator.Characteristic.Strength"
@@ -130,6 +130,16 @@ watch(errors, () => {
           :error="errors.find((a) => a.path === 'Education')"
         />
       </RandomizableInput>
+      <RandomizableInput class="characteristic-form__input-container">
+        <SkillInput
+          v-model.number="investigator.Characteristic.Luck"
+          class="characteristic-form__input"
+          watermark="Luck"
+          tooltip="<b> Roll 3D6 and multiply by 5 </b><br>Luck rolls may be called for by the Keeper when circumstances external to any investigator are in question, and
+            also when determining the fickle hand of fate. "
+          :error="errors.find((a) => a.path === 'Luck')"
+        />
+      </RandomizableInput>
       <div class="characteristic-form__random-container">
         <QBtn
           label="Random"
@@ -141,6 +151,7 @@ watch(errors, () => {
       <div class="characteristic-form__attributes-container">
         <AttrinutesDisplay :investigator="investigator" />
       </div>
+      <div></div>
     </div>
   </main>
 </template>
@@ -184,6 +195,10 @@ watch(errors, () => {
   }
   &__attributes-container {
     margin-top: 1.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  &__inputs-container {
     margin-left: 1rem;
     margin-right: 1rem;
   }

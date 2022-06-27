@@ -2,20 +2,26 @@
 import AttributeDisplay from "../atoms/AttributeDisplay.vue";
 import { useWizard } from "@/features/composables/Wizard";
 import type { Investigator } from "../types/Investigator";
-import { ref } from "vue";
 
 const props = defineProps<{
   investigator: Investigator;
 }>();
 
-const characteristic = ref(props.investigator.Characteristic);
-const { getMovementRate } = useWizard();
+const { getMovementRate, getHitPoints, getSanity, getMagicPoints } =
+  useWizard();
 const movementRate = getMovementRate(
-  characteristic.value.Strength,
-  characteristic.value.Dexterity,
-  characteristic.value.Size,
+  props.investigator.Characteristic.Strength,
+  props.investigator.Characteristic.Dexterity,
+  props.investigator.Characteristic.Size,
   props.investigator.Age
 );
+const hitPoints = getHitPoints(
+  props.investigator.Characteristic.Constitution,
+  props.investigator.Characteristic.Size
+);
+const sanity = getSanity(props.investigator.Characteristic.Power);
+const magicPoints = getMagicPoints(props.investigator.Characteristic.Power);
+
 const example = 10;
 </script>
 
@@ -26,9 +32,9 @@ const example = 10;
         <span>Attributes</span>
       </div>
       <AttributeDisplay label="Movement Rate" :value="movementRate" />
-      <AttributeDisplay label="Hit Points" :value="example" />
-      <AttributeDisplay label="Sanity" :value="example" />
-      <AttributeDisplay label="Magic Points" :value="example" />
+      <AttributeDisplay label="Hit Points" :value="hitPoints" />
+      <AttributeDisplay label="Sanity" :value="sanity" />
+      <AttributeDisplay label="Magic Points" :value="magicPoints" />
     </QCardSection>
   </QCard>
 </template>

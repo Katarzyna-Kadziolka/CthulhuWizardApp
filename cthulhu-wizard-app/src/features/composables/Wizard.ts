@@ -34,7 +34,28 @@ export function useWizard() {
       return GetMovementRateWithAgeImpact(8, age);
     });
 
-  return { getErrors, getMovementRate };
+  const getHitPoints = (constitution: number, size: number) =>
+    computed(() => {
+      return Math.floor((constitution + size) / 10);
+    });
+
+  const getSanity = (power: number) =>
+    computed(() => {
+      return power;
+    });
+
+  const getMagicPoints = (power: number) =>
+    computed(() => {
+      return Math.floor(power / 4);
+    });
+
+  return {
+    getErrors,
+    getMovementRate,
+    getHitPoints,
+    getSanity,
+    getMagicPoints,
+  };
 }
 
 function GetMovementRateWithAgeImpact(
