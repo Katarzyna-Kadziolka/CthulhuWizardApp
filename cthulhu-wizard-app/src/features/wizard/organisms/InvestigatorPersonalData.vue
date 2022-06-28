@@ -53,7 +53,6 @@ watch(errors, () => {
           v-model="investigator.FirstName"
           class="investigator-personal-data-form__input"
           watermark="Name"
-          tooltip="Investigator's first name"
           :error="errors.find((a) => a.path === 'FirstName')"
         />
       </RandomizableInput>
@@ -62,14 +61,12 @@ watch(errors, () => {
           v-model="investigator.LastName"
           class="investigator-personal-data-form__input"
           watermark="Last Name"
-          tooltip="Investigator's last name"
       /></RandomizableInput>
       <RandomizableInput
         ><FormInputBase
           v-model="investigator.Age"
           class="investigator-personal-data-form__input"
           watermark="Age"
-          tooltip="Age range 18-90"
           field-type="number"
           :error="errors.find((a) => a.path === 'Age')"
         />
@@ -79,14 +76,12 @@ watch(errors, () => {
           v-model="investigator.BirthPlace"
           class="investigator-personal-data-form__input"
           watermark="Birth Place"
-          tooltip="Place where Invetigator has born"
       /></RandomizableInput>
       <RandomizableInput
         ><FormInputBase
           v-model="investigator.LivingPlace"
           class="investigator-personal-data-form__input"
           watermark="Living Place"
-          tooltip="Place where Investigator is living"
       /></RandomizableInput>
     </div>
     <QBtn

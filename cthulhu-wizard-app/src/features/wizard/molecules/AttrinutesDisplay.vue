@@ -2,6 +2,7 @@
 import AttributeDisplay from "../atoms/AttributeDisplay.vue";
 import { useWizard } from "@/features/composables/Wizard";
 import type { Investigator } from "../types/Investigator";
+import { computed } from "vue";
 
 const props = defineProps<{
   investigator: Investigator;
@@ -9,18 +10,27 @@ const props = defineProps<{
 
 const { getMovementRate, getHitPoints, getSanity, getMagicPoints } =
   useWizard();
-const movementRate = getMovementRate(
-  props.investigator.Characteristic.Strength,
-  props.investigator.Characteristic.Dexterity,
-  props.investigator.Characteristic.Size,
-  props.investigator.Age
-);
-const hitPoints = getHitPoints(
-  props.investigator.Characteristic.Constitution,
-  props.investigator.Characteristic.Size
-);
-const sanity = getSanity(props.investigator.Characteristic.Power);
-const magicPoints = getMagicPoints(props.investigator.Characteristic.Power);
+const movementRate = computed(() => {
+  return getMovementRate(
+    props.investigator.Characteristic.Strength,
+    props.investigator.Characteristic.Dexterity,
+    props.investigator.Characteristic.Size,
+    props.investigator.Age
+  );
+});
+const hitPoints = computed(() => {
+  return getHitPoints(
+    props.investigator.Characteristic.Constitution,
+    props.investigator.Characteristic.Size
+  );
+});
+
+const sanity = computed(() => {
+  return getSanity(props.investigator.Characteristic.Power);
+});
+const magicPoints = computed(() => {
+  return getMagicPoints(props.investigator.Characteristic.Power);
+});
 </script>
 
 <template>

@@ -19,78 +19,72 @@ export function useWizard() {
         return validationError.inner;
       }
     });
-  const getMovementRate = (
+  function getMovementRate(
     strength: number,
     dexterity: number,
     size: number,
     age: number
-  ) =>
-    computed(() => {
-      if (strength < size && dexterity < size) {
-        return GetMovementRateWithAgeImpact(7, age);
-      }
-      if (strength > size && dexterity > size) {
-        return GetMovementRateWithAgeImpact(9, age);
-      }
-      return GetMovementRateWithAgeImpact(8, age);
-    });
+  ) {
+    if (strength < size && dexterity < size) {
+      return GetMovementRateWithAgeImpact(7, age);
+    }
+    if (strength > size && dexterity > size) {
+      return GetMovementRateWithAgeImpact(9, age);
+    }
+    return GetMovementRateWithAgeImpact(8, age);
+  }
 
-  const getHitPoints = (constitution: number, size: number) =>
-    computed(() => {
-      return Math.floor((constitution + size) / 10);
-    });
+  function getHitPoints(constitution: number, size: number) {
+    return Math.floor((constitution + size) / 10);
+  }
 
-  const getSanity = (power: number) =>
-    computed(() => {
-      return power;
-    });
+  function getSanity(power: number) {
+    return power;
+  }
 
-  const getMagicPoints = (power: number) =>
-    computed(() => {
-      return Math.floor(power / 4);
-    });
+  function getMagicPoints(power: number) {
+    return Math.floor(power / 4);
+  }
 
-  const getDamageBonus = (strength: number, size: number) =>
-    computed(() => {
-      const sum = strength + size;
-      if (sum < 65) {
-        return DamageBonus.MinusTwo;
-      }
-      if (sum < 85) {
-        return DamageBonus.MinusOne;
-      }
-      if (sum < 125) {
-        return DamageBonus.Zero;
-      }
-      if (sum < 165) {
-        return DamageBonus.PlusOneDiceFour;
-      }
-      if (sum < 205) {
-        return DamageBonus.PlusOneDiceSix;
-      }
-      throw Error("Invalid strength or size value");
-    });
+  function getDamageBonus(strength: number, size: number) {
+    const sum = strength + size;
+    if (sum < 65) {
+      return DamageBonus.MinusTwo;
+    }
+    if (sum < 85) {
+      return DamageBonus.MinusOne;
+    }
+    if (sum < 125) {
+      return DamageBonus.Zero;
+    }
+    if (sum < 165) {
+      return DamageBonus.PlusOneDiceFour;
+    }
+    if (sum < 205) {
+      return DamageBonus.PlusOneDiceSix;
+    }
+    throw Error("Invalid strength or size value");
+  }
 
-  const getBuild = (strength: number, size: number) =>
-    computed(() => {
-      const sum = strength + size;
-      if (sum < 65) {
-        return -2;
-      }
-      if (sum < 85) {
-        return -1;
-      }
-      if (sum < 125) {
-        return 0;
-      }
-      if (sum < 165) {
-        return 1;
-      }
-      if (sum < 205) {
-        return 2;
-      }
-      throw Error("Invalid strength or size value");
-    });
+  function getBuild(strength: number, size: number) {
+    const sum = strength + size;
+    if (sum < 65) {
+      return -2;
+    }
+    if (sum < 85) {
+      return -1;
+    }
+    if (sum < 125) {
+      return 0;
+    }
+    if (sum < 165) {
+      return 1;
+    }
+    if (sum < 205) {
+      return 2;
+    }
+    throw Error("Invalid strength or size value");
+  }
 
   return {
     getErrors,

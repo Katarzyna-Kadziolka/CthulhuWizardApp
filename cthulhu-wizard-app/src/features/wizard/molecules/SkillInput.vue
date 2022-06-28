@@ -7,13 +7,13 @@ const props = withDefaults(
   defineProps<{
     modelValue: number;
     watermark: string;
-    tooltip: string | undefined;
+    hint: string | undefined;
     error?: yup.ValidationError;
   }>(),
   {
     modelValue: 0,
     watermark: "",
-    tooltip: "",
+    hint: "",
     error: undefined,
   }
 );
@@ -24,7 +24,6 @@ const value = computed({
   },
   set(value: number) {
     emit("update:modelValue", value);
-    console.log(props.error);
   },
 });
 
@@ -37,31 +36,35 @@ const quarterValue = computed(() => Math.floor(+value.value / 4));
 </script>
 
 <template>
-  <main class="Skill-input">
-    <FormInputBaseVue
-      v-model="value"
-      field-type="number"
-      class="Skill-input__main-input"
-      :watermark="props.watermark"
-      :tooltip="props.tooltip"
-      :error="props.error"
-    />
-    <div class="Skill-input__half">
-      <span>{{ halfValue }}</span>
-    </div>
-    <div class="Skill-input__quarter">
-      <span>{{ quarterValue }}</span>
+  <main class="skill-input">
+    <div class="skill-input__container">
+      <FormInputBaseVue
+        v-model="value"
+        field-type="number"
+        class="skill-input__main-input"
+        :watermark="props.watermark"
+        :hint="props.hint"
+        :error="props.error"
+      />
+      <div class="skill-input__half">
+        <span>{{ halfValue }}</span>
+      </div>
+      <div class="skill-input__quarter">
+        <span>{{ quarterValue }}</span>
+      </div>
     </div>
   </main>
 </template>
 
 <style scoped lang="scss">
-.Skill-input {
-  display: grid;
-  grid-template-columns: 85fr 15fr;
-  grid-template-rows: 1fr 1fr;
-  justify-items: stretch;
-
+.skill-input {
+  width: 80%;
+  &__container {
+    display: grid;
+    grid-template-columns: 85fr 15fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: stretch;
+  }
   &__main-input {
     grid-column: 1;
     grid-row: 1 / span 2;

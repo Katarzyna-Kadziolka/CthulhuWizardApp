@@ -11,10 +11,11 @@ const stepper = ref();
 
 <template>
   <main>
-    <div class="row flex-center WizardPage__block">
+    <div class="wizard-page">
       <QStepper
         ref="stepper"
         v-model="step"
+        class="wizard-page__stepper"
         header-nav
         contracted
         alternative-labels
@@ -54,10 +55,14 @@ const stepper = ref();
 </template>
 
 <style scoped lang="scss">
-.WizardPage {
-  &__block {
-    margin-top: 0.8rem;
-    margin-bottom: 0.8rem;
+.wizard-page {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  &__stepper {
+    width: 20rem;
   }
 }
 </style>

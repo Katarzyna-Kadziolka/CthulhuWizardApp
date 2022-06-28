@@ -50,8 +50,11 @@ watch(errors, () => {
       />
       <span>{{ investigator.Age }} years old</span>
     </div>
-    <div class="characteristic-form__age-info">
-      <AgeInfoCard :age="investigator.Age" />
+    <div class="characteristic-form__age-info-container">
+      <AgeInfoCard
+        :age="investigator.Age"
+        class="characteristic-form__age-info"
+      />
     </div>
     <div class="characteristic-form__inputs-container">
       <RandomizableInput class="characteristic-form__input-container">
@@ -59,7 +62,7 @@ watch(errors, () => {
           v-model.number="investigator.Characteristic.Strength"
           class="characteristic-form__input"
           watermark="Strength"
-          tooltip="<b>Roll 3D6 and multiply by 5</b><br>Strength measures the muscle power of an investigator"
+          hint="Roll 3D6 and multiply by 5"
           :error="errors.find((a) => a.path === 'Strength')"
         />
       </RandomizableInput>
@@ -68,7 +71,7 @@ watch(errors, () => {
           v-model.number="investigator.Characteristic.Constitution"
           class="characteristic-form__input"
           watermark="Constitution"
-          tooltip="<b> Roll 3D6 and multiply by 5 </b><br>Constitution represents health, vigor and vitality"
+          hint="Roll 3D6 and multiply by 5"
           :error="errors.find((a) => a.path === 'Constitution')"
         />
       </RandomizableInput>
@@ -77,7 +80,7 @@ watch(errors, () => {
           v-model.number="investigator.Characteristic.Size"
           class="characteristic-form__input"
           watermark="Size"
-          tooltip="<b> Roll 2D6+6 and multiply by 5 </b><br>Size averages both height and weight into a single number"
+          hint="Roll 2D6+6 and multiply by 5"
           :error="errors.find((a) => a.path === 'Size')"
         />
       </RandomizableInput>
@@ -86,8 +89,7 @@ watch(errors, () => {
           v-model.number="investigator.Characteristic.Dexterity"
           class="characteristic-form__input"
           watermark="Dexterity"
-          tooltip="<b> Roll 3D6 and multiply by 5 </b><br>Investigators with higher Dexterity scores are quicker, nimbler
-            and more physically flexible."
+          hint="Roll 3D6 and multiply by 5"
           :error="errors.find((a) => a.path === 'Dexterity')"
         />
       </RandomizableInput>
@@ -96,8 +98,7 @@ watch(errors, () => {
           v-model.number="investigator.Characteristic.Appearance"
           class="characteristic-form__input"
           watermark="Appearance"
-          tooltip="<b> Roll 3D6 and multiply by 5 </b><br>Appearance measures both physical attractiveness and
-            personality"
+          hint="Roll 3D6 and multiply by 5"
           :error="errors.find((a) => a.path === 'Appearance')"
         />
       </RandomizableInput>
@@ -106,8 +107,7 @@ watch(errors, () => {
           v-model.number="investigator.Characteristic.Intelligence"
           class="characteristic-form__input"
           watermark="Intelligence"
-          tooltip="<b> Roll 2D6+6 and multiply by 5 </b><br>Intelligence represents how well investigators learn, 
-            remember, analyze information and solve complex puzzles"
+          hint="Roll 2D6+6 and multiply by 5"
           :error="errors.find((a) => a.path === 'Intelligence')"
         />
       </RandomizableInput>
@@ -116,8 +116,7 @@ watch(errors, () => {
           v-model.number="investigator.Characteristic.Power"
           class="characteristic-form__input"
           watermark="Power"
-          tooltip="<b> Roll 3D6 and multiply by 5 </b><br> Power indicates force of will: the higher the POW, the higher
-            the aptitude for, and resistance to, magic"
+          hint="Roll 3D6 and multiply by 5"
           :error="errors.find((a) => a.path === 'Power')"
         />
       </RandomizableInput>
@@ -126,8 +125,7 @@ watch(errors, () => {
           v-model.number="investigator.Characteristic.Education"
           class="characteristic-form__input"
           watermark="Education"
-          tooltip="<b> Roll 2D6+6 and multiply by 5 </b><br>Education is a measure of the formal and factual knowledge
-            possessed by the investigator, as well as indicating the time the investigator has spent in full-time education"
+          hint="Roll 2D6+6 and multiply by 5"
           :error="errors.find((a) => a.path === 'Education')"
         />
       </RandomizableInput>
@@ -136,8 +134,7 @@ watch(errors, () => {
           v-model.number="investigator.Characteristic.Luck"
           class="characteristic-form__input"
           watermark="Luck"
-          tooltip="<b> Roll 3D6 and multiply by 5 </b><br>Luck rolls may be called for by the Keeper when circumstances external to any investigator are in question, and
-            also when determining the fickle hand of fate. "
+          hint="Roll 3D6 and multiply by 5"
           :error="errors.find((a) => a.path === 'Luck')"
         />
       </RandomizableInput>
@@ -179,15 +176,18 @@ watch(errors, () => {
     margin-right: 0.3rem;
   }
   &__input-container {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }
   &__input {
-    min-width: 17.5rem;
+    min-width: 15rem;
   }
-  &__age-info {
+  &__age-info-container {
     margin-bottom: 1.5rem;
     margin-left: 1rem;
     margin-right: 1rem;
+  }
+  &__age-info {
+    width: 100%;
   }
   &__random {
     min-width: 90%;
