@@ -5,9 +5,9 @@ import { computed } from "@vue/reactivity";
 
 const props = withDefaults(
   defineProps<{
-    modelValue: number;
+    modelValue: number | undefined;
     watermark: string;
-    hint: string | undefined;
+    hint?: string | undefined;
     error?: yup.ValidationError;
   }>(),
   {
@@ -22,8 +22,8 @@ const value = computed({
   get() {
     return props.modelValue;
   },
-  set(value: number) {
-    emit("update:modelValue", value);
+  set(value: number | string) {
+    emit("update:modelValue", value === "" ? 0 : (value as number));
   },
 });
 

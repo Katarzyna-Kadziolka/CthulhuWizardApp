@@ -9,7 +9,7 @@ const props = withDefaults(
   defineProps<{
     modelValue: string | number;
     watermark: string;
-    hint: string | undefined;
+    hint?: string | undefined;
     fieldType?: QInputProps["type"];
     error?: yup.ValidationError;
   }>(),

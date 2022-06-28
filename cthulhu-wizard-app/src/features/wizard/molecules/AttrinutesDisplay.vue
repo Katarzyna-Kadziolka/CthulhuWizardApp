@@ -2,34 +2,53 @@
 import AttributeDisplay from "../atoms/AttributeDisplay.vue";
 import { useWizard } from "@/features/composables/Wizard";
 import type { Investigator } from "../types/Investigator";
-import { computed } from "vue";
+import { computed, watchEffect } from "vue";
 
 const props = defineProps<{
-  investigator: Investigator;
+  modelValue: Investigator;
 }>();
+
+const emit = defineEmits<{
+  (e: "update:modelValue", value: Investigator): void;
+}>();
+
+const value = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(value: Investigator) {
+    emit("update:modelValue", value);
+  },
+});
 
 const { getMovementRate, getHitPoints, getSanity, getMagicPoints } =
   useWizard();
-const movementRate = computed(() => {
-  return getMovementRate(
-    props.investigator.Characteristic.Strength,
-    props.investigator.Characteristic.Dexterity,
-    props.investigator.Characteristic.Size,
-    props.investigator.Age
-  );
-});
-const hitPoints = computed(() => {
-  return getHitPoints(
-    props.investigator.Characteristic.Constitution,
-    props.investigator.Characteristic.Size
+
+watchEffect(() => {
+  value.value.Characteristic.MagicPoints = getMagicPoints(
+    value.value.Characteristic.Power
   );
 });
 
-const sanity = computed(() => {
-  return getSanity(props.investigator.Characteristic.Power);
+watchEffect(() => {
+  value.value.Characteristic.MovementRate = getMovementRate(
+    value.value.Characteristic.Strength,
+    value.value.Characteristic.Dexterity,
+    value.value.Characteristic.Size,
+    value.value.Age
+  );
 });
-const magicPoints = computed(() => {
-  return getMagicPoints(props.investigator.Characteristic.Power);
+
+watchEffect(() => {
+  value.value.Characteristic.HitPoints = getHitPoints(
+    value.value.Characteristic.Constitution,
+    value.value.Characteristic.Size
+  );
+});
+watchEffect(() => {
+  value.value.Characteristic.Sanity = getSanity(
+    value.value.Characteristic.Power
+  );
 });
 </script>
 
@@ -39,10 +58,19 @@ const magicPoints = computed(() => {
       <div class="attributes-display__title">
         <span>Attributes</span>
       </div>
-      <AttributeDisplay label="Movement Rate" :value="movementRate" />
-      <AttributeDisplay label="Hit Points" :value="hitPoints" />
-      <AttributeDisplay label="Sanity" :value="sanity" />
-      <AttributeDisplay label="Magic Points" :value="magicPoints" />
+      <AttributeDisplay
+        label="Movement Rate"
+        :value="value.Characteristic.MovementRate"
+      />
+      <AttributeDisplay
+        label="Hit Points"
+        :value="value.Characteristic.HitPoints"
+      />
+      <AttributeDisplay label="Sanity" :value="value.Characteristic.Sanity" />
+      <AttributeDisplay
+        label="Magic Points"
+        :value="value.Characteristic.MagicPoints"
+      />
     </QCardSection>
   </QCard>
 </template>

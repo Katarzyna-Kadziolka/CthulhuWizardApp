@@ -37,7 +37,7 @@ const stepper = ref();
           :header-nav="step > 2"
           icon="fas fa-solid fa-dumbbell"
         >
-          <CharacteristicsForm />
+          <CharacteristicsForm @validation-changed="isValid = $event" />
         </QStep>
         <template #navigation>
           <QStepperNavigation>

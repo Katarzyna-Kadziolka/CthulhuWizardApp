@@ -30,6 +30,8 @@ export const investigatorStore = defineStore({
         Build: Build.MinusTwo,
         HitPoints: 0,
         MovementRate: 7,
+        MagicPoints: 0,
+        Sanity: 0,
       },
     } as Investigator,
     savedInvestigator: {} as Investigator,

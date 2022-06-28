@@ -147,7 +147,7 @@ watch(errors, () => {
         />
       </div>
       <div class="characteristic-form__attributes-container">
-        <AttrinutesDisplay :investigator="investigator" />
+        <AttrinutesDisplay v-model="investigator" />
       </div>
       <div class="characteristic-form__attributes-container">
         <FightAttributesDisplay :investigator="investigator" />

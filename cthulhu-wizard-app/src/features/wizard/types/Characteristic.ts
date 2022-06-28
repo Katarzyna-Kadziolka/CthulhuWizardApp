@@ -15,4 +15,6 @@ export interface Characteristic {
   Build: Build;
   HitPoints: number;
   MovementRate: number;
+  MagicPoints: number;
+  Sanity: number;
 }
