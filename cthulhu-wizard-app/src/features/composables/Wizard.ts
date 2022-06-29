@@ -1,3 +1,4 @@
+import { Build } from "./../wizard/types/Build";
 import { DamageBonus } from "./../wizard/types/DamageBonus";
 import type { Characteristic } from "./../wizard/types/Characteristic";
 import type { Investigator } from "./../wizard/types/Investigator";
@@ -43,7 +44,7 @@ export function useWizard() {
   }
 
   function getMagicPoints(power: number) {
-    return Math.floor(power / 4);
+    return Math.floor(power / 5);
   }
 
   function getDamageBonus(strength: number, size: number) {
@@ -69,19 +70,19 @@ export function useWizard() {
   function getBuild(strength: number, size: number) {
     const sum = strength + size;
     if (sum < 65) {
-      return -2;
+      return Build.MinusTwo;
     }
     if (sum < 85) {
-      return -1;
+      return Build.MinusOne;
     }
     if (sum < 125) {
-      return 0;
+      return Build.Zero;
     }
     if (sum < 165) {
-      return 1;
+      return Build.One;
     }
     if (sum < 205) {
-      return 2;
+      return Build.Two;
     }
     throw Error("Invalid strength or size value");
   }

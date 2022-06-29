@@ -2,21 +2,40 @@
 import AttributeDisplay from "../atoms/AttributeDisplay.vue";
 import { useWizard } from "@/features/composables/Wizard";
 import type { Investigator } from "../types/Investigator";
+import { computed, watchEffect } from "vue";
 
 const props = defineProps<{
-  investigator: Investigator;
+  modelValue: Investigator;
 }>();
 
-const { getDamageBonus, getBuild } = useWizard();
-const damageBonus = getDamageBonus(
-  props.investigator.Characteristic.Strength,
-  props.investigator.Characteristic.Size
-);
+const emit = defineEmits<{
+  (e: "update:modelValue", value: Investigator): void;
+}>();
 
-const build = getBuild(
-  props.investigator.Characteristic.Strength,
-  props.investigator.Characteristic.Size
-);
+const value = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(value: Investigator) {
+    emit("update:modelValue", value);
+  },
+});
+
+const { getDamageBonus, getBuild } = useWizard();
+
+watchEffect(() => {
+  value.value.Characteristic.DamageBonus = getDamageBonus(
+    value.value.Characteristic.Strength,
+    value.value.Characteristic.Size
+  );
+});
+
+watchEffect(() => {
+  value.value.Characteristic.Build = getBuild(
+    value.value.Characteristic.Strength,
+    value.value.Characteristic.Size
+  );
+});
 </script>
 
 <template>
