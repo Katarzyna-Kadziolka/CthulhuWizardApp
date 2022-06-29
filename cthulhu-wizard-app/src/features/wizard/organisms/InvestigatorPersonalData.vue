@@ -64,7 +64,7 @@ watch(errors, () => {
       /></RandomizableInput>
       <RandomizableInput
         ><FormInputBase
-          v-model="investigator.Age"
+          v-model.number="investigator.Age"
           class="investigator-personal-data-form__input"
           watermark="Age"
           field-type="number"

@@ -44,8 +44,11 @@ watchEffect(() => {
       <div class="fight-attributes-display__title">
         <span>Fight</span>
       </div>
-      <AttributeDisplay label="Damage Bonus" :value="damageBonus" />
-      <AttributeDisplay label="Build" :value="build" />
+      <AttributeDisplay
+        label="Damage Bonus"
+        :value="value.Characteristic.DamageBonus"
+      />
+      <AttributeDisplay label="Build" :value="value.Characteristic.Build" />
     </QCardSection>
   </QCard>
 </template>
