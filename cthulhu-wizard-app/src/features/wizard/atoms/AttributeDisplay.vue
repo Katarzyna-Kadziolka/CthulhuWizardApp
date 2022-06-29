@@ -2,7 +2,7 @@
 const props = withDefaults(
   defineProps<{
     label: string;
-    value: number;
+    value: number | string;
   }>(),
   {
     label: "",

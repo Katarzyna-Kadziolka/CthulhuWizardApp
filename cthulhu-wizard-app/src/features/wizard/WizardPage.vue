@@ -3,6 +3,7 @@ import { ref } from "vue";
 import InvestigatorPersonalData from "./organisms/InvestigatorPersonalData.vue";
 import CharacteristicsForm from "./organisms/CharacteristicsForm.vue";
 import NavigationButtons from "./organisms/NavigationButtons.vue";
+import OccupationChoice from "./organisms/OccupationChoice.vue";
 
 const isValid = ref(false);
 const step = ref(1);
@@ -38,6 +39,15 @@ const stepper = ref();
           icon="fas fa-solid fa-dumbbell"
         >
           <CharacteristicsForm @validation-changed="isValid = $event" />
+        </QStep>
+        <QStep
+          :name="3"
+          title="Occupation"
+          :done="step > 3"
+          :header-nav="step > 3"
+          icon="fas fa-solid fa-user-secret"
+        >
+          <OccupationChoice />
         </QStep>
         <template #navigation>
           <QStepperNavigation>

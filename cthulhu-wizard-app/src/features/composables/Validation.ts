@@ -29,54 +29,54 @@ const characteristicSchema = yup.object().shape({
     .number()
     .typeError("Strength cannot be empty")
     .required()
-    .min(0)
+    .min(1)
     .max(99),
   Constitution: yup
     .number()
     .typeError("Constitution cannot be empty")
     .required()
-    .min(0)
+    .min(1)
     .max(99),
   Size: yup
     .number()
     .typeError("Size cannot be empty")
     .required()
-    .min(0)
+    .min(1)
     .max(99),
   Dexterity: yup
     .number()
     .typeError("Dexterity cannot be empty")
     .required()
-    .min(0)
+    .min(1)
     .max(99),
   Appearance: yup
     .number()
     .typeError("Appearance cannot be empty")
     .required()
-    .min(0)
+    .min(1)
     .max(99),
   Intelligence: yup
     .number()
     .typeError("Intelligence cannot be empty")
     .required()
-    .min(0)
+    .min(1)
     .max(99),
   Power: yup
     .number()
     .typeError("Power cannot be empty")
     .required()
-    .min(0)
+    .min(1)
     .max(90),
   Education: yup
     .number()
     .typeError("Education cannot be empty")
     .required()
-    .min(0)
+    .min(1)
     .max(99),
   Luck: yup
     .number()
     .typeError("Luck cannot be empty")
     .required()
-    .min(0)
+    .min(1)
     .max(99),
 });
