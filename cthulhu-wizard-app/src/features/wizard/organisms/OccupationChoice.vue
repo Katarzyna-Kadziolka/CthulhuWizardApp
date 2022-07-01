@@ -3,12 +3,49 @@
 <template>
   <main class="occupation-choice">
     <div class="occupation-choice__title">
-      <span>Occupation</span>
+      <span>Choose occupation</span>
     </div>
-    <div class="occupation-choice__occupation-display">
-      <div>
-        <span>Click the icon to choose a occupation for your investigator</span>
-      </div>
+    <div class="occupation-choice__occupation-display-container">
+      <QScrollArea class="occupation-choice__occupation-display">
+        <QList dark bordered separator style="max-width: 318px">
+          <QItem v-ripple clickable>
+            <QItemSection>Single line item</QItemSection>
+          </QItem>
+          <QItem v-ripple clickable>
+            <QItemSection>Single line item</QItemSection>
+          </QItem>
+          <QItem v-ripple clickable>
+            <QItemSection>Single line item</QItemSection>
+          </QItem>
+          <QItem v-ripple clickable>
+            <QItemSection>Single line item</QItemSection>
+          </QItem>
+          <QItem v-ripple clickable>
+            <QItemSection>Single line item</QItemSection>
+          </QItem>
+          <QItem v-ripple clickable>
+            <QItemSection>Single line item</QItemSection>
+          </QItem>
+          <QItem v-ripple clickable>
+            <QItemSection>Single line item</QItemSection>
+          </QItem>
+          <QItem v-ripple clickable>
+            <QItemSection>Single line item</QItemSection>
+          </QItem>
+          <QItem v-ripple clickable>
+            <QItemSection>Single line item</QItemSection>
+          </QItem>
+          <QItem v-ripple clickable>
+            <QItemSection>Single line item</QItemSection>
+          </QItem>
+          <QItem v-ripple clickable>
+            <QItemSection>Single line item</QItemSection>
+          </QItem>
+          <QItem v-ripple clickable>
+            <QItemSection>Single line item</QItemSection>
+          </QItem>
+        </QList>
+      </QScrollArea>
     </div>
     <div class="occupation-choice__random-container">
       <QBtn
@@ -39,6 +76,10 @@
     min-width: 90%;
   }
   &__occupation-display {
+    height: 24rem;
+    max-width: 300px;
+  }
+  &__occupation-display-container {
     min-height: 26rem;
   }
 }
