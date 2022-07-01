@@ -1,3 +1,4 @@
+import type { Characteristic } from "./Characteristic";
 import type { Gender } from "./Gender";
 
 export interface CreateInvestigator {
@@ -7,4 +8,5 @@ export interface CreateInvestigator {
   Gender: Gender;
   BirthPlace: string;
   LivingPlace: string;
+  Characteristic: Characteristic;
 }
