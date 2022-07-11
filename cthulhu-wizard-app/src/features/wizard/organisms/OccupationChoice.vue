@@ -1,4 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+import SearchInputBase from "../../../components/atoms/SearchInputBase.vue";
+import OccupationsDisplay from "../molecules/OccupationsDisplay.vue";
+import { investigatorStore } from "@/stores/investigatorStore";
+
+const showOccupations = ref(false);
+const store = investigatorStore();
+const occupation = store.investigator.Occupation;
+const occupations = store.occupations;
+</script>
 
 <template>
   <main class="occupation-choice">
@@ -6,46 +16,10 @@
       <span>Choose occupation</span>
     </div>
     <div class="occupation-choice__occupation-display-container">
-      <QScrollArea class="occupation-choice__occupation-display">
-        <QList dark bordered separator style="max-width: 318px">
-          <QItem v-ripple clickable>
-            <QItemSection>Single line item</QItemSection>
-          </QItem>
-          <QItem v-ripple clickable>
-            <QItemSection>Single line item</QItemSection>
-          </QItem>
-          <QItem v-ripple clickable>
-            <QItemSection>Single line item</QItemSection>
-          </QItem>
-          <QItem v-ripple clickable>
-            <QItemSection>Single line item</QItemSection>
-          </QItem>
-          <QItem v-ripple clickable>
-            <QItemSection>Single line item</QItemSection>
-          </QItem>
-          <QItem v-ripple clickable>
-            <QItemSection>Single line item</QItemSection>
-          </QItem>
-          <QItem v-ripple clickable>
-            <QItemSection>Single line item</QItemSection>
-          </QItem>
-          <QItem v-ripple clickable>
-            <QItemSection>Single line item</QItemSection>
-          </QItem>
-          <QItem v-ripple clickable>
-            <QItemSection>Single line item</QItemSection>
-          </QItem>
-          <QItem v-ripple clickable>
-            <QItemSection>Single line item</QItemSection>
-          </QItem>
-          <QItem v-ripple clickable>
-            <QItemSection>Single line item</QItemSection>
-          </QItem>
-          <QItem v-ripple clickable>
-            <QItemSection>Single line item</QItemSection>
-          </QItem>
-        </QList>
-      </QScrollArea>
+      <SearchInputBase watermark="Search..." @click="showOccupations = true" />
+      <div v-if="showOccupations">
+        <OccupationsDisplay v-model="occupation" :occupations="occupations" />
+      </div>
     </div>
     <div class="occupation-choice__random-container">
       <QBtn
@@ -64,7 +38,7 @@
   margin-right: -0.8rem;
   &__title {
     font-size: 1.3rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     display: flex;
     justify-content: center;
   }

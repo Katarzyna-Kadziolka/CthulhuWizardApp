@@ -1,3 +1,4 @@
+import type { Occupation } from "./Occupation";
 import type { Characteristic } from "./Characteristic";
 import type { Gender } from "./Gender";
 
@@ -10,4 +11,5 @@ export interface Investigator {
   BirthPlace: string;
   LivingPlace: string;
   Characteristic: Characteristic;
+  Occupation: Occupation;
 }
