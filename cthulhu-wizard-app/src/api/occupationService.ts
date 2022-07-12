@@ -2,11 +2,13 @@ import http from "./../api/apiClient";
 import type { Occupation } from "./../features/wizard/types/Occupation";
 
 class occupationService {
-  getOccupations(): Promise<Array<Occupation>> {
-    return http.get("Occupations");
+  async getOccupations(): Promise<Occupation[]> {
+    const response = await http.get("Occupations");
+    return response.data as Occupation[];
   }
-  getOccupationDetails(id: string) {
-    return http.get(`Occupations/${id}`);
+  async getOccupationDetails(id: string) {
+    const response = await http.get(`Occupations/${id}`);
+    return response.data;
   }
 }
 

@@ -11,44 +11,44 @@ export const investigatorStore = defineStore({
   id: "investigator",
   state: () => ({
     investigator: {
-      Id: "",
-      FirstName: "",
-      LastName: "",
-      Age: 15,
-      Gender: Gender.Male,
-      BirthPlace: "",
-      LivingPlace: "",
-      Characteristic: {
-        Strength: 0,
-        Constitution: 0,
-        Size: 0,
-        Dexterity: 0,
-        Appearance: 0,
-        Intelligence: 0,
-        Power: 0,
-        Education: 0,
-        Luck: 0,
-        DamageBonus: DamageBonus.MinusTwo,
-        Build: Build.MinusTwo,
-        HitPoints: 0,
-        MovementRate: 7,
-        MagicPoints: 0,
-        Sanity: 0,
+      id: "",
+      firstName: "",
+      lastName: "",
+      age: 15,
+      gender: Gender.Male,
+      birthPlace: "",
+      livingPlace: "",
+      characteristic: {
+        strength: 0,
+        constitution: 0,
+        size: 0,
+        dexterity: 0,
+        appearance: 0,
+        intelligence: 0,
+        power: 0,
+        education: 0,
+        luck: 0,
+        damageBonus: DamageBonus.MinusTwo,
+        build: Build.MinusTwo,
+        hitPoints: 0,
+        movementRate: 7,
+        magicPoints: 0,
+        sanity: 0,
       },
-      Occupation: {
-        Id: "",
-        Name: "",
+      occupation: {
+        id: "",
+        name: "",
       },
     } as Investigator,
     savedInvestigator: {} as Investigator,
-    occupations: {} as Array<Occupation>,
+    occupations: [] as Array<Occupation>,
   }),
   actions: {
     async saveInvestigator(investigator: Investigator) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       this.savedInvestigator = await investigatorService.create(investigator);
     },
-    async getOccupations() {
+    async loadOccupations() {
       this.occupations = await occupationService.getOccupations();
     },
     async getOccupationDetails(id: string) {

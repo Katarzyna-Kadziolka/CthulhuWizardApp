@@ -1,18 +1,17 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import ListBase from "../../../components/molecules/ListBase.vue";
+import ListItemBase from "../atoms/ListItemBase.vue";
 
 const props = withDefaults(
   defineProps<{
     modelValue: string;
-    occupations: Array<string>;
+    list: Array<string>;
   }>(),
   {
     modelValue: "",
-    occupations: undefined,
+    list: undefined,
   }
 );
-
 const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
 }>();
@@ -29,14 +28,7 @@ const value = computed({
 </script>
 
 <template>
-  <QScrollArea class="occupation-display">
-    <ListBase :list="occupations" v-on="value" />
-  </QScrollArea>
+  <QList v-for="listItem in list" :key="listItem" dark bordered separator>
+    <ListItemBase :item="listItem" @click="value = listItem" />
+  </QList>
 </template>
-
-<style scoped lang="scss">
-.occupation-display {
-  height: 20rem;
-  max-width: 20rem;
-}
-</style>

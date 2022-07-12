@@ -1,13 +1,36 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref, watchEffect } from "vue";
 import SearchInputBase from "../../../components/atoms/SearchInputBase.vue";
 import OccupationsDisplay from "../molecules/OccupationsDisplay.vue";
 import { investigatorStore } from "@/stores/investigatorStore";
+import type { Occupation } from "../types/Occupation";
+import { computed } from "@vue/reactivity";
+
+onMounted(async () => {
+  if (store.occupations.length === 0) {
+    await store.loadOccupations();
+  }
+});
 
 const showOccupations = ref(false);
 const store = investigatorStore();
-const occupation = store.investigator.Occupation;
-const occupations = store.occupations;
+const occupation = ref("");
+const occupationsNames = computed(() => {
+  if (store.occupations) {
+    return store.occupations.map((a) => a.name);
+  } else {
+    return [];
+  }
+});
+const searchValue = "";
+
+watchEffect(() => {
+  if (store.occupations) {
+    store.investigator.Occupation = store.occupations.find(
+      (a) => a.Name === occupation.value
+    ) as Occupation;
+  }
+});
 </script>
 
 <template>
@@ -16,9 +39,16 @@ const occupations = store.occupations;
       <span>Choose occupation</span>
     </div>
     <div class="occupation-choice__occupation-display-container">
-      <SearchInputBase watermark="Search..." @click="showOccupations = true" />
+      <SearchInputBase
+        v-model="searchValue"
+        watermark="Search..."
+        @click="showOccupations = true"
+      />
       <div v-if="showOccupations">
-        <OccupationsDisplay v-model="occupation" :occupations="occupations" />
+        <OccupationsDisplay
+          v-model="occupation"
+          :occupations="occupationsNames"
+        />
       </div>
     </div>
     <div class="occupation-choice__random-container">

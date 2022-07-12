@@ -25,29 +25,29 @@ const { getMovementRate, getHitPoints, getSanity, getMagicPoints } =
   useWizard();
 
 watchEffect(() => {
-  value.value.Characteristic.MagicPoints = getMagicPoints(
-    value.value.Characteristic.Power
+  value.value.characteristic.magicPoints = getMagicPoints(
+    value.value.characteristic.Power
   );
 });
 
 watchEffect(() => {
-  value.value.Characteristic.MovementRate = getMovementRate(
-    value.value.Characteristic.Strength,
-    value.value.Characteristic.Dexterity,
-    value.value.Characteristic.Size,
+  value.value.characteristic.MovementRate = getMovementRate(
+    value.value.characteristic.Strength,
+    value.value.characteristic.Dexterity,
+    value.value.characteristic.Size,
     value.value.Age
   );
 });
 
 watchEffect(() => {
-  value.value.Characteristic.HitPoints = getHitPoints(
-    value.value.Characteristic.Constitution,
-    value.value.Characteristic.Size
+  value.value.characteristic.HitPoints = getHitPoints(
+    value.value.characteristic.Constitution,
+    value.value.characteristic.Size
   );
 });
 watchEffect(() => {
-  value.value.Characteristic.Sanity = getSanity(
-    value.value.Characteristic.Power
+  value.value.characteristic.Sanity = getSanity(
+    value.value.characteristic.Power
   );
 });
 </script>
@@ -60,16 +60,16 @@ watchEffect(() => {
       </div>
       <AttributeDisplay
         label="Movement Rate"
-        :value="value.Characteristic.MovementRate"
+        :value="value.characteristic.MovementRate"
       />
       <AttributeDisplay
         label="Hit Points"
-        :value="value.Characteristic.HitPoints"
+        :value="value.characteristic.HitPoints"
       />
-      <AttributeDisplay label="Sanity" :value="value.Characteristic.Sanity" />
+      <AttributeDisplay label="Sanity" :value="value.characteristic.Sanity" />
       <AttributeDisplay
         label="Magic Points"
-        :value="value.Characteristic.MagicPoints"
+        :value="value.characteristic.MagicPoints"
       />
     </QCardSection>
   </QCard>

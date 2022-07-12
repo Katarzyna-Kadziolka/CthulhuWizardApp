@@ -1,4 +1,4 @@
 export interface Occupation {
-  Id: string;
-  Name: string;
+  id: string;
+  name: string;
 }
