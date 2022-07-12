@@ -13,67 +13,67 @@ export function getSchemaFor(data: Investigator | Characteristic) {
 }
 
 function isInvestigator(data: Investigator | Characteristic) {
-  return "FirstName" in data;
+  return "firstName" in data;
 }
 function isCharacteristic(data: Investigator | Characteristic) {
-  return "Strength" in data;
+  return "strength" in data;
 }
 
 const personalDataSchema = yup.object().shape({
-  FirstName: yup.string().required("Name cannot be empty"),
-  Age: yup.number().typeError("Age cannot be empty").required().min(15).max(90),
+  firstName: yup.string().required("Name cannot be empty"),
+  age: yup.number().typeError("Age cannot be empty").required().min(15).max(90),
 });
 
 const characteristicSchema = yup.object().shape({
-  Strength: yup
+  strength: yup
     .number()
     .typeError("Strength cannot be empty")
     .required()
     .min(1)
     .max(99),
-  Constitution: yup
+  constitution: yup
     .number()
     .typeError("Constitution cannot be empty")
     .required()
     .min(1)
     .max(99),
-  Size: yup
+  size: yup
     .number()
     .typeError("Size cannot be empty")
     .required()
     .min(1)
     .max(99),
-  Dexterity: yup
+  dexterity: yup
     .number()
     .typeError("Dexterity cannot be empty")
     .required()
     .min(1)
     .max(99),
-  Appearance: yup
+  appearance: yup
     .number()
     .typeError("Appearance cannot be empty")
     .required()
     .min(1)
     .max(99),
-  Intelligence: yup
+  intelligence: yup
     .number()
     .typeError("Intelligence cannot be empty")
     .required()
     .min(1)
     .max(99),
-  Power: yup
+  power: yup
     .number()
     .typeError("Power cannot be empty")
     .required()
     .min(1)
     .max(90),
-  Education: yup
+  education: yup
     .number()
     .typeError("Education cannot be empty")
     .required()
     .min(1)
     .max(99),
-  Luck: yup
+  luck: yup
     .number()
     .typeError("Luck cannot be empty")
     .required()

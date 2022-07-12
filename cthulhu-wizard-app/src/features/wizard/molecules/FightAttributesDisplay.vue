@@ -24,16 +24,16 @@ const value = computed({
 const { getDamageBonus, getBuild } = useWizard();
 
 watchEffect(() => {
-  value.value.Characteristic.DamageBonus = getDamageBonus(
-    value.value.Characteristic.Strength,
-    value.value.Characteristic.Size
+  value.value.characteristic.damageBonus = getDamageBonus(
+    value.value.characteristic.strength,
+    value.value.characteristic.size
   );
 });
 
 watchEffect(() => {
-  value.value.Characteristic.Build = getBuild(
-    value.value.Characteristic.Strength,
-    value.value.Characteristic.Size
+  value.value.characteristic.build = getBuild(
+    value.value.characteristic.strength,
+    value.value.characteristic.size
   );
 });
 </script>
@@ -46,9 +46,9 @@ watchEffect(() => {
       </div>
       <AttributeDisplay
         label="Damage Bonus"
-        :value="value.Characteristic.DamageBonus"
+        :value="value.characteristic.damageBonus"
       />
-      <AttributeDisplay label="Build" :value="value.Characteristic.Build" />
+      <AttributeDisplay label="Build" :value="value.characteristic.build" />
     </QCardSection>
   </QCard>
 </template>

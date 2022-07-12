@@ -13,7 +13,7 @@ const investigator = store.investigator;
 
 const { getErrors } = useWizard();
 
-const errors = getErrors(investigator.Characteristic);
+const errors = getErrors(investigator.characteristic);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const emit = defineEmits<{
@@ -27,75 +27,75 @@ watch(errors, () => {
 <template>
   <main class="characteristic-form">
     <div class="characteristic-form__title">
-      <span>{{ investigator.FirstName }} {{ investigator.LastName }}</span>
+      <span>{{ investigator.firstName }} {{ investigator.lastName }}</span>
     </div>
     <div class="characteristic-form__subtitle">
       <QIcon
-        v-if="investigator.Gender === 'Male'"
+        v-if="investigator.gender === 'Male'"
         name="fas fa-solid fa-mars"
         class="characteristic-form__gender-icon"
         size="xs"
       />
       <QIcon
-        v-if="investigator.Gender === 'Female'"
+        v-if="investigator.gender === 'Female'"
         name="fas fa-solid fa-venus"
         class="characteristic-form__gender-icon"
         size="xs"
       />
       <QIcon
-        v-if="investigator.Gender === 'Other'"
+        v-if="investigator.gender === 'Other'"
         name="fas fa-solid fa-transgender"
         class="characteristic-form__gender-icon"
         size="xs"
       />
-      <span>{{ investigator.Age }} years old</span>
+      <span>{{ investigator.age }} years old</span>
     </div>
     <div class="characteristic-form__age-info-container">
       <AgeInfoCard
-        :age="investigator.Age"
+        :age="investigator.age"
         class="characteristic-form__age-info"
       />
     </div>
     <div class="characteristic-form__inputs-container">
       <RandomizableInput class="characteristic-form__input-container">
         <SkillInput
-          v-model.number="investigator.Characteristic.Strength"
+          v-model.number="investigator.characteristic.strength"
           class="characteristic-form__input"
           watermark="Strength"
           hint="Roll 3D6 and multiply by 5"
-          :error="errors.find((a) => a.path === 'Strength')"
+          :error="errors.find((a) => a.path === 'strength')"
         />
       </RandomizableInput>
       <RandomizableInput class="characteristic-form__input-container">
         <SkillInput
-          v-model.number="investigator.Characteristic.Constitution"
+          v-model.number="investigator.characteristic.constitution"
           class="characteristic-form__input"
           watermark="Constitution"
           hint="Roll 3D6 and multiply by 5"
-          :error="errors.find((a) => a.path === 'Constitution')"
+          :error="errors.find((a) => a.path === 'constitution')"
         />
       </RandomizableInput>
       <RandomizableInput class="characteristic-form__input-container">
         <SkillInput
-          v-model.number="investigator.Characteristic.Size"
+          v-model.number="investigator.characteristic.size"
           class="characteristic-form__input"
           watermark="Size"
           hint="Roll 2D6+6 and multiply by 5"
-          :error="errors.find((a) => a.path === 'Size')"
+          :error="errors.find((a) => a.path === 'size')"
         />
       </RandomizableInput>
       <RandomizableInput class="characteristic-form__input-container">
         <SkillInput
-          v-model.number="investigator.Characteristic.Dexterity"
+          v-model.number="investigator.characteristic.dexterity"
           class="characteristic-form__input"
           watermark="Dexterity"
           hint="Roll 3D6 and multiply by 5"
-          :error="errors.find((a) => a.path === 'Dexterity')"
+          :error="errors.find((a) => a.path === 'dexterity')"
         />
       </RandomizableInput>
       <RandomizableInput class="characteristic-form__input-container">
         <SkillInput
-          v-model.number="investigator.Characteristic.Appearance"
+          v-model.number="investigator.characteristic.appearance"
           class="characteristic-form__input"
           watermark="Appearance"
           hint="Roll 3D6 and multiply by 5"
@@ -104,7 +104,7 @@ watch(errors, () => {
       </RandomizableInput>
       <RandomizableInput class="characteristic-form__input-container">
         <SkillInput
-          v-model.number="investigator.Characteristic.Intelligence"
+          v-model.number="investigator.characteristic.intelligence"
           class="characteristic-form__input"
           watermark="Intelligence"
           hint="Roll 2D6+6 and multiply by 5"
@@ -113,16 +113,16 @@ watch(errors, () => {
       </RandomizableInput>
       <RandomizableInput class="characteristic-form__input-container">
         <SkillInput
-          v-model.number="investigator.Characteristic.Power"
+          v-model.number="investigator.characteristic.power"
           class="characteristic-form__input"
           watermark="Power"
           hint="Roll 3D6 and multiply by 5"
-          :error="errors.find((a) => a.path === 'Power')"
+          :error="errors.find((a) => a.path === 'power')"
         />
       </RandomizableInput>
       <RandomizableInput class="characteristic-form__input-container">
         <SkillInput
-          v-model.number="investigator.Characteristic.Education"
+          v-model.number="investigator.characteristic.education"
           class="characteristic-form__input"
           watermark="Education"
           hint="Roll 2D6+6 and multiply by 5"
@@ -131,7 +131,7 @@ watch(errors, () => {
       </RandomizableInput>
       <RandomizableInput class="characteristic-form__input-container">
         <SkillInput
-          v-model.number="investigator.Characteristic.Luck"
+          v-model.number="investigator.characteristic.luck"
           class="characteristic-form__input"
           watermark="Luck"
           hint="Roll 3D6 and multiply by 5"

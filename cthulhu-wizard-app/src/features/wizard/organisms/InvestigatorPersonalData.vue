@@ -31,17 +31,17 @@ watch(errors, () => {
       </div>
       <div class="investigator-personal-data-form__radio-buttons">
         <RadioButtonBase
-          v-model="investigator.Gender"
+          v-model="investigator.gender"
           class="investigator-personal-data-form__radio-button"
           :val="Gender.Male"
         />
         <RadioButtonBase
-          v-model="investigator.Gender"
+          v-model="investigator.gender"
           class="investigator-personal-data-form__radio-button"
           :val="Gender.Female"
         />
         <RadioButtonBase
-          v-model="investigator.Gender"
+          v-model="investigator.gender"
           class="investigator-personal-data-form__radio-button"
           :val="Gender.Other"
         />
@@ -50,36 +50,36 @@ watch(errors, () => {
     <div class="investigator-personal-data-form__inputs">
       <RandomizableInput>
         <FormInputBase
-          v-model="investigator.FirstName"
+          v-model="investigator.firstName"
           class="investigator-personal-data-form__input"
           watermark="Name"
-          :error="errors.find((a) => a.path === 'FirstName')"
+          :error="errors.find((a) => a.path === 'firstName')"
         />
       </RandomizableInput>
       <RandomizableInput>
         <FormInputBase
-          v-model="investigator.LastName"
+          v-model="investigator.lastName"
           class="investigator-personal-data-form__input"
           watermark="Last Name"
       /></RandomizableInput>
       <RandomizableInput
         ><FormInputBase
-          v-model.number="investigator.Age"
+          v-model.number="investigator.age"
           class="investigator-personal-data-form__input"
           watermark="Age"
           field-type="number"
-          :error="errors.find((a) => a.path === 'Age')"
+          :error="errors.find((a) => a.path === 'age')"
         />
       </RandomizableInput>
       <RandomizableInput
         ><FormInputBase
-          v-model="investigator.BirthPlace"
+          v-model="investigator.birthPlace"
           class="investigator-personal-data-form__input"
           watermark="Birth Place"
       /></RandomizableInput>
       <RandomizableInput
         ><FormInputBase
-          v-model="investigator.LivingPlace"
+          v-model="investigator.livingPlace"
           class="investigator-personal-data-form__input"
           watermark="Living Place"
       /></RandomizableInput>

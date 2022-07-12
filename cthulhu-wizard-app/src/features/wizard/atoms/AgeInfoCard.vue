@@ -16,10 +16,10 @@ const ageInfo = computed(() => getInfoForAge(props.age));
 
 <template>
   <div>
-    <QCard class="Age-info-card__background">
+    <QCard class="age-info-card__background">
       <QCardSection>
-        <div class="Age-info-card">
-          <QItemLabel class="Age-info-card__title">Age Info</QItemLabel>
+        <div class="age-info-card">
+          <QItemLabel class="age-info-card__title">age Info</QItemLabel>
           <QIcon name="fas fa-info-circle" size="sm" />
         </div>
         <QCardSection>
@@ -31,7 +31,7 @@ const ageInfo = computed(() => getInfoForAge(props.age));
 </template>
 
 <style scoped lang="scss">
-.Age-info-card {
+.age-info-card {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

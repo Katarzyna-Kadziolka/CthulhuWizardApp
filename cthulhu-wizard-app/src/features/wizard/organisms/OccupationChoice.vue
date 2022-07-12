@@ -26,8 +26,8 @@ const searchValue = "";
 
 watchEffect(() => {
   if (store.occupations) {
-    store.investigator.Occupation = store.occupations.find(
-      (a) => a.Name === occupation.value
+    store.investigator.occupation = store.occupations.find(
+      (a) => a.name === occupation.value
     ) as Occupation;
   }
 });

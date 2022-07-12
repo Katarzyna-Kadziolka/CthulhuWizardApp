@@ -1,13 +1,13 @@
 export interface OccupationDetails {
-  Id: string;
-  Name: string;
-  ImageUrl: string;
-  Descritpion: string;
-  SuggestedContacts: string;
-  IsLovecraftian: boolean;
-  SkillPoints: number;
-  MinCreditRating: number;
-  MaxCreditRating: number;
-  Skills: string;
-  SkillPointsPattern: string;
+  id: string;
+  name: string;
+  imageUrl: string;
+  descritpion: string;
+  suggestedContacts: string;
+  isLovecraftian: boolean;
+  skillPoints: number;
+  minCreditRating: number;
+  maxCreditRating: number;
+  skills: string;
+  skillPointsPattern: string;
 }
