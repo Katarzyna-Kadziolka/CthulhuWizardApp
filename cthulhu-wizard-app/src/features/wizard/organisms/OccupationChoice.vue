@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref, watchEffect } from "vue";
+import { onMounted, ref, watch, watchEffect } from "vue";
 import SearchInputBase from "../../../components/atoms/SearchInputBase.vue";
 import OccupationsDisplay from "../molecules/OccupationsDisplay.vue";
 import { investigatorStore } from "@/stores/investigatorStore";
 import type { Occupation } from "../types/Occupation";
 import { computed } from "@vue/reactivity";
+import OccupationDisplay from "../molecules/OccupationDisplay.vue";
+import type { OccupationDetails } from "../types/OccupationDetails";
 
 onMounted(async () => {
   if (store.occupations.length === 0) {
@@ -22,7 +24,8 @@ const occupationsNames = computed(() => {
     return [];
   }
 });
-const searchValue = "";
+const searchValue = ref("");
+const selectedOccupationDetails = ref<OccupationDetails>();
 
 watchEffect(() => {
   if (store.occupations) {
@@ -31,6 +34,17 @@ watchEffect(() => {
     ) as Occupation;
   }
 });
+
+watchEffect(async () => {
+  if (store.investigator.occupation) {
+    selectedOccupationDetails.value = await store.getCurrentOccupationDetails();
+    showOccupations.value = false;
+  }
+});
+// watch(occupation, async () => {
+//   selectedOccupationDetails.value = await store.getCurrentOccupationDetails();
+//   showOccupations.value = false;
+// });
 </script>
 
 <template>
@@ -49,6 +63,9 @@ watchEffect(() => {
           v-model="occupation"
           :occupations="occupationsNames"
         />
+      </div>
+      <div v-if="!showOccupations && selectedOccupationDetails">
+        <OccupationDisplay :occupation="selectedOccupationDetails" />
       </div>
     </div>
     <div class="occupation-choice__random-container">

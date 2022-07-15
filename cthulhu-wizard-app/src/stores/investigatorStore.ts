@@ -51,8 +51,10 @@ export const investigatorStore = defineStore({
     async loadOccupations() {
       this.occupations = await occupationService.getOccupations();
     },
-    async getOccupationDetails(id: string) {
-      return await occupationService.getOccupationDetails(id);
+    async getCurrentOccupationDetails() {
+      return await occupationService.getOccupationDetails(
+        this.investigator.occupation.id
+      );
     },
   },
 });

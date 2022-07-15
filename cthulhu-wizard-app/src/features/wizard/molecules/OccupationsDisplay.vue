@@ -30,7 +30,7 @@ const value = computed({
 
 <template>
   <QScrollArea class="occupation-display">
-    <ListBase :list="occupations" v-on="value" />
+    <ListBase v-model="value" :list="occupations" />
   </QScrollArea>
 </template>
 
