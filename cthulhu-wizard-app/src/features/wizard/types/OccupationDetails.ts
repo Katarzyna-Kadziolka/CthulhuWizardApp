@@ -1,3 +1,6 @@
+import type { OccupationSkillSpecification } from "./OccupationSkillSpecification";
+import type { SkillPointsPattern } from "./SkillPointsPattern";
+
 export interface OccupationDetails {
   id: string;
   name: string;
@@ -8,6 +11,6 @@ export interface OccupationDetails {
   skillPoints: number;
   minCreditRating: number;
   maxCreditRating: number;
-  skills: string;
-  skillPointsPattern: string;
+  skills: OccupationSkillSpecification[];
+  skillPointsPattern: SkillPointsPattern[];
 }

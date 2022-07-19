@@ -3,7 +3,6 @@ import { onMounted, ref, watch, watchEffect } from "vue";
 import SearchInputBase from "../../../components/atoms/SearchInputBase.vue";
 import OccupationsDisplay from "../molecules/OccupationsDisplay.vue";
 import { investigatorStore } from "@/stores/investigatorStore";
-import type { Occupation } from "../types/Occupation";
 import { computed } from "@vue/reactivity";
 import OccupationDisplay from "../molecules/OccupationDisplay.vue";
 import type { OccupationDetails } from "../types/OccupationDetails";
@@ -16,10 +15,14 @@ onMounted(async () => {
 
 const showOccupations = ref(false);
 const store = investigatorStore();
-const occupation = ref("");
+const occupationName = ref("");
 const occupationsNames = computed(() => {
   if (store.occupations) {
-    return store.occupations.map((a) => a.name);
+    const result = store.occupations.map((a) => a.name).sort();
+    if (searchValue.value !== "") {
+      return result.filter((a) => a.startsWith(searchValue.value));
+    }
+    return result;
   } else {
     return [];
   }
@@ -29,9 +32,12 @@ const selectedOccupationDetails = ref<OccupationDetails>();
 
 watchEffect(() => {
   if (store.occupations) {
-    store.investigator.occupation = store.occupations.find(
-      (a) => a.name === occupation.value
-    ) as Occupation;
+    const foundOccupation = store.occupations.find(
+      (a) => a.name === occupationName.value
+    );
+    if (foundOccupation) {
+      store.investigator.occupation = foundOccupation;
+    }
   }
 });
 
@@ -41,10 +47,20 @@ watchEffect(async () => {
     showOccupations.value = false;
   }
 });
-// watch(occupation, async () => {
-//   selectedOccupationDetails.value = await store.getCurrentOccupationDetails();
-//   showOccupations.value = false;
-// });
+watch(
+  () => store.investigator.occupation,
+  (newValue) => {
+    emit("validationChanged", newValue !== undefined);
+  },
+  {
+    immediate: true,
+  }
+);
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const emit = defineEmits<{
+  (e: "validationChanged", value: boolean): void;
+}>();
 </script>
 
 <template>
@@ -60,7 +76,7 @@ watchEffect(async () => {
       />
       <div v-if="showOccupations">
         <OccupationsDisplay
-          v-model="occupation"
+          v-model="occupationName"
           :occupations="occupationsNames"
         />
       </div>
@@ -92,6 +108,7 @@ watchEffect(async () => {
   &__random-container {
     display: flex;
     justify-content: center;
+    margin-top: 1rem;
   }
   &__random {
     min-width: 90%;

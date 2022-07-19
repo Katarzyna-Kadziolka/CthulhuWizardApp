@@ -15,9 +15,15 @@ const errors = getErrors(investigator);
 const emit = defineEmits<{
   (e: "validationChanged", value: boolean): void;
 }>();
-watch(errors, () => {
-  emit("validationChanged", errors.value.length === 0);
-});
+watch(
+  errors,
+  () => {
+    emit("validationChanged", errors.value.length === 0);
+  },
+  {
+    immediate: true,
+  }
+);
 </script>
 
 <template>

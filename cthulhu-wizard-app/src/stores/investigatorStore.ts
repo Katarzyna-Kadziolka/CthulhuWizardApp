@@ -12,22 +12,22 @@ export const investigatorStore = defineStore({
   state: () => ({
     investigator: {
       id: "",
-      firstName: "",
+      firstName: "Tom",
       lastName: "",
       age: 15,
       gender: Gender.Male,
       birthPlace: "",
       livingPlace: "",
       characteristic: {
-        strength: 0,
-        constitution: 0,
-        size: 0,
-        dexterity: 0,
-        appearance: 0,
-        intelligence: 0,
-        power: 0,
-        education: 0,
-        luck: 0,
+        strength: 1,
+        constitution: 1,
+        size: 1,
+        dexterity: 1,
+        appearance: 1,
+        intelligence: 1,
+        power: 1,
+        education: 1,
+        luck: 1,
         damageBonus: DamageBonus.MinusTwo,
         build: Build.MinusTwo,
         hitPoints: 0,
@@ -35,10 +35,7 @@ export const investigatorStore = defineStore({
         magicPoints: 0,
         sanity: 0,
       },
-      occupation: {
-        id: "",
-        name: "",
-      },
+      occupation: undefined,
     } as Investigator,
     savedInvestigator: {} as Investigator,
     occupations: [] as Array<Occupation>,
@@ -52,6 +49,9 @@ export const investigatorStore = defineStore({
       this.occupations = await occupationService.getOccupations();
     },
     async getCurrentOccupationDetails() {
+      if (this.investigator.occupation === undefined) {
+        throw Error("Occupation of Investigator is undefined");
+      }
       return await occupationService.getOccupationDetails(
         this.investigator.occupation.id
       );

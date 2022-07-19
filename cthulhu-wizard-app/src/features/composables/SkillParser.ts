@@ -1,29 +1,13 @@
-import { Investigator } from "./../wizard/types/Investigator";
-import { Occupation } from "./../wizard/types/Occupation";
-export function parse(text: string): Array<string> {}
+import type { OccupationSkillSpecification } from "./../wizard/types/OccupationSkillSpecification";
 
-// 1[SztukaRzemiosło.Dziennikarstwo, SztukaRzemiosło.Fotografia];
-// ->
-//@"${$t("one of")}: ${$t("Sztuka/Rzemiosło (Dziennikarstwo)")}, ${$t("Sztuka/Rzemiosło (Fotografia)")}"
-// ->
-// jeden z: Sztuka/Rzemiosło (Dziennikarstwo), Sztuka/Rzemiosło (Fotografia)
-//
-
-[
-  {
-    howMany: 1,
-    from: ["Any"],
-  },
-  {
-    howMany: 1,
-    from: ["Any"],
-  },
-  {
-    howMany: 1,
-    from: ["Any"],
-  },
-  {
-    howMany: 1,
-    from: ["Any"],
-  },
-];
+export function parse(specification: OccupationSkillSpecification) {
+  if (specification.from.length === 1) {
+    return specification.from[0];
+  }
+  switch (specification.howMany) {
+    case 1:
+      return `One from: ${specification.from.join(", ")}`;
+    case 2:
+      return `Two from: ${specification.from.join(", ")}`;
+  }
+}

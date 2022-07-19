@@ -11,5 +11,5 @@ export interface Investigator {
   birthPlace: string;
   livingPlace: string;
   characteristic: Characteristic;
-  occupation: Occupation;
+  occupation: Occupation | undefined;
 }

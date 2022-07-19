@@ -4,8 +4,9 @@ import InvestigatorPersonalData from "./organisms/InvestigatorPersonalData.vue";
 import CharacteristicsForm from "./organisms/CharacteristicsForm.vue";
 import NavigationButtons from "./organisms/NavigationButtons.vue";
 import OccupationChoice from "./organisms/OccupationChoice.vue";
+import OccupationSkillPointsDistribution from "./organisms/OccupationSkillPointsDistribution.vue";
 
-const isValid = ref(false);
+const isValid = ref<Array<boolean>>([true]);
 const step = ref(1);
 const stepper = ref();
 </script>
@@ -29,7 +30,9 @@ const stepper = ref();
           :header-nav="step > 1"
           icon="settings"
         >
-          <InvestigatorPersonalData @validation-changed="isValid = $event" />
+          <InvestigatorPersonalData
+            @validation-changed="isValid[step] = $event"
+          />
         </QStep>
         <QStep
           :name="2"
@@ -38,7 +41,7 @@ const stepper = ref();
           :header-nav="step > 2"
           icon="fas fa-solid fa-dumbbell"
         >
-          <CharacteristicsForm @validation-changed="isValid = $event" />
+          <CharacteristicsForm @validation-changed="isValid[step] = $event" />
         </QStep>
         <QStep
           :name="3"
@@ -47,12 +50,21 @@ const stepper = ref();
           :header-nav="step > 3"
           icon="fas fa-solid fa-user-secret"
         >
-          <OccupationChoice />
+          <OccupationChoice @validation-changed="isValid[step] = $event" />
+        </QStep>
+        <QStep
+          :name="4"
+          title="Occupation"
+          :done="step > 4"
+          :header-nav="step > 4"
+          icon="fas fa-hammer"
+        >
+          <OccupationSkillPointsDistribution />
         </QStep>
         <template #navigation>
           <QStepperNavigation>
             <NavigationButtons
-              :can-go-next="isValid"
+              :can-go-next="isValid[step]"
               :can-go-back="step > 1"
               @next-button-clicked="stepper.next()"
               @previous-button-clicked="stepper.previous()"
