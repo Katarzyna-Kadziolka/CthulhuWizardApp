@@ -2,10 +2,13 @@
 import { ref } from "vue";
 import ProgressBar from "../atoms/ProgressBar.vue";
 import DistributingPointsField from "../molecules/DistributingPointsField.vue";
+import FilterSelectBase from "../../../components/atoms/FilterSelectBase.vue";
 
 const distributedPoints = ref(10);
 const maxValue = ref(150);
 const currentSkillValue = ref(0);
+const options = ["Dodge", "Swim", "Jump"];
+const selectedSkill = ref("");
 </script>
 
 <template>
@@ -19,8 +22,21 @@ const currentSkillValue = ref(0);
         :max-value="maxValue"
       />
     </div>
-    <div>
+    <div class="occupation-skill-points-distribution__container">
+      <FilterSelectBase v-model="selectedSkill" :options="options">
+        <QItem>
+          <QItemSection class="text-grey"> No results </QItemSection>
+        </QItem>
+      </FilterSelectBase>
       <DistributingPointsField v-model="currentSkillValue" />
+    </div>
+    <div class="occupation-skill-points-distribution__random-container">
+      <QBtn
+        label="Random"
+        dense
+        color="secondary"
+        class="occupation-skill-points-distribution__random"
+      />
     </div>
   </div>
 </template>
@@ -32,6 +48,17 @@ const currentSkillValue = ref(0);
     margin-bottom: 1rem;
     display: flex;
     justify-content: center;
+  }
+  &__container {
+    min-height: 23rem;
+  }
+  &__random-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  &__random {
+    min-width: 95%;
   }
 }
 </style>

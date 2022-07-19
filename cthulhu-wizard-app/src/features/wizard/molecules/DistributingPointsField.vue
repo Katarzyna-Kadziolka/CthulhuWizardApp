@@ -27,7 +27,6 @@ const emit = defineEmits<{
 
 <template>
   <div>
-    <slot></slot>
     <div class="distributing-points-field">
       <QBtn
         color="secondary"
