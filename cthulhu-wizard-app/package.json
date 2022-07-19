@@ -9,19 +9,20 @@
     "typecheck": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "test": "vitest",
-    "coverage" : "vitest --coverage"
+    "coverage": "vitest --coverage"
   },
   "dependencies": {
+    "@quasar/app-webpack": "^3.5.7",
     "@quasar/extras": "^1.13.6",
     "axios": "^0.26.0",
     "dayjs": "^1.10.7",
     "http-commons": "^1.2.0",
     "lodash": "^4.17.21",
     "pinia": "^2.0.11",
-    "quasar": "^2.6.6",
+    "quasar": "^2.7.5",
     "vee-validate": "^4.5.9",
-    "vue": "^3.2.31",
-    "vue-router": "^4.0.12",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {
