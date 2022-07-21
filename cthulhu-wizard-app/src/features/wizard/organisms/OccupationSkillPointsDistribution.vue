@@ -1,8 +1,18 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import ProgressBar from "../atoms/ProgressBar.vue";
 import DistributingPointsField from "../molecules/DistributingPointsField.vue";
 import FilterSelectBase from "../../../components/atoms/FilterSelectBase.vue";
+import type { OccupationSkillSpecification } from "../types/OccupationSkillSpecification";
+import { investigatorStore } from "@/stores/investigatorStore";
+
+onMounted(async () => {
+  const selectedOccupation = await store.getCurrentOccupationDetails();
+  skills.value = selectedOccupation.value?.skills;
+});
+
+const store = investigatorStore();
+const skills = ref<Array<OccupationSkillSpecification>>();
 
 const distributedPoints = ref(10);
 const maxValue = ref(150);
@@ -16,7 +26,7 @@ const selectedSkill = ref("");
     <div class="occupation-skill-points-distribution__title">
       <span>Occupation's Skill Points</span>
     </div>
-    <div>
+    <div class="occupation-skill-points-distribution__progress-bar">
       <ProgressBar
         :distributed-points="distributedPoints"
         :max-value="maxValue"
@@ -59,6 +69,9 @@ const selectedSkill = ref("");
   }
   &__random {
     min-width: 95%;
+  }
+  &__progress-bar {
+    margin-bottom: 1.5rem;
   }
 }
 </style>

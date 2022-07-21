@@ -53,7 +53,7 @@ function filterFn(
     fill-input
     input-debounce="0"
     :options="searchedOptions"
-    style="padding-bottom: 32px"
+    class="filter-select-base"
     @filter="filterFn"
   >
     <template #no-option>
@@ -61,3 +61,9 @@ function filterFn(
     </template>
   </QSelect>
 </template>
+
+<style scoped lang="scss">
+.filter-select-base {
+  margin-bottom: 1rem;
+}
+</style>
