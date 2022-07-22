@@ -1,3 +1,4 @@
+import { InvestigatorSkill } from "./../features/wizard/types/InvestigatorSkill";
 import type { Occupation } from "./../features/wizard/types/Occupation";
 import type { Investigator } from "./../features/wizard/types/Investigator";
 import { defineStore } from "pinia";
@@ -36,6 +37,7 @@ export const investigatorStore = defineStore({
         sanity: 0,
       },
       occupation: undefined,
+      skills: [] as Array<InvestigatorSkill>,
     } as Investigator,
     savedInvestigator: {} as Investigator,
     occupations: [] as Array<Occupation>,

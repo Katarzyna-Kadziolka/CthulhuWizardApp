@@ -1,6 +1,7 @@
 import type { Occupation } from "./Occupation";
 import type { Characteristic } from "./Characteristic";
 import type { Gender } from "./Gender";
+import type { InvestigatorSkill } from "./InvestigatorSkill";
 
 export interface Investigator {
   id: string;
@@ -12,4 +13,5 @@ export interface Investigator {
   livingPlace: string;
   characteristic: Characteristic;
   occupation: Occupation | undefined;
+  skills: InvestigatorSkill[];
 }

@@ -35,5 +35,5 @@ const selectedSkill = ref("");
 <template>
   <SkillSearchBar v-model="selectedSkill" :allow-custom="props.allowCustom" />
   <span></span>
-  <DistributingPointsField v-model="currentSkillValue" />
+  <DistributingPointsField v-model="value" />
 </template>
