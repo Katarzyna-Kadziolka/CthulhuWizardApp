@@ -5,10 +5,17 @@ import CharacteristicsForm from "./organisms/CharacteristicsForm.vue";
 import NavigationButtons from "./organisms/NavigationButtons.vue";
 import OccupationChoice from "./organisms/OccupationChoice.vue";
 import OccupationSkillPointsDistribution from "./organisms/OccupationSkillPointsDistribution.vue";
+import { investigatorStore } from "@/stores/investigatorStore";
 
 const isValid = ref<Array<boolean>>([true]);
 const step = ref(1);
 const stepper = ref();
+const { saveInvestigator } = investigatorStore();
+
+function nextButtonClicked() {
+  stepper.value.next();
+  saveInvestigator();
+}
 </script>
 
 <template>

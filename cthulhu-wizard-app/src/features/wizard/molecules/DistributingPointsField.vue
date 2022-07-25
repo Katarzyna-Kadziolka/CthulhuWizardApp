@@ -5,9 +5,11 @@ import PointsField from "../atoms/PointsField.vue";
 const props = withDefaults(
   defineProps<{
     modelValue: number;
+    minSkillValue: number;
   }>(),
   {
     modelValue: 0,
+    minSkillValue: 0,
   }
 );
 

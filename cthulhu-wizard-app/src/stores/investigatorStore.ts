@@ -1,4 +1,4 @@
-import { InvestigatorSkill } from "./../features/wizard/types/InvestigatorSkill";
+import type { InvestigatorSkill } from "./../features/wizard/types/InvestigatorSkill";
 import type { Occupation } from "./../features/wizard/types/Occupation";
 import type { Investigator } from "./../features/wizard/types/Investigator";
 import { defineStore } from "pinia";
@@ -43,9 +43,10 @@ export const investigatorStore = defineStore({
     occupations: [] as Array<Occupation>,
   }),
   actions: {
-    async saveInvestigator(investigator: Investigator) {
+    async saveInvestigator() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      this.savedInvestigator = await investigatorService.create(investigator);
+      this.savedInvestigator = this.investigator;
+      //this.savedInvestigator = await investigatorService.create(investigator);
     },
     async loadOccupations() {
       this.occupations = await occupationService.getOccupations();

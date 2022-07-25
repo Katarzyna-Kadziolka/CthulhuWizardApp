@@ -1,3 +1,4 @@
+import { CharacteristicName } from "./../wizard/types/CharacteristicName";
 import type { SkillPointsPattern } from "../wizard/types/SkillPointsPattern";
 import type { Characteristic } from "./../wizard/types/Characteristic";
 
@@ -27,23 +28,23 @@ function GetCharacteristicValue(
   characteristic: Characteristic
 ): number {
   switch (characteristicName) {
-    case "strength":
+    case CharacteristicName.Strength:
       return characteristic.strength;
-    case "constitution":
+    case CharacteristicName.Constitution:
       return characteristic.constitution;
-    case "size":
+    case CharacteristicName.Size:
       return characteristic.size;
-    case "dexterity":
+    case CharacteristicName.Dexterity:
       return characteristic.dexterity;
-    case "appearance":
+    case CharacteristicName.Appearance:
       return characteristic.appearance;
-    case "intelligence":
+    case CharacteristicName.Intelligence:
       return characteristic.intelligence;
-    case "power":
+    case CharacteristicName.Power:
       return characteristic.power;
-    case "education":
+    case CharacteristicName.Education:
       return characteristic.education;
-    case "luck":
+    case CharacteristicName.Luck:
       return characteristic.luck;
     default:
       throw Error(`${characteristicName} is not an entity of Characteristic`);

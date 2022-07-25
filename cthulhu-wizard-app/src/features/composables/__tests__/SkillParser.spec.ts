@@ -1,10 +1,10 @@
-import type { OccupationSkillSpecification } from "./../../wizard/types/OccupationSkillSpecification";
+import type { SkillSpecification } from "./../../wizard/types/SkillSpecification";
 import { describe, expect, it } from "vitest";
 import { parse } from "../SkillParser";
 
 describe("parse", () => {
   it("only one thing on list", () => {
-    const occupationSkillSpecification: OccupationSkillSpecification = {
+    const occupationSkillSpecification: SkillSpecification = {
       howMany: 1,
       from: ["Dodge"],
     };
@@ -12,7 +12,7 @@ describe("parse", () => {
     expect(parse(occupationSkillSpecification)).toBe(expectedResult);
   });
   it("one thing from list", () => {
-    const occupationSkillSpecification: OccupationSkillSpecification = {
+    const occupationSkillSpecification: SkillSpecification = {
       howMany: 1,
       from: ["Dodge", "Swim", "Throw"],
     };
@@ -20,7 +20,7 @@ describe("parse", () => {
     expect(parse(occupationSkillSpecification)).toBe(expectedResult);
   });
   it("two thing from list", () => {
-    const occupationSkillSpecification: OccupationSkillSpecification = {
+    const occupationSkillSpecification: SkillSpecification = {
       howMany: 2,
       from: ["Dodge", "Swim", "Throw"],
     };

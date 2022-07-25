@@ -4,12 +4,12 @@ import { computed } from "vue";
 const props = withDefaults(
   defineProps<{
     modelValue: string;
-    options: Array<string>;
+    skills: Array<string>;
     allowCustom: boolean;
   }>(),
   {
     modelValue: "",
-    options: undefined,
+    skills: undefined,
     allowCustom: false,
   }
 );
@@ -29,7 +29,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <FilterSelectBase v-model="value" :options="options">
+  <FilterSelectBase v-model="value" :options="skills">
     <QItem v-if="props.allowCustom">
       <QItemSection class="text-grey">
         <QBtn label="Add skill" />

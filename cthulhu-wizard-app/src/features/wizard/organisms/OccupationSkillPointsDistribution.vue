@@ -3,7 +3,7 @@ import { onMounted, ref } from "vue";
 import ProgressBar from "../atoms/ProgressBar.vue";
 import DistributingPointsField from "../molecules/DistributingPointsField.vue";
 import FilterSelectBase from "../../../components/atoms/FilterSelectBase.vue";
-import type { OccupationSkillSpecification } from "../types/OccupationSkillSpecification";
+import type { SkillSpecification } from "../types/SkillSpecification";
 import { investigatorStore } from "@/stores/investigatorStore";
 
 onMounted(async () => {
@@ -12,7 +12,7 @@ onMounted(async () => {
 });
 
 const store = investigatorStore();
-const skills = ref<Array<OccupationSkillSpecification>>();
+const skills = ref<Array<SkillSpecification>>();
 
 const distributedPoints = ref(10);
 const maxValue = ref(150);

@@ -1,6 +1,6 @@
-import type { OccupationSkillSpecification } from "./../wizard/types/OccupationSkillSpecification";
+import type { SkillSpecification } from "./../wizard/types/SkillSpecification";
 
-export function parse(specification: OccupationSkillSpecification) {
+export function parse(specification: SkillSpecification) {
   if (specification.from.length === 1) {
     return specification.from[0];
   }
