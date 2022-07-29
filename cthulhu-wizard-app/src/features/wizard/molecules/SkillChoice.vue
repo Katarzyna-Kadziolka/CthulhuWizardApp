@@ -5,16 +5,15 @@ import type { SkillSpecification } from "../types/SkillSpecification";
 import DistributingPointsField from "../molecules/DistributingPointsField.vue";
 import { getSkillDefaultValue } from "../../composables/SkillDefaults";
 import type { Investigator } from "../types/Investigator";
+import type { InvestigatorSkill } from "../types/InvestigatorSkill";
 
 const props = withDefaults(
   defineProps<{
-    modelValue: string;
     allowCustom: boolean;
     skillSpecification: SkillSpecification;
     savedInvestigator: Investigator;
   }>(),
   {
-    modelValue: "",
     allowCustom: false,
     skillSpecification: () => ({
       howMany: 1,
@@ -24,48 +23,83 @@ const props = withDefaults(
   }
 );
 
-const value = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(value: string) {
-    emit("update:modelValue", value);
-  },
-});
-
 const emit = defineEmits<{
-  (e: "update:modelValue", value: string): void;
-  (e: "skillValueChanged", value: number): void;
+  (
+    e: "skillChanged",
+    value: InvestigatorSkill,
+    oldValue: InvestigatorSkill | undefined
+  ): void;
 }>();
 
 const minValue = computed(() => {
   if (props.savedInvestigator && props.savedInvestigator.skills) {
     const investigatorSkillValue = props.savedInvestigator.skills.find(
-      (a) => a.name === value.value
+      (a) => a.name === selectedSkill.value
     );
     if (investigatorSkillValue) {
       return investigatorSkillValue.currentValue;
     }
 
-    return getSkillDefaultValue(value.value, props.savedInvestigator);
+    return getSkillDefaultValue(selectedSkill.value, props.savedInvestigator);
   }
   return 0;
 });
 
+const selectedSkill = ref(props.skillSpecification.from[0]);
 const currentValue = ref(minValue.value);
-watch(currentValue, (newValue: number) => {
-  emit("skillValueChanged", newValue);
-});
+
+watch(
+  currentValue,
+  (newValue: number) => {
+    emit(
+      "skillChanged",
+      {
+        name: selectedSkill.value,
+        currentValue: newValue,
+      },
+      undefined
+    );
+  },
+  {
+    immediate: true,
+  }
+);
+
+watch(
+  selectedSkill,
+  (newValue: string, oldValue: string | undefined) => {
+    var previousValue = getPreviousSkillValue(oldValue);
+    currentValue.value = minValue.value;
+
+    const skill = {
+      name: newValue,
+      currentValue: currentValue.value,
+    };
+
+    emit("skillChanged", skill, previousValue);
+  },
+  {
+    immediate: true,
+  }
+);
+
+const getPreviousSkillValue = (skillName: string | undefined) => {
+  if (!skillName) {
+    return undefined;
+  }
+  return {
+    name: skillName,
+    currentValue: currentValue.value,
+  };
+};
 </script>
 
 <template>
   <SkillSearchBar
-    v-if="
-      props.skillSpecification.from.length > 1 ||
-      props.skillSpecification.from[0] === 'Any'
-    "
-    v-model="value"
+    v-if="props.skillSpecification.from.length > 1"
+    v-model="selectedSkill"
     :allow-custom="props.allowCustom"
+    :skills="props.skillSpecification.from"
   />
   <div v-else>
     <span>{{ props.skillSpecification.from[0] }}</span>

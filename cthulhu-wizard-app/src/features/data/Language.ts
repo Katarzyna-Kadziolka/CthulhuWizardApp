@@ -1,6 +1,5 @@
 export function getAllLanguages(): string[] {
   return [
-    "Other Language (Any)",
     "Other Language (Chinese)",
     "Other Language (English)",
     "Other Language (French)",

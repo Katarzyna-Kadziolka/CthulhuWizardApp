@@ -73,7 +73,7 @@ function nextButtonClicked() {
             <NavigationButtons
               :can-go-next="isValid[step]"
               :can-go-back="step > 1"
-              @next-button-clicked="stepper.next()"
+              @next-button-clicked="nextButtonClicked"
               @previous-button-clicked="stepper.previous()"
             />
           </QStepperNavigation>
