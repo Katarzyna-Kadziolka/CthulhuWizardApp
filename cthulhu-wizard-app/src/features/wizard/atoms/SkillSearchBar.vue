@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import FilterSelectBase from "@/components/atoms/FilterSelectBase.vue";
 
 const props = withDefaults(
   defineProps<{
     modelValue: string;
     skills: Array<string>;
     allowCustom: boolean;
+    disabledSkills: Array<string>;
   }>(),
   {
     modelValue: "",
     skills: undefined,
     allowCustom: false,
+    disabledSkills: undefined,
   }
 );
 
@@ -29,7 +32,11 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <FilterSelectBase v-model="value" :options="skills">
+  <FilterSelectBase
+    v-model="value"
+    :options="skills"
+    :disabled-options="props.disabledSkills"
+  >
     <QItem v-if="props.allowCustom">
       <QItemSection class="text-grey">
         <QBtn label="Add skill" />

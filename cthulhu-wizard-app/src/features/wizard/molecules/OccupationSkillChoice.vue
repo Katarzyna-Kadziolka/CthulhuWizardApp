@@ -35,13 +35,14 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
 }>();
 
-watchEffect(() => {});
-
 const mappedSkillsSPecification = props.occupationSkillsSpecifications.map(
   (element) => mapSkills(element)
 );
 
 const selectedSkills = ref<Array<InvestigatorSkill>>([]);
+const selectedSkillsNames = computed(() => {
+  return selectedSkills.value.map((element) => element.name);
+});
 
 function onSkillChanged(
   newValue: InvestigatorSkill,
@@ -83,6 +84,7 @@ const addOrUpdateSkill = (skill: InvestigatorSkill) => {
       <div v-for="(_, step) in skillSpecification.howMany" :key="step">
         <SkillChoice
           :skill-specification="skillSpecification"
+          :disabled-skills="selectedSkillsNames"
           :saved-investigator="props.savedInvestigator"
           @skill-changed="onSkillChanged"
         />

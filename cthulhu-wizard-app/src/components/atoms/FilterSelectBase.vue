@@ -6,10 +6,12 @@ const props = withDefaults(
   defineProps<{
     modelValue: string;
     options: Array<string>;
+    disabledOptions: Array<string>;
   }>(),
   {
     modelValue: "",
     options: undefined,
+    disabledOptions: undefined,
   }
 );
 
@@ -53,6 +55,7 @@ function filterFn(
     fill-input
     input-debounce="0"
     :options="searchedOptions"
+    :option-disable="(item) => props.disabledOptions.some((a) => a === item)"
     class="filter-select-base"
     @filter="filterFn"
   >

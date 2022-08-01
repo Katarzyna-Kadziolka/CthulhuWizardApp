@@ -12,6 +12,7 @@ const props = withDefaults(
     allowCustom: boolean;
     skillSpecification: SkillSpecification;
     savedInvestigator: Investigator;
+    disabledSkills: Array<string>;
   }>(),
   {
     allowCustom: false,
@@ -20,6 +21,7 @@ const props = withDefaults(
       from: ["Any"],
     }),
     savedInvestigator: undefined,
+    disabledSkills: undefined,
   }
 );
 
@@ -100,6 +102,7 @@ const getPreviousSkillValue = (skillName: string | undefined) => {
     v-model="selectedSkill"
     :allow-custom="props.allowCustom"
     :skills="props.skillSpecification.from"
+    :disabled-skills="props.disabledSkills"
   />
   <div v-else>
     <span>{{ props.skillSpecification.from[0] }}</span>
