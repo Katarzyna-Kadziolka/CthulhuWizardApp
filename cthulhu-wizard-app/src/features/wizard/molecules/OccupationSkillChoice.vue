@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { mapSkills } from "@/features/composables/SkillsMapper";
-import { computed, ref, watchEffect } from "vue";
+import { computed, ref, watch } from "vue";
 import type { Investigator } from "../types/Investigator";
 import type { InvestigatorSkill } from "../types/InvestigatorSkill";
 import type { SkillSpecification } from "../types/SkillSpecification";
@@ -8,15 +8,12 @@ import SkillChoice from "./SkillChoice.vue";
 
 const props = withDefaults(
   defineProps<{
-    // to jest boop
-    modelValue: string;
-    investigator: Investigator;
+    modelValue: Investigator;
     savedInvestigator: Investigator;
     occupationSkillsSpecifications: Array<SkillSpecification>;
   }>(),
   {
-    modelValue: "",
-    investigator: undefined,
+    modelValue: undefined,
     savedInvestigator: undefined,
     occupationSkillsSpecifications: undefined,
   }
@@ -26,16 +23,16 @@ const value = computed({
   get() {
     return props.modelValue;
   },
-  set(value: string) {
+  set(value: Investigator) {
     emit("update:modelValue", value);
   },
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: string): void;
+  (e: "update:modelValue", value: Investigator): void;
 }>();
 
-const mappedSkillsSPecification = props.occupationSkillsSpecifications.map(
+const mappedSkillsSPecification = props.occupationSkillsSpecifications?.map(
   (element) => mapSkills(element)
 );
 
@@ -73,6 +70,18 @@ const addOrUpdateSkill = (skill: InvestigatorSkill) => {
   }
   selectedSkills.value.push(skill);
 };
+
+watch(
+  selectedSkills.value,
+  (newValue: Array<InvestigatorSkill>) => {
+    if (value.value) {
+      value.value.skills = newValue;
+    }
+  },
+  {
+    immediate: true,
+  }
+);
 </script>
 
 <template>
@@ -93,6 +102,4 @@ const addOrUpdateSkill = (skill: InvestigatorSkill) => {
   </div>
 </template>
 
-// TODO dodac majetnosc do listy skilli zawodowych // slected-skill-changed:
-resetuje juz rozdane punkty w danym SkillChoice; update zwartosci dropdownów w
-SkillChoisach
+// drugi SkillCHoice musi wybrać domyślnie drugi element z options jako selected

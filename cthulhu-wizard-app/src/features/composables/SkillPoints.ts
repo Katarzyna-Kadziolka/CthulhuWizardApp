@@ -8,17 +8,23 @@ export function useSkillPoints() {
     characteristic: Characteristic
   ) {
     let skillPoints = 0;
-    pattern.forEach((element) => {
-      let maxValue = 0;
-      element.possibleAttributes.forEach((attribute) => {
-        const compareValue = GetCharacteristicValue(attribute, characteristic);
-        if (compareValue > maxValue) {
-          maxValue = compareValue;
-        }
+    if (pattern != null) {
+      pattern.forEach((element) => {
+        let maxValue = 0;
+        element.possibleAttributes.forEach((attribute) => {
+          const compareValue = GetCharacteristicValue(
+            attribute,
+            characteristic
+          );
+          if (compareValue > maxValue) {
+            maxValue = compareValue;
+          }
+        });
+        skillPoints += element.multiplier * maxValue;
       });
-      skillPoints += element.multiplier * maxValue;
-    });
-    return skillPoints;
+      return skillPoints;
+    }
+    return 0;
   }
   return { getOccupationSkillPoints };
 }

@@ -58,6 +58,7 @@ function filterFn(
     :option-disable="(item) => props.disabledOptions.some((a) => a === item)"
     class="filter-select-base"
     @filter="filterFn"
+    
   >
     <template #no-option>
       <slot></slot>

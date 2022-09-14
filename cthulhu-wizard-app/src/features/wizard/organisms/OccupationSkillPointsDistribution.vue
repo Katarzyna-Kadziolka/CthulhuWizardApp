@@ -1,24 +1,42 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import ProgressBar from "../atoms/ProgressBar.vue";
-import DistributingPointsField from "../molecules/DistributingPointsField.vue";
-import FilterSelectBase from "../../../components/atoms/FilterSelectBase.vue";
 import type { SkillSpecification } from "../types/SkillSpecification";
 import { investigatorStore } from "@/stores/investigatorStore";
-
-onMounted(async () => {
-  const selectedOccupation = await store.getCurrentOccupationDetails();
-  skills.value = selectedOccupation.value?.skills;
-});
+import OccupationSkillChoice from "../molecules/OccupationSkillChoice.vue";
+import { useSkillPoints } from "../../composables/SkillPoints";
+import { getSkillDefaultValue } from "../../composables/SkillDefaults";
 
 const store = investigatorStore();
+const selectedOccupation = ref();
 const skills = ref<Array<SkillSpecification>>();
 
-const distributedPoints = ref(10);
-const maxValue = ref(150);
-const currentSkillValue = ref(0);
-const options = ["Dodge", "Swim", "Jump"];
-const selectedSkill = ref("");
+onMounted(async () => {
+  selectedOccupation.value = await store.getCurrentOccupationDetails();
+  skills.value = selectedOccupation.value.skills;
+});
+
+const investigator = store.investigator;
+const savedInvestigator = store.savedInvestigator;
+
+const { getOccupationSkillPoints } = useSkillPoints();
+const maxSkillPoints = getOccupationSkillPoints(
+  selectedOccupation.value?.skillPointsPattern,
+  store.investigator.characteristic
+);
+
+const distributedPoints = computed(() => {
+  if (investigator.skills) {
+    const distributedPoints = ref(0);
+    investigator.skills.forEach((element) => {
+      const minValue = getSkillDefaultValue(element.name, investigator);
+      distributedPoints.value =
+        distributedPoints.value + element.currentValue - minValue;
+    });
+    return distributedPoints.value;
+  }
+  return 0;
+});
 </script>
 
 <template>
@@ -29,16 +47,15 @@ const selectedSkill = ref("");
     <div class="occupation-skill-points-distribution__progress-bar">
       <ProgressBar
         :distributed-points="distributedPoints"
-        :max-value="maxValue"
+        :max-value="maxSkillPoints"
       />
     </div>
     <div class="occupation-skill-points-distribution__container">
-      <FilterSelectBase v-model="selectedSkill" :options="options">
-        <QItem>
-          <QItemSection class="text-grey"> No results </QItemSection>
-        </QItem>
-      </FilterSelectBase>
-      <DistributingPointsField v-model="currentSkillValue" />
+      <OccupationSkillChoice
+        v-model="investigator"
+        :occupation-skills-specifications="skills"
+        :saved-investigator="savedInvestigator"
+      />
     </div>
     <div class="occupation-skill-points-distribution__random-container">
       <QBtn
