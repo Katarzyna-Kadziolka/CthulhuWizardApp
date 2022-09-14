@@ -14,8 +14,8 @@ const value = computed({
   get() {
     return props.modelValue;
   },
-  set(value: number) {
-    emit("update:modelValue", value);
+  set(value: number | string) {
+    emit("update:modelValue", value === "" ? 0 : (value as number));
   },
 });
 
@@ -23,18 +23,19 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: number): void;
 }>();
 
-const halfValue = computed(() => Math.floor(+value.value / 2));
-const quarterValue = computed(() => Math.floor(+value.value / 4));
+const halfValue = computed(() => Math.floor(Number(value.value) / 2));
+const quarterValue = computed(() => Math.floor(Number(value.value) / 4));
 </script>
 
 <template>
   <div class="points-field">
     <div class="points-field__container">
       <QInput
-        v-model="value"
+        v-model.number="value"
         borderless
         filled
         dense
+        type="number"
         class="points-field__main-input"
       />
       <div class="points-field__half">
@@ -61,6 +62,16 @@ const quarterValue = computed(() => Math.floor(+value.value / 4));
     grid-row: 1 / span 2;
     border: 2px solid #535353;
     font-size: 1.2rem;
+    & > input::-webkit-outer-spin-button,
+    & > input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    & > input[type="number"] {
+      -moz-appearance: textfield;
+    }
   }
   &__half {
     grid-column: 2;

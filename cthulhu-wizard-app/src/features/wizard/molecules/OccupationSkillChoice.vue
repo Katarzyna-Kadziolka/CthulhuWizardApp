@@ -11,11 +11,13 @@ const props = withDefaults(
     modelValue: Investigator;
     savedInvestigator: Investigator;
     occupationSkillsSpecifications: Array<SkillSpecification>;
+    availableSkillPoints: number;
   }>(),
   {
     modelValue: undefined,
     savedInvestigator: undefined,
     occupationSkillsSpecifications: undefined,
+    availableSkillPoints: 0,
   }
 );
 
@@ -32,8 +34,8 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: Investigator): void;
 }>();
 
-const mappedSkillsSPecification = props.occupationSkillsSpecifications?.map(
-  (element) => mapSkills(element)
+const mappedSkillsSPecification = computed(() =>
+  props.occupationSkillsSpecifications?.map((element) => mapSkills(element))
 );
 
 const selectedSkills = ref<Array<InvestigatorSkill>>([]);
@@ -95,6 +97,7 @@ watch(
           :skill-specification="skillSpecification"
           :disabled-skills="selectedSkillsNames"
           :saved-investigator="props.savedInvestigator"
+          :available-points="props.availableSkillPoints"
           @skill-changed="onSkillChanged"
         />
       </div>

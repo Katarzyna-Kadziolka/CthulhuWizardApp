@@ -12,7 +12,7 @@ const props = withDefaults(
   }
 );
 
-const progress = ref(props.distributedPoints / props.maxValue);
+const progress = computed(() => props.distributedPoints / props.maxValue);
 const barLabel = computed(
   () => props.distributedPoints + " / " + props.maxValue
 );

@@ -53,12 +53,12 @@ function filterFn(
     dense
     hide-selected
     fill-input
+    behavior="menu"
     input-debounce="0"
     :options="searchedOptions"
     :option-disable="(item) => props.disabledOptions.some((a) => a === item)"
     class="filter-select-base"
     @filter="filterFn"
-    
   >
     <template #no-option>
       <slot></slot>

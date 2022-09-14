@@ -9,10 +9,11 @@ import type { InvestigatorSkill } from "../types/InvestigatorSkill";
 
 const props = withDefaults(
   defineProps<{
-    allowCustom: boolean;
+    allowCustom?: boolean;
     skillSpecification: SkillSpecification;
     savedInvestigator: Investigator;
     disabledSkills: Array<string>;
+    availablePoints: number;
   }>(),
   {
     allowCustom: false,
@@ -22,6 +23,7 @@ const props = withDefaults(
     }),
     savedInvestigator: undefined,
     disabledSkills: undefined,
+    availablePoints: 0,
   }
 );
 
@@ -47,12 +49,19 @@ const minValue = computed(() => {
   return 0;
 });
 
+const canAddMorePoints = computed(() => {
+  return props.availablePoints > 0;
+});
+
 const selectedSkill = ref(props.skillSpecification.from[0]);
 const currentValue = ref(minValue.value);
 
 watch(
   currentValue,
-  (newValue: number) => {
+  (newValue: number, oldValue: number | undefined) => {
+    if (newValue - (oldValue ?? 0) > props.availablePoints) {
+      currentValue.value = currentValue.value + props.availablePoints;
+    }
     emit(
       "skillChanged",
       {
@@ -66,6 +75,16 @@ watch(
     immediate: true,
   }
 );
+
+const getPreviousSkillValue = (skillName: string | undefined) => {
+  if (!skillName) {
+    return undefined;
+  }
+  return {
+    name: skillName,
+    currentValue: currentValue.value,
+  };
+};
 
 watch(
   selectedSkill,
@@ -84,16 +103,6 @@ watch(
     immediate: true,
   }
 );
-
-const getPreviousSkillValue = (skillName: string | undefined) => {
-  if (!skillName) {
-    return undefined;
-  }
-  return {
-    name: skillName,
-    currentValue: currentValue.value,
-  };
-};
 </script>
 
 <template>
@@ -104,9 +113,27 @@ const getPreviousSkillValue = (skillName: string | undefined) => {
     :skills="props.skillSpecification.from"
     :disabled-skills="props.disabledSkills"
   />
-  <div v-else>
-    <span>{{ props.skillSpecification.from[0] }}</span>
+  <div v-else class="skill-choice__single-skill">
+    <span
+      ><b>{{ props.skillSpecification.from[0] }}</b></span
+    >
   </div>
 
-  <DistributingPointsField v-model="currentValue" :min-skill-value="minValue" />
+  <DistributingPointsField
+    v-model="currentValue"
+    :min-skill-value="minValue"
+    :can-add-more-points="canAddMorePoints"
+    class="skill-choice__points-field"
+  />
 </template>
+
+<style scoped lang="scss">
+.skill-choice {
+  &__single-skill {
+    margin-bottom: 0.7rem;
+  }
+  &__points-field {
+    margin-bottom: 2rem;
+  }
+}
+</style>

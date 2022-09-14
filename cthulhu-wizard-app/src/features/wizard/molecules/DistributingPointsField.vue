@@ -6,10 +6,12 @@ const props = withDefaults(
   defineProps<{
     modelValue: number;
     minSkillValue: number;
+    canAddMorePoints: boolean;
   }>(),
   {
     modelValue: 0,
     minSkillValue: 0,
+    canAddMorePoints: true,
   }
 );
 
@@ -36,11 +38,12 @@ const emit = defineEmits<{
         class="distributing-points-field__button distributing-points-field__minus-button"
         @click="value = value - 5"
       />
-      <PointsField v-model="value" />
+      <PointsField v-model="value" :disable="!props.canAddMorePoints" />
       <QBtn
         color="secondary"
         label="+5"
         class="distributing-points-field__button distributing-points-field__plus-button"
+        :disable="!props.canAddMorePoints"
         @click="value = value + 5"
       />
     </div>

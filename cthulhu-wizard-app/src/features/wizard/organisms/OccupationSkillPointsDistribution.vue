@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import ProgressBar from "../atoms/ProgressBar.vue";
 import type { SkillSpecification } from "../types/SkillSpecification";
 import { investigatorStore } from "@/stores/investigatorStore";
 import OccupationSkillChoice from "../molecules/OccupationSkillChoice.vue";
 import { useSkillPoints } from "../../composables/SkillPoints";
 import { getSkillDefaultValue } from "../../composables/SkillDefaults";
+import type { InvestigatorSkill } from "../types/InvestigatorSkill";
 
 const store = investigatorStore();
 const selectedOccupation = ref();
-const skills = ref<Array<SkillSpecification>>();
+const skills = ref<Array<SkillSpecification>>([]);
 
 onMounted(async () => {
   selectedOccupation.value = await store.getCurrentOccupationDetails();
@@ -20,20 +21,21 @@ const investigator = store.investigator;
 const savedInvestigator = store.savedInvestigator;
 
 const { getOccupationSkillPoints } = useSkillPoints();
-const maxSkillPoints = getOccupationSkillPoints(
-  selectedOccupation.value?.skillPointsPattern,
-  store.investigator.characteristic
+const maxSkillPoints = computed(() =>
+  getOccupationSkillPoints(
+    selectedOccupation.value?.skillPointsPattern,
+    store.investigator.characteristic
+  )
 );
 
 const distributedPoints = computed(() => {
   if (investigator.skills) {
-    const distributedPoints = ref(0);
+    let distributedPoints = 0;
     investigator.skills.forEach((element) => {
       const minValue = getSkillDefaultValue(element.name, investigator);
-      distributedPoints.value =
-        distributedPoints.value + element.currentValue - minValue;
+      distributedPoints = distributedPoints + element.currentValue - minValue;
     });
-    return distributedPoints.value;
+    return distributedPoints;
   }
   return 0;
 });
@@ -55,6 +57,7 @@ const distributedPoints = computed(() => {
         v-model="investigator"
         :occupation-skills-specifications="skills"
         :saved-investigator="savedInvestigator"
+        :available-skill-points="maxSkillPoints - distributedPoints"
       />
     </div>
     <div class="occupation-skill-points-distribution__random-container">
