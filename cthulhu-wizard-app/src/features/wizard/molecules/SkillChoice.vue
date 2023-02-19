@@ -56,25 +56,28 @@ const canAddMorePoints = computed(() => {
 const selectedSkill = ref(props.skillSpecification.from[0]);
 const currentValue = ref(minValue.value);
 
-watch(
-  currentValue,
-  (newValue: number, oldValue: number | undefined) => {
-    if (newValue - (oldValue ?? 0) > props.availablePoints) {
-      currentValue.value = currentValue.value + props.availablePoints;
-    }
-    emit(
-      "skillChanged",
-      {
-        name: selectedSkill.value,
-        currentValue: newValue,
-      },
-      undefined
-    );
-  },
-  {
-    immediate: true,
+watch(currentValue, (newValue: number, oldValue: number | undefined) => {
+  if (newValue - (oldValue ?? 0) > props.availablePoints) {
+    currentValue.value = (oldValue ?? 0) + props.availablePoints;
+    emitSkillChanged(currentValue.value);
+  } else if (newValue < minValue.value) {
+    currentValue.value = minValue.value;
+    emitSkillChanged(currentValue.value);
+  } else {
+    emitSkillChanged(newValue);
   }
-);
+});
+
+const emitSkillChanged = (skillValue: number) => {
+  emit(
+    "skillChanged",
+    {
+      name: selectedSkill.value,
+      currentValue: skillValue,
+    },
+    undefined
+  );
+};
 
 const getPreviousSkillValue = (skillName: string | undefined) => {
   if (!skillName) {

@@ -37,6 +37,7 @@ const quarterValue = computed(() => Math.floor(Number(value.value) / 4));
         dense
         type="number"
         class="points-field__main-input"
+        input-class="number-without-arrows"
       />
       <div class="points-field__half">
         <span>{{ halfValue }}</span>
@@ -48,7 +49,7 @@ const quarterValue = computed(() => Math.floor(Number(value.value) / 4));
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .points-field {
   width: 30%;
   &__container {
@@ -62,16 +63,6 @@ const quarterValue = computed(() => Math.floor(Number(value.value) / 4));
     grid-row: 1 / span 2;
     border: 2px solid #535353;
     font-size: 1.2rem;
-    & > input::-webkit-outer-spin-button,
-    & > input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    /* Firefox */
-    & > input[type="number"] {
-      -moz-appearance: textfield;
-    }
   }
   &__half {
     grid-column: 2;

@@ -3,6 +3,7 @@ import { RouterView } from "vue-router";
 import RouterLinkBase from "./components/atoms/RouterLinkBase.vue";
 import { useQuasar } from "quasar";
 import { ref } from "vue";
+
 const $q = useQuasar();
 $q.dark.set(true);
 const rightDrawerOpen = ref(false);
