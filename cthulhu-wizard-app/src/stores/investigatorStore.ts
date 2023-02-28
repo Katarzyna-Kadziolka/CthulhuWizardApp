@@ -2,11 +2,11 @@ import type { InvestigatorSkill } from "./../features/wizard/types/InvestigatorS
 import type { Occupation } from "./../features/wizard/types/Occupation";
 import type { Investigator } from "./../features/wizard/types/Investigator";
 import { defineStore } from "pinia";
-import investigatorService from "@/api/investigatorService";
 import { Gender } from "@/features/wizard/types/Gender";
 import { Build } from "@/features/wizard/types/Build";
 import { DamageBonus } from "@/features/wizard/types/DamageBonus";
 import occupationService from "@/api/occupationService";
+import { cloneDeep } from "lodash";
 
 export const investigatorStore = defineStore({
   id: "investigator",
@@ -45,7 +45,7 @@ export const investigatorStore = defineStore({
   actions: {
     async saveInvestigator() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      this.savedInvestigator = this.investigator;
+      this.savedInvestigator = cloneDeep(this.investigator);
       //this.savedInvestigator = await investigatorService.create(investigator);
     },
     async loadOccupations() {

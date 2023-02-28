@@ -20,6 +20,7 @@ const value = computed({
     return props.modelValue;
   },
   set(value: number) {
+    if (value < props.minSkillValue) value = props.minSkillValue;
     emit("update:modelValue", value);
   },
 });

@@ -6,7 +6,6 @@ import { investigatorStore } from "@/stores/investigatorStore";
 import OccupationSkillChoice from "../molecules/OccupationSkillChoice.vue";
 import { useSkillPoints } from "../../composables/SkillPoints";
 import { getSkillDefaultValue } from "../../composables/SkillDefaults";
-import type { InvestigatorSkill } from "../types/InvestigatorSkill";
 
 const store = investigatorStore();
 const selectedOccupation = ref();

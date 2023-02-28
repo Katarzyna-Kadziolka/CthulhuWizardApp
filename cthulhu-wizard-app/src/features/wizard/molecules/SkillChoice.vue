@@ -40,11 +40,18 @@ const minValue = computed(() => {
     const investigatorSkillValue = props.savedInvestigator.skills.find(
       (a) => a.name === selectedSkill.value
     );
-    if (investigatorSkillValue) {
+    const minDefaultSkillValue = getSkillDefaultValue(
+      selectedSkill.value,
+      props.savedInvestigator
+    );
+    console.log(investigatorSkillValue);
+    if (
+      investigatorSkillValue &&
+      investigatorSkillValue.currentValue > minDefaultSkillValue
+    ) {
       return investigatorSkillValue.currentValue;
     }
-
-    return getSkillDefaultValue(selectedSkill.value, props.savedInvestigator);
+    return minDefaultSkillValue;
   }
   return 0;
 });
@@ -59,12 +66,16 @@ const currentValue = ref(minValue.value);
 watch(currentValue, (newValue: number, oldValue: number | undefined) => {
   if (newValue - (oldValue ?? 0) > props.availablePoints) {
     currentValue.value = (oldValue ?? 0) + props.availablePoints;
+    console.log("New value: " + newValue);
+    console.log("Min value: " + minValue.value);
+    console.log("Current value: " + currentValue.value);
     emitSkillChanged(currentValue.value);
-  } else if (newValue < minValue.value) {
+  } else if (newValue <= minValue.value) {
     currentValue.value = minValue.value;
+    console.log("New value: " + newValue);
+    console.log("Min value: " + minValue.value);
+    console.log("Current value: " + JSON.stringify(currentValue.value));
     emitSkillChanged(currentValue.value);
-  } else {
-    emitSkillChanged(newValue);
   }
 });
 
