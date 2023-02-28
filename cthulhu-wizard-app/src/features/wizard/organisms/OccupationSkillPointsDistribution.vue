@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref } from "vue";
 import ProgressBar from "../atoms/ProgressBar.vue";
 import type { SkillSpecification } from "../types/SkillSpecification";
 import { investigatorStore } from "@/stores/investigatorStore";
@@ -31,6 +31,8 @@ const distributedPoints = computed(() => {
   if (investigator.skills) {
     let distributedPoints = 0;
     investigator.skills.forEach((element) => {
+      if (element.name === undefined) return;
+      console.log(element);
       const minValue = getSkillDefaultValue(element.name, investigator);
       distributedPoints = distributedPoints + element.currentValue - minValue;
     });

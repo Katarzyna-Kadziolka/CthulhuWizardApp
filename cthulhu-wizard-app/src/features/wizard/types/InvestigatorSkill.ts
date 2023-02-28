@@ -1,4 +1,4 @@
 export interface InvestigatorSkill {
-  name: string;
+  name: string | undefined;
   currentValue: number;
 }
