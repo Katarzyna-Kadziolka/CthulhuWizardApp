@@ -40,7 +40,11 @@ const mappedSkillsSPecification = computed(() =>
 
 const selectedSkills = ref<Array<InvestigatorSkill>>([]);
 const selectedSkillsNames = computed(() => {
-  return selectedSkills.value.map((element) => element.name);
+  return selectedSkills.value.map((element) => {
+    if (element.name !== undefined) {
+      return element.name as string;
+    }
+  }) as string[];
 });
 
 function onSkillChanged(
