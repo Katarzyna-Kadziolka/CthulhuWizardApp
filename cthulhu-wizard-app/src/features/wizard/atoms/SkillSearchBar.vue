@@ -36,6 +36,7 @@ const emit = defineEmits<{
     v-model="value"
     :options="skills"
     :disabled-options="props.disabledSkills"
+    label="Choose skill"
   >
     <QItem v-if="props.allowCustom">
       <QItemSection class="text-grey">

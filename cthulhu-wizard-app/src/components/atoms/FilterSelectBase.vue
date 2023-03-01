@@ -7,11 +7,13 @@ const props = withDefaults(
     modelValue: string;
     options: Array<string>;
     disabledOptions: Array<string>;
+    label: string;
   }>(),
   {
     modelValue: "",
     options: undefined,
     disabledOptions: undefined,
+    label: "",
   }
 );
 
@@ -55,6 +57,7 @@ function filterFn(
     fill-input
     behavior="menu"
     input-debounce="0"
+    :label="value === '' ? props.label : undefined"
     :options="searchedOptions"
     :option-disable="(item) => props.disabledOptions.some((a) => a === item)"
     class="filter-select-base"
@@ -65,6 +68,8 @@ function filterFn(
     </template>
   </QSelect>
 </template>
+
+// TODO label zmienić na konfigurowalnego propsa
 
 <style scoped lang="scss">
 .filter-select-base {
