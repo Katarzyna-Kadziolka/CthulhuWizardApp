@@ -32,7 +32,6 @@ const distributedPoints = computed(() => {
     let distributedPoints = 0;
     investigator.skills.forEach((element) => {
       if (element.name === undefined) return;
-      console.log(element);
       const minValue = getSkillDefaultValue(element.name, investigator);
       distributedPoints = distributedPoints + element.currentValue - minValue;
     });
