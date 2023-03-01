@@ -60,7 +60,11 @@ const canAddMorePoints = computed(() => {
   return props.availablePoints > 0;
 });
 
-const selectedSkill = ref<string | undefined>(undefined);
+const selectedSkill = ref<string | undefined>(
+  props.skillSpecification.from.length > 1
+    ? undefined
+    : props.skillSpecification.from[0]
+);
 const currentValue = ref(minValue.value);
 
 watch(currentValue, (newValue: number, oldValue: number | undefined) => {

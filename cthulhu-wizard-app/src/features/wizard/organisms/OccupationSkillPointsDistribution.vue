@@ -40,16 +40,9 @@ const distributedPoints = computed(() => {
   return 0;
 });
 
-watch(
-  () => distributedPoints,
-  (newValue) => {
-    console.log("wtf");
-    emit("validationChanged", newValue.value === distributedPoints.value);
-  },
-  {
-    immediate: true,
-  }
-);
+watch(distributedPoints, (newValue) => {
+  emit("validationChanged", newValue === maxSkillPoints.value);
+});
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const emit = defineEmits<{
