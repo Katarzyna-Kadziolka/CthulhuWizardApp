@@ -66,7 +66,9 @@ function nextButtonClicked() {
           :header-nav="step > 4"
           icon="fas fa-hammer"
         >
-          <OccupationSkillPointsDistribution />
+          <OccupationSkillPointsDistribution
+            @validation-changed="isValid[step] = $event"
+          />
         </QStep>
         <template #navigation>
           <QStepperNavigation>
