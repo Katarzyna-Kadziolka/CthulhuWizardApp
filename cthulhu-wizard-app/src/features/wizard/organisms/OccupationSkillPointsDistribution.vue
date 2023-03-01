@@ -23,7 +23,7 @@ const { getOccupationSkillPoints } = useSkillPoints();
 const maxSkillPoints = computed(() =>
   getOccupationSkillPoints(
     selectedOccupation.value?.skillPointsPattern,
-    store.investigator.characteristic
+    investigator.characteristic
   )
 );
 
