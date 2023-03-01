@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import ProgressBar from "../atoms/ProgressBar.vue";
 import type { SkillSpecification } from "../types/SkillSpecification";
 import { investigatorStore } from "@/stores/investigatorStore";
@@ -39,6 +39,22 @@ const distributedPoints = computed(() => {
   }
   return 0;
 });
+
+watch(
+  () => distributedPoints,
+  (newValue) => {
+    console.log("wtf");
+    emit("validationChanged", newValue.value === distributedPoints.value);
+  },
+  {
+    immediate: true,
+  }
+);
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const emit = defineEmits<{
+  (e: "validationChanged", value: boolean): void;
+}>();
 </script>
 
 <template>
