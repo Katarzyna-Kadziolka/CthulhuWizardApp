@@ -6,7 +6,7 @@ import { getAllPilots } from "./Pilot";
 import { getAllSciences } from "./Science";
 import { getAllSurvivals } from "./Survival";
 
-export function getAllOccuaptions(): string[] {
+export function getAllSkills(): string[] {
   return [
     "Accounting",
     "Animal Handling",

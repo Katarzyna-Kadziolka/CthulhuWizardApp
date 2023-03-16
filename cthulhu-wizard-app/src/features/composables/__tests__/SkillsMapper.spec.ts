@@ -1,7 +1,7 @@
 import type { SkillSpecification } from "./../../wizard/types/SkillSpecification";
 import { describe, expect, it } from "vitest";
 import { mapSkills } from "../SkillsMapper";
-import { getAllOccuaptions } from "@/features/data/Occupation";
+import { getAllSkills } from "@/features/data/Occupation";
 import { getAllArtCrafts } from "@/features/data/ArtCraft";
 import { getAllFightings } from "@/features/data/Fighting";
 import { getAllFirearms } from "@/features/data/Firearms";
@@ -16,7 +16,7 @@ describe("mapSkills", () => {
       howMany: 1,
       from: ["Any"],
     };
-    const expectedSkills = getAllOccuaptions();
+    const expectedSkills = getAllSkills();
     const mappedSkillSpecification = mapSkills(skillSpecification);
     expect(mappedSkillSpecification.from.length).toBe(expectedSkills.length);
     mappedSkillSpecification.from.forEach((element) => {

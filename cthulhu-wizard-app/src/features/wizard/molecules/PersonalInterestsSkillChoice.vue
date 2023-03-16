@@ -10,13 +10,11 @@ const props = withDefaults(
   defineProps<{
     modelValue: Investigator;
     savedInvestigator: Investigator;
-    occupationSkillsSpecifications: Array<SkillSpecification>;
     availableSkillPoints: number;
   }>(),
   {
     modelValue: undefined,
     savedInvestigator: undefined,
-    occupationSkillsSpecifications: undefined,
     availableSkillPoints: 0,
   }
 );
@@ -34,9 +32,11 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: Investigator): void;
 }>();
 
-const mappedSkillsSPecification = computed(() =>
-  props.occupationSkillsSpecifications?.map((element) => mapSkills(element))
-);
+const anySkillSpecification: SkillSpecification = {
+  howMany: 1,
+  from: ["Any"],
+};
+const mappedSkills = computed(() => mapSkills(anySkillSpecification));
 
 const selectedSkills = ref<Array<InvestigatorSkill>>([]);
 const selectedSkillsNames = computed(() => {
@@ -92,19 +92,12 @@ watch(
 
 <template>
   <div>
-    <div
-      v-for="(skillSpecification, index) in mappedSkillsSPecification"
-      :key="index"
-    >
-      <div v-for="(_, step) in skillSpecification.howMany" :key="step">
-        <SkillChoice
-          :skill-specification="skillSpecification"
-          :disabled-skills="selectedSkillsNames"
-          :saved-investigator="props.savedInvestigator"
-          :available-points="props.availableSkillPoints"
-          @skill-changed="onSkillChanged"
-        />
-      </div>
-    </div>
+    <SkillChoice
+      :skill-specification="mappedSkills"
+      :disabled-skills="selectedSkillsNames"
+      :saved-investigator="props.savedInvestigator"
+      :available-points="props.availableSkillPoints"
+      @skill-changed="onSkillChanged"
+    />
   </div>
 </template>

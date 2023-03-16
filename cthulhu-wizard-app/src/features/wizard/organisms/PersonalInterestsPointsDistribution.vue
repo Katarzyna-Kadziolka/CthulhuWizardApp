@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { useSkillPoints } from "@/features/composables/SkillPoints";
 import { investigatorStore } from "@/stores/investigatorStore";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import ProgressBar from "../atoms/ProgressBar.vue";
 import { CharacteristicName } from "../types/CharacteristicName";
 import type { SkillPointsPattern } from "../types/SkillPointsPattern";
+import PersonalInterestsSkillChoice from "../molecules/PersonalInterestsSkillChoice.vue";
 
 const store = investigatorStore();
 const investigator = store.investigator;
-const savedSkills = store.savedInvestigator.skills;
+const savedInvestigator = store.savedInvestigator;
+const savedSkills = savedInvestigator.skills;
 const skills = investigator.skills;
 
 const { getOccupationSkillPoints } = useSkillPoints();
@@ -34,6 +36,7 @@ const distributedPoints = computed(() => {
       if (!minValue) return;
       distributedPoints = distributedPoints + element.currentValue - minValue;
     });
+    console.log(distributedPoints);
     return distributedPoints;
   }
   return 0;
@@ -41,6 +44,12 @@ const distributedPoints = computed(() => {
 
 const getMinValueForSkill = (skillName: string) => {
   return savedSkills.find((x) => x.name === skillName)?.currentValue;
+};
+
+let numberOfSkillChoices = ref(1);
+
+const onAddSkillClick = () => {
+  numberOfSkillChoices.value++;
 };
 </script>
 
@@ -55,7 +64,26 @@ const getMinValueForSkill = (skillName: string) => {
         :max-value="maxSkillPoints"
       />
     </div>
-    <div class="personal-interests-points-distribution__container"></div>
+    <div class="personal-interests-points-distribution__container">
+      <div
+        v-for="number in numberOfSkillChoices"
+        :key="number"
+        class="personal-interests-points-distribution__skill-choice"
+      >
+        <PersonalInterestsSkillChoice
+          v-model="investigator"
+          :saved-investigator="savedInvestigator"
+          :available-skill-points="maxSkillPoints - distributedPoints"
+        />
+        <QBtn
+          label="Add skill"
+          dense
+          color="secondary"
+          class="personal-interests-points-distribution__add-skill"
+          @click="onAddSkillClick"
+        />
+      </div>
+    </div>
     <div class="personal-interests-points-distribution__random-container">
       <QBtn
         label="Random"
@@ -88,6 +116,15 @@ const getMinValueForSkill = (skillName: string) => {
   }
   &__progress-bar {
     margin-bottom: 1.5rem;
+  }
+  &__add-skill {
+    min-width: 95%;
+  }
+  &__skill-choice {
+    margin-bottom: 3rem;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
   }
 }
 </style>

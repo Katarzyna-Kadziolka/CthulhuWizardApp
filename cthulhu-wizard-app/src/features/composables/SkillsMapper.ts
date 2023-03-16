@@ -1,5 +1,5 @@
 import type { SkillSpecification } from "../wizard/types/SkillSpecification";
-import { getAllOccuaptions } from "../data/Occupation";
+import { getAllSkills } from "../data/Occupation";
 import { getAllArtCrafts } from "../data/ArtCraft";
 import { getAllFightings } from "../data/Fighting";
 import { getAllFirearms } from "../data/Firearms";
@@ -16,7 +16,7 @@ export function mapSkills(skills: SkillSpecification): SkillSpecification {
   skills.from.forEach((element) => {
     switch (element) {
       case "Any":
-        mappedSkills.from = mappedSkills.from.concat(getAllOccuaptions());
+        mappedSkills.from = mappedSkills.from.concat(getAllSkills());
         break;
       case "Art / Craft (Any)":
         mappedSkills.from = mappedSkills.from.concat(getAllArtCrafts());
