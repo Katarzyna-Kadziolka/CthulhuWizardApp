@@ -75,14 +75,14 @@ const onAddSkillClick = () => {
           :saved-investigator="savedInvestigator"
           :available-skill-points="maxSkillPoints - distributedPoints"
         />
-        <QBtn
-          label="Add skill"
-          dense
-          color="secondary"
-          class="personal-interests-points-distribution__add-skill"
-          @click="onAddSkillClick"
-        />
       </div>
+      <QBtn
+        label="Add skill"
+        dense
+        color="secondary"
+        class="personal-interests-points-distribution__add-skill"
+        @click="onAddSkillClick"
+      />
     </div>
     <div class="personal-interests-points-distribution__random-container">
       <QBtn
@@ -105,6 +105,9 @@ const onAddSkillClick = () => {
   }
   &__container {
     min-height: 23rem;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
   }
   &__random-container {
     display: flex;
@@ -119,12 +122,10 @@ const onAddSkillClick = () => {
   }
   &__add-skill {
     min-width: 95%;
+    margin-bottom: 1.5rem;
   }
   &__skill-choice {
-    margin-bottom: 3rem;
-    display: flex;
-    align-content: center;
-    flex-direction: column;
+    margin-bottom: 1rem;
   }
 }
 </style>

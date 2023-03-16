@@ -70,11 +70,10 @@ const currentValue = ref(minValue.value);
 watch(currentValue, (newValue: number, oldValue: number | undefined) => {
   if (newValue - (oldValue ?? 0) > props.availablePoints) {
     currentValue.value = (oldValue ?? 0) + props.availablePoints;
-    emitSkillChanged(currentValue.value);
   } else if (newValue <= minValue.value) {
     currentValue.value = minValue.value;
-    emitSkillChanged(currentValue.value);
   }
+  emitSkillChanged(currentValue.value);
 });
 
 const emitSkillChanged = (skillValue: number) => {
