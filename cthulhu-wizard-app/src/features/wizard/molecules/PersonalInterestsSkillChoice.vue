@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { mapSkills } from "@/features/composables/SkillsMapper";
-import { computed, ref, watch } from "vue";
+import { computed, reactive, watch } from "vue";
 import type { Investigator } from "../types/Investigator";
 import type { InvestigatorSkill } from "../types/InvestigatorSkill";
 import type { SkillSpecification } from "../types/SkillSpecification";
@@ -40,9 +40,10 @@ const anySkillSpecification: SkillSpecification = {
 };
 const mappedSkills = computed(() => mapSkills(anySkillSpecification));
 
-const selectedSkills = ref<Array<InvestigatorSkill>>([]);
+const selectedSkills = reactive<Array<InvestigatorSkill>>([]);
+
 const selectedSkillsNames = computed(() => {
-  return selectedSkills.value.map((element) => {
+  return selectedSkills.map((element) => {
     if (element.name !== undefined) {
       return element.name as string;
     }
@@ -58,25 +59,27 @@ function onSkillChanged(
 }
 
 const removeSkill = (skill: InvestigatorSkill | undefined) => {
-  if (skill) {
-    const foundOldValueIndex = selectedSkills.value.findIndex(
-      (x) => x.name === skill.name
-    );
-    if (foundOldValueIndex !== -1) {
-      selectedSkills.value.splice(foundOldValueIndex, 1);
-    }
+  if (skill === undefined) return;
+
+  const foundOldValueIndex = selectedSkills.findIndex(
+    (x) => x.name === skill.name
+  );
+  if (foundOldValueIndex !== -1) {
+    selectedSkills.splice(foundOldValueIndex, 1);
   }
 };
 
 const addOrUpdateSkill = (skill: InvestigatorSkill) => {
-  const foundIndex = selectedSkills.value.findIndex(
-    (x) => x.name === skill.name
+  console.log(
+    "🚀 ~ file: PersonalInterestsSkillChoice.vue:81 ~ addOrUpdateSkill ~ selectedSkills.value:",
+    skill
   );
+  const foundIndex = selectedSkills.findIndex((x) => x.name === skill.name);
   if (foundIndex !== -1) {
-    selectedSkills.value[foundIndex] = skill;
+    selectedSkills[foundIndex] = skill;
     return;
   }
-  selectedSkills.value.push(skill);
+  selectedSkills.push(skill);
 };
 
 watch(
@@ -85,35 +88,28 @@ watch(
     newValue: Array<InvestigatorSkill>,
     oldValue: Array<InvestigatorSkill> | undefined
   ) => {
-    if (investigatorSkills.value) {
-      // tutaj trzeba dodac tylko selectedSkills tak żeby mie usunąc starych a te co się powtarzają nadpisać
-      // jeśli w newValue czegoś nie ma już, a było to powinnismy przywrocić wartość do wartośc z occupation
-      const newSkills = [...ocuppationSkills];
-      for (const newSkill of newValue) {
-        const foundIndex = newSkills.findIndex((x) => x.name === newSkill.name);
-        if (foundIndex === -1) {
-          newSkills.push(newSkill);
-          continue;
-        }
-        const foundSkill = newSkills[foundIndex];
-        foundSkill.currentValue = newSkill.currentValue;
+    console.log(
+      "🚀 ~ file: PersonalInterestsSkillChoice.vue:89 ~ newValue:",
+      newValue
+    );
+    // tutaj trzeba dodac tylko selectedSkills tak żeby mie usunąc starych a te co się powtarzają nadpisać
+    // jeśli w newValue czegoś nie ma już, a było to powinnismy przywrocić wartość do wartośc z occupation
+    const newSkills = [...ocuppationSkills];
+    for (const skill of newValue) {
+      const skillFoundIndex = newSkills.findIndex((x) => x.name === skill.name);
+      if (skillFoundIndex === -1) {
+        newSkills.push(skill);
+        continue;
       }
-
-      for (const currentSkill of oldValue as Array<InvestigatorSkill>) {
-        const missingSkill = newSkills.find(
-          (x) => x.name === currentSkill.name
-        );
-        if (missingSkill === undefined) {
-          const occupationSkill = ocuppationSkills.find(
-            (x) => x.name === currentSkill.name
-          );
-          if (occupationSkill === undefined) throw Error();
-          newSkills.push(occupationSkill);
-        }
-      }
-
-      investigatorSkills.value = newSkills;
+      newSkills[skillFoundIndex].currentValue = skill.currentValue;
     }
+
+    // dodaj nowe rzeczy jeśli są w new a nie ma ich w old
+
+    // usuń rzeczy, które są w old, a nie ma new
+    // chyba, że coś jest w occupationSkills, wtedy przywróć wartość z occupationSkill.currentValue
+    investigatorSkills.value = newSkills;
+    emit("update:modelValue", newSkills);
   },
   {
     immediate: true,

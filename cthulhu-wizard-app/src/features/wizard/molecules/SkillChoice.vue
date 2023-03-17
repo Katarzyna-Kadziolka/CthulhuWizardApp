@@ -70,9 +70,10 @@ const selectedSkill = ref<string | undefined>(
 const currentValue = ref(minValue.value);
 
 watch(currentValue, (newValue: number, oldValue: number | undefined) => {
+  // tutaj jest nieskończona pętla
   if (newValue - (oldValue ?? 0) > props.availablePoints) {
     currentValue.value = (oldValue ?? 0) + props.availablePoints;
-  } else if (newValue <= minValue.value) {
+  } else if (newValue < minValue.value) {
     currentValue.value = minValue.value;
   }
   emitSkillChanged(currentValue.value);

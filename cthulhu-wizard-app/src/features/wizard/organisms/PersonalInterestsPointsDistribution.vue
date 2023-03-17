@@ -6,12 +6,13 @@ import ProgressBar from "../atoms/ProgressBar.vue";
 import { CharacteristicName } from "../types/CharacteristicName";
 import type { SkillPointsPattern } from "../types/SkillPointsPattern";
 import PersonalInterestsSkillChoice from "../molecules/PersonalInterestsSkillChoice.vue";
+import type { InvestigatorSkill } from "../types/InvestigatorSkill";
+import { getSkillDefaultValue } from "@/features/composables/SkillDefaults";
 
 const store = investigatorStore();
 const investigator = store.investigator;
 const savedInvestigator = store.savedInvestigator;
 const savedSkills = savedInvestigator.skills;
-const skills = investigator.skills;
 
 const { getOccupationSkillPoints } = useSkillPoints();
 const personalInterestPointsPattern: SkillPointsPattern[] = [
@@ -28,21 +29,19 @@ const maxSkillPoints = computed(() =>
 );
 
 const distributedPoints = computed(() => {
-  if (investigator.skills) {
-    let distributedPoints = 0;
-    skills.forEach((element) => {
-      if (element.name === undefined) return;
-      const minValue = getMinValueForSkill(element.name);
-      if (!minValue) return;
-      distributedPoints = distributedPoints + element.currentValue - minValue;
-    });
-    return distributedPoints;
-  }
-  return 0;
+  let distributedPoints = 0;
+  investigator.skills.forEach((element) => {
+    if (element.name === undefined) return;
+    const minValue = getMinValueForSkill(element.name);
+    distributedPoints = distributedPoints + element.currentValue - minValue;
+  });
+  return distributedPoints;
 });
 
 const getMinValueForSkill = (skillName: string) => {
-  return savedSkills.find((x) => x.name === skillName)?.currentValue;
+  const savedSkill = savedSkills.find((x) => x.name === skillName);
+  if (savedSkill) return savedSkill.currentValue;
+  return getSkillDefaultValue(skillName, investigator.characteristic);
 };
 
 watch(distributedPoints, (newValue) => {
@@ -58,6 +57,13 @@ let numberOfSkillChoices = ref(1);
 
 const onAddSkillClick = () => {
   numberOfSkillChoices.value++;
+};
+
+const onSkillsChanged = (newSkills: InvestigatorSkill[]) => {
+  console.log(
+    "🚀 ~ file: PersonalInterestsPointsDistribution.vue:62 ~ onSkillsChanged ~ newSkills:",
+    newSkills
+  );
 };
 </script>
 
@@ -82,6 +88,7 @@ const onAddSkillClick = () => {
           v-model="investigator.skills"
           :saved-investigator="savedInvestigator"
           :available-skill-points="maxSkillPoints - distributedPoints"
+          @update:model-value="onSkillsChanged"
         />
       </div>
       <QBtn
