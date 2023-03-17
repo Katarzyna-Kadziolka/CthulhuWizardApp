@@ -9,7 +9,7 @@ import { cloneDeep } from "lodash";
 
 const props = withDefaults(
   defineProps<{
-    modelValue: Investigator;
+    modelValue: InvestigatorSkill[];
     savedInvestigator: Investigator;
     availableSkillPoints: number;
   }>(),
@@ -19,19 +19,19 @@ const props = withDefaults(
     availableSkillPoints: 0,
   }
 );
-const ocuppationSkills = cloneDeep(props.modelValue.skills);
+const ocuppationSkills = cloneDeep(props.modelValue);
 
-const value = computed({
+const investigatorSkills = computed({
   get() {
     return props.modelValue;
   },
-  set(value: Investigator) {
+  set(value: InvestigatorSkill[]) {
     emit("update:modelValue", value);
   },
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: Investigator): void;
+  (e: "update:modelValue", value: InvestigatorSkill[]): void;
 }>();
 
 const anySkillSpecification: SkillSpecification = {
@@ -85,7 +85,7 @@ watch(
     newValue: Array<InvestigatorSkill>,
     oldValue: Array<InvestigatorSkill> | undefined
   ) => {
-    if (value.value) {
+    if (investigatorSkills.value) {
       // tutaj trzeba dodac tylko selectedSkills tak żeby mie usunąc starych a te co się powtarzają nadpisać
       // jeśli w newValue czegoś nie ma już, a było to powinnismy przywrocić wartość do wartośc z occupation
       const newSkills = [...ocuppationSkills];
@@ -112,7 +112,7 @@ watch(
         }
       }
 
-      value.value.skills = newSkills;
+      investigatorSkills.value = newSkills;
     }
   },
   {

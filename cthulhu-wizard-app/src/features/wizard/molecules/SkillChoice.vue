@@ -27,6 +27,8 @@ const props = withDefaults(
   }
 );
 
+//może zamiast przekazywać savedInvestigator po rostu pobrac go tutaj?
+
 const emit = defineEmits<{
   (
     e: "skillChanged",

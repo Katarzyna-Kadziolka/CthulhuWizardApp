@@ -79,7 +79,7 @@ const onAddSkillClick = () => {
         class="personal-interests-points-distribution__skill-choice"
       >
         <PersonalInterestsSkillChoice
-          v-model="investigator"
+          v-model="investigator.skills"
           :saved-investigator="savedInvestigator"
           :available-skill-points="maxSkillPoints - distributedPoints"
         />
