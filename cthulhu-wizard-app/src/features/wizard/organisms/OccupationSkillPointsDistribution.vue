@@ -66,7 +66,7 @@ const emit = defineEmits<{
     </div>
     <div class="occupation-skill-points-distribution__container">
       <OccupationSkillChoice
-        v-model="investigator"
+        v-model="investigator.skills"
         :occupation-skills-specifications="skills"
         :saved-investigator="savedInvestigator"
         :available-skill-points="maxSkillPoints - distributedPoints"

@@ -8,7 +8,7 @@ import SkillChoice from "./SkillChoice.vue";
 
 const props = withDefaults(
   defineProps<{
-    modelValue: Investigator;
+    modelValue: InvestigatorSkill[];
     savedInvestigator: Investigator;
     occupationSkillsSpecifications: Array<SkillSpecification>;
     availableSkillPoints: number;
@@ -21,17 +21,17 @@ const props = withDefaults(
   }
 );
 
-const value = computed({
+const investigatorSkills = computed({
   get() {
     return props.modelValue;
   },
-  set(value: Investigator) {
+  set(value: InvestigatorSkill[]) {
     emit("update:modelValue", value);
   },
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: Investigator): void;
+  (e: "update:modelValue", value: InvestigatorSkill[]): void;
 }>();
 
 const mappedSkillsSPecification = computed(() =>
@@ -80,8 +80,8 @@ const addOrUpdateSkill = (skill: InvestigatorSkill) => {
 watch(
   selectedSkills.value,
   (newValue: Array<InvestigatorSkill>) => {
-    if (value.value) {
-      value.value.skills = newValue;
+    if (investigatorSkills.value) {
+      investigatorSkills.value = newValue;
     }
   },
   {
