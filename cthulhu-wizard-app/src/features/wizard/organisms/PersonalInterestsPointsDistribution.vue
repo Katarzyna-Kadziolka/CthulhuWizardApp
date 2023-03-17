@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useSkillPoints } from "@/features/composables/SkillPoints";
 import { investigatorStore } from "@/stores/investigatorStore";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import ProgressBar from "../atoms/ProgressBar.vue";
 import { CharacteristicName } from "../types/CharacteristicName";
 import type { SkillPointsPattern } from "../types/SkillPointsPattern";
@@ -36,7 +36,6 @@ const distributedPoints = computed(() => {
       if (!minValue) return;
       distributedPoints = distributedPoints + element.currentValue - minValue;
     });
-    console.log(distributedPoints);
     return distributedPoints;
   }
   return 0;
@@ -45,6 +44,15 @@ const distributedPoints = computed(() => {
 const getMinValueForSkill = (skillName: string) => {
   return savedSkills.find((x) => x.name === skillName)?.currentValue;
 };
+
+watch(distributedPoints, (newValue) => {
+  emit("validationChanged", newValue === maxSkillPoints.value);
+});
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const emit = defineEmits<{
+  (e: "validationChanged", value: boolean): void;
+}>();
 
 let numberOfSkillChoices = ref(1);
 

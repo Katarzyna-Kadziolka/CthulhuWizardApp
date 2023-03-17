@@ -150,7 +150,7 @@ watch(errors, () => {
         <AttrinutesDisplay v-model="investigator" />
       </div>
       <div class="characteristic-form__attributes-container">
-        <FightAttributesDisplay v-model="investigator" />
+        <FightAttributesDisplay v-model="investigator.characteristic" />
       </div>
     </div>
   </main>

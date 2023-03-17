@@ -78,7 +78,9 @@ function nextButtonClicked() {
           :header-nav="step > 5"
           icon="fas fa-solid fa-book"
         >
-          <PersonalInterestsPointsDistributionVue />
+          <PersonalInterestsPointsDistributionVue
+            @validation-changed="isValid[step] = $event"
+          />
         </QStep>
         <template #navigation>
           <QStepperNavigation>

@@ -5,6 +5,7 @@ import type { Investigator } from "../types/Investigator";
 import type { InvestigatorSkill } from "../types/InvestigatorSkill";
 import type { SkillSpecification } from "../types/SkillSpecification";
 import SkillChoice from "./SkillChoice.vue";
+import { cloneDeep } from "lodash";
 
 const props = withDefaults(
   defineProps<{
@@ -18,6 +19,7 @@ const props = withDefaults(
     availableSkillPoints: 0,
   }
 );
+const ocuppationSkills = cloneDeep(props.modelValue.skills);
 
 const value = computed({
   get() {
@@ -78,10 +80,39 @@ const addOrUpdateSkill = (skill: InvestigatorSkill) => {
 };
 
 watch(
-  selectedSkills.value,
-  (newValue: Array<InvestigatorSkill>) => {
+  selectedSkills,
+  (
+    newValue: Array<InvestigatorSkill>,
+    oldValue: Array<InvestigatorSkill> | undefined
+  ) => {
     if (value.value) {
-      value.value.skills = newValue;
+      // tutaj trzeba dodac tylko selectedSkills tak żeby mie usunąc starych a te co się powtarzają nadpisać
+      // jeśli w newValue czegoś nie ma już, a było to powinnismy przywrocić wartość do wartośc z occupation
+      const newSkills = [...ocuppationSkills];
+      for (const newSkill of newValue) {
+        const foundIndex = newSkills.findIndex((x) => x.name === newSkill.name);
+        if (foundIndex === -1) {
+          newSkills.push(newSkill);
+          continue;
+        }
+        const foundSkill = newSkills[foundIndex];
+        foundSkill.currentValue = newSkill.currentValue;
+      }
+
+      for (const currentSkill of oldValue as Array<InvestigatorSkill>) {
+        const missingSkill = newSkills.find(
+          (x) => x.name === currentSkill.name
+        );
+        if (missingSkill === undefined) {
+          const occupationSkill = ocuppationSkills.find(
+            (x) => x.name === currentSkill.name
+          );
+          if (occupationSkill === undefined) throw Error();
+          newSkills.push(occupationSkill);
+        }
+      }
+
+      value.value.skills = newSkills;
     }
   },
   {
