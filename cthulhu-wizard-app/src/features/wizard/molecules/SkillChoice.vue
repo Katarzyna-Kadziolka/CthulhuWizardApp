@@ -43,7 +43,7 @@ const minValue = computed(() => {
     if (selectedSkill.value == undefined) return 0;
     const minDefaultSkillValue = getSkillDefaultValue(
       selectedSkill.value,
-      props.savedInvestigator
+      props.savedInvestigator.characteristic
     );
     if (
       investigatorSkillValue &&
