@@ -67,7 +67,6 @@ const removeSkill = (skill: InvestigatorSkill | undefined) => {
 };
 
 const addOrUpdateSkill = (skill: InvestigatorSkill) => {
-  if (skill.name === undefined) return;
   const foundIndex = selectedSkills.value.findIndex(
     (x) => x.name === skill.name
   );

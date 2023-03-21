@@ -103,7 +103,8 @@ const getPreviousSkillValue = (skillName: string | undefined) => {
 watch(
   selectedSkill,
   (newValue: string | undefined, oldValue: string | undefined) => {
-    var previousValue = getPreviousSkillValue(oldValue);
+    if (newValue === undefined) return;
+    const previousValue = getPreviousSkillValue(oldValue);
     currentValue.value = minValue.value;
 
     const skill = {

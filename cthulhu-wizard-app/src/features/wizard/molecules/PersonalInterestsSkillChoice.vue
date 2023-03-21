@@ -70,7 +70,6 @@ const removeSkill = (skill: InvestigatorSkill | undefined) => {
 };
 
 const addOrUpdateSkill = (skill: InvestigatorSkill) => {
-  if (skill.name === undefined) return;
   const foundIndex = selectedSkills.findIndex((x) => x.name === skill.name);
   if (foundIndex !== -1) {
     selectedSkills[foundIndex] = skill;

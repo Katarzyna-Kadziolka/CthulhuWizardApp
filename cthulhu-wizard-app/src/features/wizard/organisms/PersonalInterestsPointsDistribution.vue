@@ -6,7 +6,6 @@ import ProgressBar from "../atoms/ProgressBar.vue";
 import { CharacteristicName } from "../types/CharacteristicName";
 import type { SkillPointsPattern } from "../types/SkillPointsPattern";
 import PersonalInterestsSkillChoice from "../molecules/PersonalInterestsSkillChoice.vue";
-import type { InvestigatorSkill } from "../types/InvestigatorSkill";
 import { getSkillDefaultValue } from "@/features/composables/SkillDefaults";
 
 const store = investigatorStore();
