@@ -58,13 +58,6 @@ let numberOfSkillChoices = ref(1);
 const onAddSkillClick = () => {
   numberOfSkillChoices.value++;
 };
-
-const onSkillsChanged = (newSkills: InvestigatorSkill[]) => {
-  console.log(
-    "🚀 ~ file: PersonalInterestsPointsDistribution.vue:62 ~ onSkillsChanged ~ newSkills:",
-    newSkills
-  );
-};
 </script>
 
 <template>
@@ -88,12 +81,12 @@ const onSkillsChanged = (newSkills: InvestigatorSkill[]) => {
           v-model="investigator.skills"
           :saved-investigator="savedInvestigator"
           :available-skill-points="maxSkillPoints - distributedPoints"
-          @update:model-value="onSkillsChanged"
         />
       </div>
       <QBtn
         label="Add skill"
         dense
+        :disable="maxSkillPoints === distributedPoints"
         color="secondary"
         class="personal-interests-points-distribution__add-skill"
         @click="onAddSkillClick"

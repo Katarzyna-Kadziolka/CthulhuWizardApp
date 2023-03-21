@@ -70,10 +70,6 @@ const removeSkill = (skill: InvestigatorSkill | undefined) => {
 };
 
 const addOrUpdateSkill = (skill: InvestigatorSkill) => {
-  console.log(
-    "🚀 ~ file: PersonalInterestsSkillChoice.vue:81 ~ addOrUpdateSkill ~ selectedSkills.value:",
-    skill
-  );
   const foundIndex = selectedSkills.findIndex((x) => x.name === skill.name);
   if (foundIndex !== -1) {
     selectedSkills[foundIndex] = skill;
@@ -84,16 +80,7 @@ const addOrUpdateSkill = (skill: InvestigatorSkill) => {
 
 watch(
   selectedSkills,
-  (
-    newValue: Array<InvestigatorSkill>,
-    oldValue: Array<InvestigatorSkill> | undefined
-  ) => {
-    console.log(
-      "🚀 ~ file: PersonalInterestsSkillChoice.vue:89 ~ newValue:",
-      newValue
-    );
-    // tutaj trzeba dodac tylko selectedSkills tak żeby mie usunąc starych a te co się powtarzają nadpisać
-    // jeśli w newValue czegoś nie ma już, a było to powinnismy przywrocić wartość do wartośc z occupation
+  (newValue: Array<InvestigatorSkill>) => {
     const newSkills = [...ocuppationSkills];
     for (const skill of newValue) {
       const skillFoundIndex = newSkills.findIndex((x) => x.name === skill.name);
@@ -103,11 +90,6 @@ watch(
       }
       newSkills[skillFoundIndex].currentValue = skill.currentValue;
     }
-
-    // dodaj nowe rzeczy jeśli są w new a nie ma ich w old
-
-    // usuń rzeczy, które są w old, a nie ma new
-    // chyba, że coś jest w occupationSkills, wtedy przywróć wartość z occupationSkill.currentValue
     investigatorSkills.value = newSkills;
     emit("update:modelValue", newSkills);
   },
