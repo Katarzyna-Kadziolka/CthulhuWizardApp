@@ -27,8 +27,6 @@ const props = withDefaults(
   }
 );
 
-//może zamiast przekazywać savedInvestigator po rostu pobrac go tutaj?
-
 const emit = defineEmits<{
   (
     e: "skillChanged",
@@ -58,25 +56,55 @@ const minValue = computed(() => {
   return 0;
 });
 
-const canAddMorePoints = computed(() => {
-  return props.availablePoints > 0;
-});
-
 const selectedSkill = ref<string | undefined>(
   props.skillSpecification.from.length > 1
     ? undefined
     : props.skillSpecification.from[0]
 );
-const currentValue = ref(minValue.value);
 
-watch(currentValue, (newValue: number, oldValue: number | undefined) => {
-  // tutaj jest nieskończona pętla
-  if (newValue - (oldValue ?? 0) > props.availablePoints) {
-    currentValue.value = (oldValue ?? 0) + props.availablePoints;
-  } else if (newValue < minValue.value) {
-    currentValue.value = minValue.value;
-  }
-  emitSkillChanged(currentValue.value);
+const canAddPoints = computed(() => {
+  return (
+    props.availablePoints > 0 &&
+    selectedSkill.value !== undefined &&
+    currentValue.value < 99
+  );
+});
+
+const canSubstractPoints = computed(() => {
+  return (
+    selectedSkill.value !== undefined && currentValue.value !== minValue.value
+  );
+});
+const isSkillValueLessThanMinValue = (newValue: number, minValue: number) =>
+  newValue < minValue;
+const isCurrentValueGreaterThanAvailablePoints = (
+  newValue: number,
+  oldValue: number
+) => newValue - oldValue > props.availablePoints;
+const _currentValue = ref(minValue.value);
+const currentValue = computed({
+  // getter
+  get() {
+    return _currentValue.value;
+  },
+  // setter
+  set(newValue) {
+    let calculatedValue = newValue;
+    if (
+      isCurrentValueGreaterThanAvailablePoints(
+        newValue - minValue.value,
+        _currentValue.value
+      )
+    ) {
+      calculatedValue = _currentValue.value + props.availablePoints;
+    } else if (isSkillValueLessThanMinValue(newValue, minValue.value)) {
+      calculatedValue = minValue.value;
+    } else if (newValue > 99) {
+      calculatedValue = 99;
+    }
+    _currentValue.value = calculatedValue;
+    emitSkillChanged(calculatedValue);
+  },
 });
 
 const emitSkillChanged = (skillValue: number) => {
@@ -104,6 +132,7 @@ watch(
   selectedSkill,
   (newValue: string | undefined, oldValue: string | undefined) => {
     if (newValue === undefined) return;
+
     const previousValue = getPreviousSkillValue(oldValue);
     currentValue.value = minValue.value;
 
@@ -113,9 +142,6 @@ watch(
     };
 
     emit("skillChanged", skill, previousValue);
-  },
-  {
-    immediate: true,
   }
 );
 </script>
@@ -136,8 +162,8 @@ watch(
 
   <DistributingPointsField
     v-model="currentValue"
-    :min-skill-value="minValue"
-    :can-add-more-points="canAddMorePoints"
+    :can-add-points="canAddPoints"
+    :can-substract-points="canSubstractPoints"
     class="skill-choice__points-field"
   />
 </template>

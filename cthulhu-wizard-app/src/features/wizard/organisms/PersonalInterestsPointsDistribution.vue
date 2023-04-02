@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useSkillPoints } from "@/features/composables/SkillPoints";
 import { investigatorStore } from "@/stores/investigatorStore";
-import { computed, ref, watch } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import ProgressBar from "../atoms/ProgressBar.vue";
 import { CharacteristicName } from "../types/CharacteristicName";
 import type { SkillPointsPattern } from "../types/SkillPointsPattern";
 import PersonalInterestsSkillChoice from "../molecules/PersonalInterestsSkillChoice.vue";
 import { getSkillDefaultValue } from "@/features/composables/SkillDefaults";
+import type { InvestigatorSkill } from "../types/InvestigatorSkill";
 
 const store = investigatorStore();
 const investigator = store.investigator;
@@ -26,6 +27,14 @@ const maxSkillPoints = computed(() =>
     investigator.characteristic
   )
 );
+
+const selectedSkills = reactive<Array<InvestigatorSkill>>([]);
+watch(selectedSkills, (newValue) => {
+  investigator.skills = [
+    ...savedSkills.filter((a) => newValue.every((x) => x.name !== a.name)),
+    ...newValue,
+  ];
+});
 
 const distributedPoints = computed(() => {
   let distributedPoints = 0;
@@ -57,6 +66,38 @@ let numberOfSkillChoices = ref(1);
 const onAddSkillClick = () => {
   numberOfSkillChoices.value++;
 };
+
+const onSkillAdded = (skill: InvestigatorSkill) => {
+  selectedSkills.push(skill);
+};
+
+const onSkillRemoved = (skill: InvestigatorSkill) => {
+  // const savedSkillFoundIndex = savedSkills.findIndex(
+  //   (x) => x.name === skill.name
+  // );
+  const skillFoundIndex = selectedSkills.findIndex(
+    (x) => x.name === skill.name
+  );
+  selectedSkills.splice(skillFoundIndex, 1);
+
+  // if (savedSkillFoundIndex === -1) {
+  //   return;
+  // }
+  // selectedSkills[skillFoundIndex].currentValue ==
+  //   savedSkills[savedSkillFoundIndex].currentValue;
+};
+
+const onSkillUpdated = (skill: InvestigatorSkill) => {
+  const skillFoundIndex = selectedSkills.findIndex(
+    (x) => x.name === skill.name
+  );
+  if (skillFoundIndex !== -1) {
+    selectedSkills[skillFoundIndex].currentValue = skill.currentValue;
+    return;
+  }
+
+  selectedSkills.push(skill);
+};
 </script>
 
 <template>
@@ -77,9 +118,12 @@ const onAddSkillClick = () => {
         class="personal-interests-points-distribution__skill-choice"
       >
         <PersonalInterestsSkillChoice
-          v-model="investigator.skills"
           :saved-investigator="savedInvestigator"
           :available-skill-points="maxSkillPoints - distributedPoints"
+          :selected-skills="selectedSkills"
+          @skill-added="onSkillAdded"
+          @skill-removed="onSkillRemoved"
+          @skill-updated="onSkillUpdated"
         />
       </div>
       <QBtn

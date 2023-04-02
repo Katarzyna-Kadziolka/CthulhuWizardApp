@@ -5,13 +5,13 @@ import PointsField from "../atoms/PointsField.vue";
 const props = withDefaults(
   defineProps<{
     modelValue: number;
-    minSkillValue: number;
-    canAddMorePoints: boolean;
+    canAddPoints: boolean;
+    canSubstractPoints: boolean;
   }>(),
   {
     modelValue: 0,
-    minSkillValue: 0,
-    canAddMorePoints: true,
+    canAddPoints: true,
+    canSubstractPoints: true,
   }
 );
 
@@ -20,7 +20,6 @@ const value = computed({
     return props.modelValue;
   },
   set(value: number) {
-    if (value < props.minSkillValue) value = props.minSkillValue;
     emit("update:modelValue", value);
   },
 });
@@ -37,14 +36,15 @@ const emit = defineEmits<{
         color="secondary"
         label="-5"
         class="distributing-points-field__button distributing-points-field__minus-button"
+        :disable="!props.canSubstractPoints"
         @click="value = value - 5"
       />
-      <PointsField v-model="value" :disable="!props.canAddMorePoints" />
+      <PointsField v-model="value" :disable="!props.canAddPoints" />
       <QBtn
         color="secondary"
         label="+5"
         class="distributing-points-field__button distributing-points-field__plus-button"
-        :disable="!props.canAddMorePoints"
+        :disable="!props.canAddPoints"
         @click="value = value + 5"
       />
     </div>
