@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import ProgressBar from "../atoms/ProgressBar.vue";
 import type { SkillSpecification } from "../types/SkillSpecification";
 import { investigatorStore } from "@/stores/investigatorStore";
@@ -23,7 +23,7 @@ const { getOccupationSkillPoints } = useSkillPoints();
 const maxSkillPoints = computed(() =>
   getOccupationSkillPoints(
     selectedOccupation.value?.skillPointsPattern,
-    store.investigator.characteristic
+    investigator.characteristic
   )
 );
 
@@ -32,13 +32,25 @@ const distributedPoints = computed(() => {
     let distributedPoints = 0;
     investigator.skills.forEach((element) => {
       if (element.name === undefined) return;
-      const minValue = getSkillDefaultValue(element.name, investigator);
+      const minValue = getSkillDefaultValue(
+        element.name,
+        investigator.characteristic
+      );
       distributedPoints = distributedPoints + element.currentValue - minValue;
     });
     return distributedPoints;
   }
   return 0;
 });
+
+watch(distributedPoints, (newValue) => {
+  emit("validationChanged", newValue === maxSkillPoints.value);
+});
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const emit = defineEmits<{
+  (e: "validationChanged", value: boolean): void;
+}>();
 </script>
 
 <template>
@@ -54,7 +66,7 @@ const distributedPoints = computed(() => {
     </div>
     <div class="occupation-skill-points-distribution__container">
       <OccupationSkillChoice
-        v-model="investigator"
+        v-model="investigator.skills"
         :occupation-skills-specifications="skills"
         :saved-investigator="savedInvestigator"
         :available-skill-points="maxSkillPoints - distributedPoints"

@@ -25,9 +25,9 @@ export const investigatorStore = defineStore({
         size: 1,
         dexterity: 1,
         appearance: 1,
-        intelligence: 1,
+        intelligence: 10,
         power: 1,
-        education: 1,
+        education: 10,
         luck: 1,
         damageBonus: DamageBonus.MinusTwo,
         build: Build.MinusTwo,
@@ -36,18 +36,35 @@ export const investigatorStore = defineStore({
         magicPoints: 0,
         sanity: 0,
       },
-      occupation: undefined,
+      occupation: {
+        id: "8568ccf7-c27c-4a87-ad05-5cea353b3e41",
+        name: "Antiquarian",
+      },
       skills: [] as Array<InvestigatorSkill>,
     } as Investigator,
     savedInvestigator: {} as Investigator,
     occupations: [] as Array<Occupation>,
+    investigatorStates: [] as Array<Investigator>,
   }),
   actions: {
     async saveInvestigator() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       this.savedInvestigator = cloneDeep(this.investigator);
+      this.investigatorStates.push(this.savedInvestigator);
       //this.savedInvestigator = await investigatorService.create(investigator);
     },
+    async restoreInvestigator() {
+      if (this.investigatorStates.length > 0) {
+        const prevStates = this.investigatorStates.pop() as Investigator;
+        this.investigator = cloneDeep(prevStates);
+      }
+      if (this.investigatorStates.length > 0) {
+        this.savedInvestigator = cloneDeep(
+          this.investigatorStates[this.investigatorStates.length - 1]
+        );
+      }
+    },
+
     async loadOccupations() {
       this.occupations = await occupationService.getOccupations();
     },

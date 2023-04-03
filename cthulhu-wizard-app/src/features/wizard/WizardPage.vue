@@ -6,16 +6,22 @@ import NavigationButtons from "./organisms/NavigationButtons.vue";
 import OccupationChoice from "./organisms/OccupationChoice.vue";
 import OccupationSkillPointsDistribution from "./organisms/OccupationSkillPointsDistribution.vue";
 import { investigatorStore } from "@/stores/investigatorStore";
+import PersonalInterestsPointsDistributionVue from "./organisms/PersonalInterestsPointsDistribution.vue";
 
 const isValid = ref<Array<boolean>>([true]);
 const step = ref(1);
 const stepper = ref();
-const { saveInvestigator } = investigatorStore();
+const { saveInvestigator, restoreInvestigator } = investigatorStore();
 
-function nextButtonClicked() {
+const nextButtonClicked = () => {
   stepper.value.next();
   saveInvestigator();
-}
+};
+
+const previousButtonClicked = () => {
+  stepper.value.previous();
+  restoreInvestigator();
+};
 </script>
 
 <template>
@@ -61,12 +67,25 @@ function nextButtonClicked() {
         </QStep>
         <QStep
           :name="4"
-          title="Occupation"
+          title="Occupation skills"
           :done="step > 4"
           :header-nav="step > 4"
           icon="fas fa-hammer"
         >
-          <OccupationSkillPointsDistribution />
+          <OccupationSkillPointsDistribution
+            @validation-changed="isValid[step] = $event"
+          />
+        </QStep>
+        <QStep
+          :name="5"
+          title="Personal interests"
+          :done="step > 5"
+          :header-nav="step > 5"
+          icon="fas fa-solid fa-book"
+        >
+          <PersonalInterestsPointsDistributionVue
+            @validation-changed="isValid[step] = $event"
+          />
         </QStep>
         <template #navigation>
           <QStepperNavigation>
@@ -74,7 +93,7 @@ function nextButtonClicked() {
               :can-go-next="isValid[step]"
               :can-go-back="step > 1"
               @next-button-clicked="nextButtonClicked"
-              @previous-button-clicked="stepper.previous()"
+              @previous-button-clicked="previousButtonClicked"
             />
           </QStepperNavigation>
         </template>

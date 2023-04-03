@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import AttributeDisplay from "../atoms/AttributeDisplay.vue";
 import { useWizard } from "@/features/composables/Wizard";
-import type { Investigator } from "../types/Investigator";
 import { computed, watchEffect } from "vue";
+import type { Characteristic } from "../types/Characteristic";
 
 const props = defineProps<{
-  modelValue: Investigator;
+  modelValue: Characteristic;
 }>();
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: Investigator): void;
+  (e: "update:modelValue", value: Characteristic): void;
 }>();
 
-const value = computed({
+const characteristic = computed({
   get() {
     return props.modelValue;
   },
-  set(value: Investigator) {
+  set(value: Characteristic) {
     emit("update:modelValue", value);
   },
 });
@@ -24,16 +24,16 @@ const value = computed({
 const { getDamageBonus, getBuild } = useWizard();
 
 watchEffect(() => {
-  value.value.characteristic.damageBonus = getDamageBonus(
-    value.value.characteristic.strength,
-    value.value.characteristic.size
+  characteristic.value.damageBonus = getDamageBonus(
+    characteristic.value.strength,
+    characteristic.value.size
   );
 });
 
 watchEffect(() => {
-  value.value.characteristic.build = getBuild(
-    value.value.characteristic.strength,
-    value.value.characteristic.size
+  characteristic.value.build = getBuild(
+    characteristic.value.strength,
+    characteristic.value.size
   );
 });
 </script>
@@ -46,9 +46,9 @@ watchEffect(() => {
       </div>
       <AttributeDisplay
         label="Damage Bonus"
-        :value="value.characteristic.damageBonus"
+        :value="characteristic.damageBonus"
       />
-      <AttributeDisplay label="Build" :value="value.characteristic.build" />
+      <AttributeDisplay label="Build" :value="characteristic.build" />
     </QCardSection>
   </QCard>
 </template>
