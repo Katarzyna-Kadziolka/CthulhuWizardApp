@@ -11,12 +11,17 @@ import PersonalInterestsPointsDistributionVue from "./organisms/PersonalInterest
 const isValid = ref<Array<boolean>>([true]);
 const step = ref(1);
 const stepper = ref();
-const { saveInvestigator } = investigatorStore();
+const { saveInvestigator, restoreInvestigator } = investigatorStore();
 
-function nextButtonClicked() {
+const nextButtonClicked = () => {
   stepper.value.next();
   saveInvestigator();
-}
+};
+
+const previousButtonClicked = () => {
+  stepper.value.previous();
+  restoreInvestigator();
+};
 </script>
 
 <template>
@@ -88,7 +93,7 @@ function nextButtonClicked() {
               :can-go-next="isValid[step]"
               :can-go-back="step > 1"
               @next-button-clicked="nextButtonClicked"
-              @previous-button-clicked="stepper.previous()"
+              @previous-button-clicked="previousButtonClicked"
             />
           </QStepperNavigation>
         </template>

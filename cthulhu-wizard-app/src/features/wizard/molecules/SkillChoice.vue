@@ -93,7 +93,7 @@ const currentValue = computed({
     if (
       isCurrentValueGreaterThanAvailablePoints(
         newValue - minValue.value,
-        _currentValue.value
+        _currentValue.value - minValue.value
       )
     ) {
       calculatedValue = _currentValue.value + props.availablePoints;
