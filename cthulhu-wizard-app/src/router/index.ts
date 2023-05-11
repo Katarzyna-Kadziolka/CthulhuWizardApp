@@ -29,6 +29,11 @@ const router = createRouter({
       name: "settings",
       component: () => import("../features/settings/SettingsPage.vue"),
     },
+    {
+      path: "/image-generator",
+      name: "imageGenerator",
+      component: () => import("../features/imageGenerator/ImageGenerator.vue"),
+    },
   ],
 });
 

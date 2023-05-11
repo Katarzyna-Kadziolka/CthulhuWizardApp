@@ -43,7 +43,7 @@ const minValue = computed(() => {
     if (selectedSkill.value == undefined) return 0;
     const minDefaultSkillValue = getSkillDefaultValue(
       selectedSkill.value,
-      props.savedInvestigator
+      props.savedInvestigator.characteristic
     );
     if (
       investigatorSkillValue &&
@@ -56,25 +56,55 @@ const minValue = computed(() => {
   return 0;
 });
 
-const canAddMorePoints = computed(() => {
-  return props.availablePoints > 0;
-});
-
 const selectedSkill = ref<string | undefined>(
   props.skillSpecification.from.length > 1
     ? undefined
     : props.skillSpecification.from[0]
 );
-const currentValue = ref(minValue.value);
 
-watch(currentValue, (newValue: number, oldValue: number | undefined) => {
-  if (newValue - (oldValue ?? 0) > props.availablePoints) {
-    currentValue.value = (oldValue ?? 0) + props.availablePoints;
-    emitSkillChanged(currentValue.value);
-  } else if (newValue <= minValue.value) {
-    currentValue.value = minValue.value;
-    emitSkillChanged(currentValue.value);
-  }
+const canAddPoints = computed(() => {
+  return (
+    props.availablePoints > 0 &&
+    selectedSkill.value !== undefined &&
+    currentValue.value < 99
+  );
+});
+
+const canSubstractPoints = computed(() => {
+  return (
+    selectedSkill.value !== undefined && currentValue.value !== minValue.value
+  );
+});
+const isSkillValueLessThanMinValue = (newValue: number, minValue: number) =>
+  newValue < minValue;
+const isCurrentValueGreaterThanAvailablePoints = (
+  newValue: number,
+  oldValue: number
+) => newValue - oldValue > props.availablePoints;
+const _currentValue = ref(minValue.value);
+const currentValue = computed({
+  // getter
+  get() {
+    return _currentValue.value;
+  },
+  // setter
+  set(newValue) {
+    let calculatedValue = newValue;
+    if (
+      isCurrentValueGreaterThanAvailablePoints(
+        newValue - minValue.value,
+        _currentValue.value - minValue.value
+      )
+    ) {
+      calculatedValue = _currentValue.value + props.availablePoints;
+    } else if (isSkillValueLessThanMinValue(newValue, minValue.value)) {
+      calculatedValue = minValue.value;
+    } else if (newValue > 99) {
+      calculatedValue = 99;
+    }
+    _currentValue.value = calculatedValue;
+    emitSkillChanged(calculatedValue);
+  },
 });
 
 const emitSkillChanged = (skillValue: number) => {
@@ -101,7 +131,9 @@ const getPreviousSkillValue = (skillName: string | undefined) => {
 watch(
   selectedSkill,
   (newValue: string | undefined, oldValue: string | undefined) => {
-    var previousValue = getPreviousSkillValue(oldValue);
+    if (newValue === undefined) return;
+
+    const previousValue = getPreviousSkillValue(oldValue);
     currentValue.value = minValue.value;
 
     const skill = {
@@ -110,9 +142,6 @@ watch(
     };
 
     emit("skillChanged", skill, previousValue);
-  },
-  {
-    immediate: true,
   }
 );
 </script>
@@ -133,8 +162,8 @@ watch(
 
   <DistributingPointsField
     v-model="currentValue"
-    :min-skill-value="minValue"
-    :can-add-more-points="canAddMorePoints"
+    :can-add-points="canAddPoints"
+    :can-substract-points="canSubstractPoints"
     class="skill-choice__points-field"
   />
 </template>

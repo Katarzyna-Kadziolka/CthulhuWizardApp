@@ -1,12 +1,12 @@
-import type { Investigator } from "../wizard/types/Investigator";
+import type { Characteristic } from "./../wizard/types/Characteristic";
 
 export function getSkillDefaultValue(
   skillName: string,
-  investigator: Investigator
+  characteristic: Characteristic
 ): number {
-  return skillDefaults[skillName](investigator);
+  return skillDefaults[skillName](characteristic);
 }
-type CalculateSkill = (investigator: Investigator) => number;
+type CalculateSkill = (characteristic: Characteristic) => number;
 const skillDefaults: Record<string, CalculateSkill> = {
   Accounting: () => 5,
   "Animal Handling": () => 5,
@@ -34,11 +34,11 @@ const skillDefaults: Record<string, CalculateSkill> = {
   Climb: () => 20,
   "Credit Rating": () => 0,
   "Cthulhu Mythos": () => 0,
-  Demolitions: () => 1,
+  Demolition: () => 1,
   Disguise: () => 5,
   Diving: () => 1,
-  Dodge: (investigator: Investigator) =>
-    Math.floor(investigator.characteristic.dexterity / 2),
+  Dodge: (characteristic: Characteristic) =>
+    Math.floor(characteristic.dexterity / 2),
   "Drive Auto": () => 20,
   "Electrical Repair": () => 10,
   "Fast Talk": () => 5,
@@ -74,8 +74,8 @@ const skillDefaults: Record<string, CalculateSkill> = {
   "Other Language (Russian)": () => 1,
   "Other Language (Spanish)": () => 1,
   "Other Language (Turkish)": () => 1,
-  "Language (Own)": (investigator: Investigator) =>
-    investigator.characteristic.education,
+  "Language (Own)": (characteristic: Characteristic) =>
+    characteristic.education,
   Law: () => 5,
   "Library Use": () => 20,
   Listen: () => 20,

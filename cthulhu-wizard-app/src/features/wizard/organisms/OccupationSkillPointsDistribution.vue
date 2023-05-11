@@ -23,7 +23,7 @@ const { getOccupationSkillPoints } = useSkillPoints();
 const maxSkillPoints = computed(() =>
   getOccupationSkillPoints(
     selectedOccupation.value?.skillPointsPattern,
-    store.investigator.characteristic
+    investigator.characteristic
   )
 );
 
@@ -32,7 +32,10 @@ const distributedPoints = computed(() => {
     let distributedPoints = 0;
     investigator.skills.forEach((element) => {
       if (element.name === undefined) return;
-      const minValue = getSkillDefaultValue(element.name, investigator);
+      const minValue = getSkillDefaultValue(
+        element.name,
+        investigator.characteristic
+      );
       distributedPoints = distributedPoints + element.currentValue - minValue;
     });
     return distributedPoints;
@@ -63,7 +66,7 @@ const emit = defineEmits<{
     </div>
     <div class="occupation-skill-points-distribution__container">
       <OccupationSkillChoice
-        v-model="investigator"
+        v-model="investigator.skills"
         :occupation-skills-specifications="skills"
         :saved-investigator="savedInvestigator"
         :available-skill-points="maxSkillPoints - distributedPoints"

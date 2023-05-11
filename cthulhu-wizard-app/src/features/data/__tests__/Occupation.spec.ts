@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getAllOccuaptions } from "../Occupation";
+import { getAllSkills } from "../Occupation";
 import { getAllArtCrafts } from "../ArtCraft";
 import { getAllFightings } from "../Fighting";
 import { getAllFirearms } from "../Firearms";
@@ -8,9 +8,9 @@ import { getAllPilots } from "../Pilot";
 import { getAllSciences } from "../Science";
 import { getAllSurvivals } from "../Survival";
 
-describe("getAllOccuaptions", () => {
+describe("getAllSkills", () => {
   it("should return Occupations list contains elements with specific pattern", () => {
-    const occupations = getAllOccuaptions();
+    const occupations = getAllSkills();
     const artCraftPattern = /(^Art \/ Craft \(.+\)$)/;
     const fightingPattern = /(^Fighting \(.+\)$)/;
     const firearmsPattern = /(^Firearms \(.+\)$)/;
