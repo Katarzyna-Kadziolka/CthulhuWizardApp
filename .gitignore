@@ -128,3 +128,5 @@ fabric.properties
 *.feature.xlsx.*
 
 # End of https://www.toptal.com/developers/gitignore/api/vue,visualstudiocode
+
+.idea/
