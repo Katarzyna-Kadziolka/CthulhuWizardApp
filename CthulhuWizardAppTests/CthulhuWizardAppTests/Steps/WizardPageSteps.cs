@@ -19,4 +19,10 @@ public class WizardPageSteps {
         await _user.GotoAsync(_wizardPage.WizardPageRoute);
         _wizardPage.AssertPageRoute();
     }
+
+    [Given(@"the user is on the WizardPage")]
+    public async Task GivenTheUserIsOnTheWizardPage() {
+        await _user.GotoAsync(_wizardPage.WizardPageRoute);
+        _wizardPage.AssertPageRoute();
+    }
 }

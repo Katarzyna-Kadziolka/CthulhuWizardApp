@@ -13,7 +13,7 @@ export const investigatorStore = defineStore({
   state: () => ({
     investigator: {
       id: "",
-      firstName: "Tom",
+      firstName: "",
       lastName: "",
       age: 15,
       gender: Gender.Male,
