@@ -34,6 +34,12 @@ const router = createRouter({
       name: "imageGenerator",
       component: () => import("../features/imageGenerator/ImageGenerator.vue"),
     },
+    {
+      path: "/investigator-card/:id",
+      name: "investigatorCard",
+      component: () =>
+        import("../features/investigatorCard/InvestigatorCardPage.vue"),
+    },
   ],
 });
 

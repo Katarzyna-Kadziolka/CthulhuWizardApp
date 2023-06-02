@@ -8,27 +8,27 @@ import { DamageBonus } from "@/features/wizard/types/DamageBonus";
 import occupationService from "@/api/occupationService";
 import { cloneDeep } from "lodash";
 
-export const investigatorStore = defineStore({
+export const useInvestigatorStore = defineStore({
   id: "investigator",
   state: () => ({
     investigator: {
       id: "",
-      firstName: "",
+      firstName: "Test",
       lastName: "",
       age: 15,
       gender: Gender.Male,
       birthPlace: "",
       livingPlace: "",
       characteristic: {
-        strength: 0,
-        constitution: 0,
-        size: 0,
-        dexterity: 0,
-        appearance: 0,
-        intelligence: 0,
-        power: 0,
-        education: 0,
-        luck: 0,
+        strength: 1,
+        constitution: 1,
+        size: 1,
+        dexterity: 1,
+        appearance: 1,
+        intelligence: 10,
+        power: 1,
+        education: 10,
+        luck: 1,
         damageBonus: DamageBonus.MinusTwo,
         build: Build.MinusTwo,
         hitPoints: 0,
@@ -44,13 +44,13 @@ export const investigatorStore = defineStore({
     investigatorStates: [] as Array<Investigator>,
   }),
   actions: {
-    async saveInvestigator() {
+    saveInvestigator() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       this.savedInvestigator = cloneDeep(this.investigator);
       this.investigatorStates.push(this.savedInvestigator);
       //this.savedInvestigator = await investigatorService.create(investigator);
     },
-    async restoreInvestigator() {
+    restoreInvestigator() {
       if (this.investigatorStates.length > 0) {
         const prevStates = this.investigatorStates.pop() as Investigator;
         this.investigator = cloneDeep(prevStates);
