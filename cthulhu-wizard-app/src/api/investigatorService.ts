@@ -7,6 +7,10 @@ class investigatorService {
     const response = await http.post("Investigators", investigator);
     return response.data;
   }
+  async getDetails(id: string) {
+    const response = await http.get(`Investigators/${id}`);
+    return response.data;
+  }
 }
 
 export default new investigatorService();

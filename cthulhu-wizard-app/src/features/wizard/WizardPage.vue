@@ -23,7 +23,7 @@ const nextButtonClicked = async () => {
   saveInvestigator();
   if (step.value === 5) {
     const investigator = await service.create(savedInvestigator.value);
-    pageRouter.push(`/investigator-card/${investigator.id}`);
+    pageRouter.push(`/investigator-sheet/${investigator.id}`);
   } else {
     stepper.value.next();
   }

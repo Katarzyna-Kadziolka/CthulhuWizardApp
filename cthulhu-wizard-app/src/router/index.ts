@@ -35,10 +35,10 @@ const router = createRouter({
       component: () => import("../features/imageGenerator/ImageGenerator.vue"),
     },
     {
-      path: "/investigator-card/:id",
-      name: "investigatorCard",
+      path: "/investigator-sheet/:id",
+      name: "investigatorSheet",
       component: () =>
-        import("../features/investigatorCard/InvestigatorCardPage.vue"),
+        import("../features/investigatorSheet/InvestigatorSheetPage.vue"),
     },
   ],
 });
