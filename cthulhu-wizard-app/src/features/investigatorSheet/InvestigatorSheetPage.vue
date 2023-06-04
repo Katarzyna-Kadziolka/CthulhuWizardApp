@@ -26,6 +26,8 @@ onMounted(async () => {
 .investigator-sheet-page {
   &__container {
     margin: 1rem;
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>
