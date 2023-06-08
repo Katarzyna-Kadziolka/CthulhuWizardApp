@@ -7,7 +7,9 @@ const props = defineProps<{
 
 <template>
   <div class="display-statistic-points__column">
-    <div>{{ props.name }}:</div>
+    <div>
+      <b>{{ props.name }}:</b>
+    </div>
     <div>
       {{ props.value }}
     </div>

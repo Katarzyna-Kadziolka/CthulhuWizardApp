@@ -10,7 +10,9 @@ const getQuarterValue = (value: number) => Math.floor(+value / 4);
 
 <template>
   <div class="display-statistic-points__column">
-    <div>{{ props.name }}:</div>
+    <div>
+      <b>{{ props.name }}:</b>
+    </div>
     <div>
       {{ props.value }} / {{ getHalfValue(props.value as number) }} /
       {{ getQuarterValue(props.value as number) }}
