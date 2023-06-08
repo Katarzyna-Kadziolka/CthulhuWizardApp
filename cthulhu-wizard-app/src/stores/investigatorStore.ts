@@ -18,7 +18,7 @@ export const useInvestigatorStore = defineStore({
       age: 15,
       gender: Gender.Male,
       birthPlace: "",
-      livingPlace: "",
+      residence: "",
       characteristic: {
         strength: 1,
         constitution: 1,

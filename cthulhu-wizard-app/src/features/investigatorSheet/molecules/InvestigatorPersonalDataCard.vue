@@ -24,22 +24,22 @@ const props = defineProps<{
     <QCardSection>
       <DisplayValue
         name="Sex"
-        :value="props.investigator?.gender"
+        :display-value="props.investigator?.gender?.toString()"
         class="investigator-sheet__display"
       />
       <DisplayValue
         name="Age"
-        :value="props.investigator?.age.toString()"
+        :display-value="props.investigator?.age.toString()"
         class="investigator-sheet__display"
       />
       <DisplayValue
         name="Residence"
-        :value="props.investigator?.livingPlace"
+        :display-value="props.investigator?.residence"
         class="investigator-sheet__display"
       />
       <DisplayValue
         name="Birthplace"
-        :value="props.investigator?.birthPlace"
+        :display-value="props.investigator?.birthPlace"
         class="investigator-sheet__display"
       />
     </QCardSection>

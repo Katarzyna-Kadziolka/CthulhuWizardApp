@@ -16,7 +16,9 @@ onMounted(async () => {
 </script>
 
 <template>
+  <div v-if="investigator === undefined">Loading...</div>
   <InvestigatorSheet
+    v-else
     :investigator="investigator"
     class="investigator-sheet-page__container"
   />

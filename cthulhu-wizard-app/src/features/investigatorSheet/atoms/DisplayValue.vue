@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { watch } from "fs";
+import { watchEffect } from "vue";
+
 const props = defineProps<{
   name: string;
-  value: string | undefined;
+  displayValue: string | undefined;
 }>();
+
+watchEffect(() => console.log(props.name + "-" + props.displayValue));
 </script>
 
 <template>
@@ -11,7 +16,7 @@ const props = defineProps<{
       <b>{{ props.name }}:</b>
     </div>
     <div>
-      {{ props.value }}
+      {{ props.displayValue }}
     </div>
   </div>
 </template>

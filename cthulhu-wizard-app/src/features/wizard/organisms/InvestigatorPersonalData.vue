@@ -85,9 +85,9 @@ watch(
       /></RandomizableInput>
       <RandomizableInput
         ><FormInputBase
-          v-model="investigator.livingPlace"
+          v-model="investigator.residence"
           class="investigator-personal-data-form__input"
-          watermark="Living Place"
+          watermark="Residence"
       /></RandomizableInput>
     </div>
     <QBtn

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   name: string;
-  value: number | undefined;
+  displayValue: number | undefined;
 }>();
 
 const getHalfValue = (value: number) => Math.floor(+value / 2);
@@ -14,8 +14,9 @@ const getQuarterValue = (value: number) => Math.floor(+value / 4);
       <b>{{ props.name }}:</b>
     </div>
     <div>
-      {{ props.value }} / {{ getHalfValue(props.value as number) }} /
-      {{ getQuarterValue(props.value as number) }}
+      {{ props.displayValue }} /
+      {{ getHalfValue(props.displayValue as number) }} /
+      {{ getQuarterValue(props.displayValue as number) }}
     </div>
   </div>
 </template>

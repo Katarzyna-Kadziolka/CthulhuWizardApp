@@ -2,7 +2,7 @@
 import DisplayStatisticPoints from "@/features/investigatorSheet/atoms/DisplayStatisticPoints.vue";
 import type { Investigator } from "@/features/wizard/types/Investigator";
 import DisplayValue from "../atoms/DisplayValue.vue";
-import InvestigatorPersonalDataCard from "../molecules/InvestigatorPersonalDatacard.vue";
+import InvestigatorPersonalDataCard from "../molecules/InvestigatorPersonalDataCard.vue";
 import { computed } from "vue";
 import { getSkillDefaultValue } from "../../composables/SkillDefaults";
 
@@ -25,7 +25,7 @@ const calculatedDodge = computed(() => {
   if (!dodge && props.investigator) {
     dodge = getSkillDefaultValue(dodgeName, props.investigator?.characteristic);
   }
-  return dodge;
+  return dodge ?? 0;
 });
 </script>
 
@@ -42,42 +42,42 @@ const calculatedDodge = computed(() => {
       <QCardSection>
         <DisplayStatisticPoints
           name="Strength"
-          :value="props.investigator?.characteristic.strength"
+          :display-value="props.investigator?.characteristic.strength"
           class="investigator-sheet__display"
         />
         <DisplayStatisticPoints
           name="Constitution"
-          :value="props.investigator?.characteristic.constitution"
+          :display-value="props.investigator?.characteristic.constitution"
           class="investigator-sheet__display"
         />
         <DisplayStatisticPoints
           name="Size"
-          :value="props.investigator?.characteristic.size"
+          :display-value="props.investigator?.characteristic.size"
           class="investigator-sheet__display"
         />
         <DisplayStatisticPoints
           name="Dexterity"
-          :value="props.investigator?.characteristic.dexterity"
+          :display-value="props.investigator?.characteristic.dexterity"
           class="investigator-sheet__display"
         />
         <DisplayStatisticPoints
           name="Appearance"
-          :value="props.investigator?.characteristic.appearance"
+          :display-value="props.investigator?.characteristic.appearance"
           class="investigator-sheet__display"
         />
         <DisplayStatisticPoints
           name="Intelligence"
-          :value="props.investigator?.characteristic.intelligence"
+          :display-value="props.investigator?.characteristic.intelligence"
           class="investigator-sheet__display"
         />
         <DisplayStatisticPoints
           name="Power"
-          :value="props.investigator?.characteristic.power"
+          :display-value="props.investigator?.characteristic.power"
           class="investigator-sheet__display"
         />
         <DisplayStatisticPoints
           name="Education"
-          :value="props.investigator?.characteristic.education"
+          :display-value="props.investigator?.characteristic.education"
           class="investigator-sheet__display"
         />
       </QCardSection>
@@ -87,27 +87,33 @@ const calculatedDodge = computed(() => {
       <QCardSection>
         <DisplayValue
           name="Move Rate"
-          :value="props.investigator?.characteristic.movementRate.toString()"
+          :display-value="
+            props.investigator?.characteristic.movementRate.toString()
+          "
           class="investigator-sheet__display"
         />
         <DisplayValue
           name="Hit Points"
-          :value="props.investigator?.characteristic.hitPoints.toString()"
+          :display-value="
+            props.investigator?.characteristic.hitPoints.toString()
+          "
           class="investigator-sheet__display"
         />
         <DisplayValue
           name="Sanity"
-          :value="props.investigator?.characteristic.sanity.toString()"
+          :display-value="props.investigator?.characteristic.sanity.toString()"
           class="investigator-sheet__display"
         />
         <DisplayValue
           name="Luck"
-          :value="props.investigator?.characteristic.luck.toString()"
+          :display-value="props.investigator?.characteristic.luck.toString()"
           class="investigator-sheet__display"
         />
         <DisplayValue
           name="Magic points"
-          :value="props.investigator?.characteristic.magicPoints.toString()"
+          :display-value="
+            props.investigator?.characteristic.magicPoints.toString()
+          "
           class="investigator-sheet__display"
         />
       </QCardSection>
@@ -124,7 +130,7 @@ const calculatedDodge = computed(() => {
           v-for="skill in sortedSkills"
           :key="skill.toString()"
           :name="skill.name ? skill.name : ''"
-          :value="skill.currentValue"
+          :display-value="skill.currentValue"
           class="investigator-sheet__display"
         />
       </QCardSection>
@@ -139,17 +145,19 @@ const calculatedDodge = computed(() => {
       <QCardSection>
         <DisplayValue
           name="Damage Bonus"
-          :value="props.investigator?.characteristic.damageBonus.toString()"
+          :display-value="
+            props.investigator?.characteristic.damageBonus.toString()
+          "
           class="investigator-sheet__display"
         />
         <DisplayValue
           name="Build"
-          :value="props.investigator?.characteristic.build.toString()"
+          :display-value="props.investigator?.characteristic.build.toString()"
           class="investigator-sheet__display"
         />
         <DisplayStatisticPoints
           name="Dodge"
-          :value="calculatedDodge"
+          :display-value="calculatedDodge"
           class="investigator-sheet__display"
         />
       </QCardSection>
