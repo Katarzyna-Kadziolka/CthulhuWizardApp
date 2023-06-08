@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useSkillPoints } from "@/features/composables/SkillPoints";
-import { investigatorStore } from "@/stores/investigatorStore";
+import { useInvestigatorStore } from "@/stores/investigatorStore";
 import { computed, reactive, ref, watch } from "vue";
 import ProgressBar from "../atoms/ProgressBar.vue";
 import { CharacteristicName } from "../types/CharacteristicName";
@@ -9,7 +9,7 @@ import PersonalInterestsSkillChoice from "../molecules/PersonalInterestsSkillCho
 import { getSkillDefaultValue } from "@/features/composables/SkillDefaults";
 import type { InvestigatorSkill } from "../types/InvestigatorSkill";
 
-const store = investigatorStore();
+const store = useInvestigatorStore();
 const investigator = store.investigator;
 const savedInvestigator = store.savedInvestigator;
 const savedSkills = savedInvestigator.skills;
@@ -72,19 +72,10 @@ const onSkillAdded = (skill: InvestigatorSkill) => {
 };
 
 const onSkillRemoved = (skill: InvestigatorSkill) => {
-  // const savedSkillFoundIndex = savedSkills.findIndex(
-  //   (x) => x.name === skill.name
-  // );
   const skillFoundIndex = selectedSkills.findIndex(
     (x) => x.name === skill.name
   );
   selectedSkills.splice(skillFoundIndex, 1);
-
-  // if (savedSkillFoundIndex === -1) {
-  //   return;
-  // }
-  // selectedSkills[skillFoundIndex].currentValue ==
-  //   savedSkills[savedSkillFoundIndex].currentValue;
 };
 
 const onSkillUpdated = (skill: InvestigatorSkill) => {

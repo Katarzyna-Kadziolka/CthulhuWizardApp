@@ -3,6 +3,8 @@ import AttributeDisplay from "../atoms/AttributeDisplay.vue";
 import { useWizard } from "@/features/composables/Wizard";
 import { computed, watchEffect } from "vue";
 import type { Characteristic } from "../types/Characteristic";
+import { DamangeBonusDescrption } from "../types/DamageBonus";
+import { BuildDescrption } from "../types/Build";
 
 const props = defineProps<{
   modelValue: Characteristic;
@@ -46,9 +48,12 @@ watchEffect(() => {
       </div>
       <AttributeDisplay
         label="Damage Bonus"
-        :value="characteristic.damageBonus"
+        :value="DamangeBonusDescrption[characteristic.damageBonus]"
       />
-      <AttributeDisplay label="Build" :value="characteristic.build" />
+      <AttributeDisplay
+        label="Build"
+        :value="BuildDescrption[characteristic.build]"
+      />
     </QCardSection>
   </QCard>
 </template>

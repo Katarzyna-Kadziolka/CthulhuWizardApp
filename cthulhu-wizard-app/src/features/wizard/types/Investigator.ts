@@ -10,7 +10,7 @@ export interface Investigator {
   age: number;
   gender: Gender;
   birthPlace: string;
-  livingPlace: string;
+  residence: string;
   characteristic: Characteristic;
   occupation: Occupation | undefined;
   skills: InvestigatorSkill[];

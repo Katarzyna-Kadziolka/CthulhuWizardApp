@@ -7,6 +7,6 @@ export interface CreateInvestigator {
   age: number;
   gender: Gender;
   birthPlace: string;
-  livingPlace: string;
+  residence: string;
   characteristic: Characteristic;
 }

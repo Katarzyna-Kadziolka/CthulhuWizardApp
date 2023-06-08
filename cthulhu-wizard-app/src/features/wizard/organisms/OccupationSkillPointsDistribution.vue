@@ -2,12 +2,12 @@
 import { computed, onMounted, ref, watch } from "vue";
 import ProgressBar from "../atoms/ProgressBar.vue";
 import type { SkillSpecification } from "../types/SkillSpecification";
-import { investigatorStore } from "@/stores/investigatorStore";
+import { useInvestigatorStore } from "@/stores/investigatorStore";
 import OccupationSkillChoice from "../molecules/OccupationSkillChoice.vue";
 import { useSkillPoints } from "../../composables/SkillPoints";
 import { getSkillDefaultValue } from "../../composables/SkillDefaults";
 
-const store = investigatorStore();
+const store = useInvestigatorStore();
 const selectedOccupation = ref();
 const skills = ref<Array<SkillSpecification>>([]);
 
