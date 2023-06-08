@@ -29,6 +29,6 @@ const props = withDefaults(
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
 }
 </style>

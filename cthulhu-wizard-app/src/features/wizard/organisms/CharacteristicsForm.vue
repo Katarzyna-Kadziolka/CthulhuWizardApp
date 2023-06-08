@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { investigatorStore } from "@/stores/investigatorStore";
+import { useInvestigatorStore } from "@/stores/investigatorStore";
 import RandomizableInput from "../molecules/RandomizableInput.vue";
 import SkillInput from "../molecules/SkillInput.vue";
 import { watch } from "vue";
@@ -8,7 +8,7 @@ import AgeInfoCard from "../atoms/AgeInfoCard.vue";
 import AttrinutesDisplay from "../molecules/AttrinutesDisplay.vue";
 import FightAttributesDisplay from "../molecules/FightAttributesDisplay.vue";
 
-const store = investigatorStore();
+const store = useInvestigatorStore();
 const investigator = store.investigator;
 
 const { getErrors } = useWizard();

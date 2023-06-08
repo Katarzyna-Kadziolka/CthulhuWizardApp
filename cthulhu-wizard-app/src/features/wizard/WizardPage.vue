@@ -1,21 +1,32 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, toRaw, watch } from "vue";
+import { storeToRefs } from "pinia";
 import InvestigatorPersonalData from "./organisms/InvestigatorPersonalData.vue";
 import CharacteristicsForm from "./organisms/CharacteristicsForm.vue";
 import NavigationButtons from "./organisms/NavigationButtons.vue";
 import OccupationChoice from "./organisms/OccupationChoice.vue";
 import OccupationSkillPointsDistribution from "./organisms/OccupationSkillPointsDistribution.vue";
-import { investigatorStore } from "@/stores/investigatorStore";
+import { useInvestigatorStore } from "@/stores/investigatorStore";
 import PersonalInterestsPointsDistributionVue from "./organisms/PersonalInterestsPointsDistribution.vue";
+import investigatorService from "@/api/investigatorService";
+import router from "@/router";
 
+const pageRouter = router;
 const isValid = ref<Array<boolean>>([true]);
 const step = ref(1);
 const stepper = ref();
-const { saveInvestigator, restoreInvestigator } = investigatorStore();
+const { saveInvestigator, restoreInvestigator } = useInvestigatorStore();
+const { savedInvestigator } = storeToRefs(useInvestigatorStore());
+const service = investigatorService;
 
-const nextButtonClicked = () => {
-  stepper.value.next();
+const nextButtonClicked = async () => {
   saveInvestigator();
+  if (step.value === 5) {
+    const investigator = await service.create(savedInvestigator.value);
+    pageRouter.push(`/investigator-sheet/${investigator.id}`);
+  } else {
+    stepper.value.next();
+  }
 };
 
 const previousButtonClicked = () => {

@@ -2,12 +2,12 @@
 import { watch } from "vue";
 import FormInputBase from "@/components/atoms/FormInputBase.vue";
 import { Gender } from "../types/Gender";
-import { investigatorStore } from "@/stores/investigatorStore";
+import { useInvestigatorStore } from "@/stores/investigatorStore";
 import RadioButtonBase from "../../../components/atoms/RadioButtonBase.vue";
 import RandomizableInput from "../molecules/RandomizableInput.vue";
 import { useWizard } from "../../composables/Wizard";
 
-const store = investigatorStore();
+const store = useInvestigatorStore();
 const investigator = store.investigator;
 const { getErrors } = useWizard();
 
@@ -85,9 +85,9 @@ watch(
       /></RandomizableInput>
       <RandomizableInput
         ><FormInputBase
-          v-model="investigator.livingPlace"
+          v-model="investigator.residence"
           class="investigator-personal-data-form__input"
-          watermark="Living Place"
+          watermark="Residence"
       /></RandomizableInput>
     </div>
     <QBtn

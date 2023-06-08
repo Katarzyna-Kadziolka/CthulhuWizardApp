@@ -2,7 +2,7 @@
 import { onMounted, ref, watch, watchEffect } from "vue";
 import SearchInputBase from "../../../components/atoms/SearchInputBase.vue";
 import OccupationsDisplay from "../molecules/OccupationsDisplay.vue";
-import { investigatorStore } from "@/stores/investigatorStore";
+import { useInvestigatorStore } from "@/stores/investigatorStore";
 import { computed } from "@vue/reactivity";
 import OccupationDisplay from "../molecules/OccupationDisplay.vue";
 import type { OccupationDetails } from "../types/OccupationDetails";
@@ -14,7 +14,7 @@ onMounted(async () => {
 });
 
 const showOccupations = ref(false);
-const store = investigatorStore();
+const store = useInvestigatorStore();
 const occupationName = ref("");
 const occupationsNames = computed(() => {
   if (store.occupations) {
