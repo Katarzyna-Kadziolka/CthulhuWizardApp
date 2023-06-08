@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <QCard dark bordered class="bg-grey-9 my-card investigator-sheet__card">
+  <QCard dark bordered class="bg-grey-9 my-card">
     <QCardSection>
       <div class="text-h6">
         {{ props.investigator?.firstName }}
@@ -25,23 +25,31 @@ const props = defineProps<{
       <DisplayValue
         name="Sex"
         :display-value="props.investigator?.gender?.toString()"
-        class="investigator-sheet__display"
+        class="investigator-personal-data-card__display"
       />
       <DisplayValue
         name="Age"
         :display-value="props.investigator?.age.toString()"
-        class="investigator-sheet__display"
+        class="investigator-personal-data-card__display"
       />
       <DisplayValue
         name="Residence"
         :display-value="props.investigator?.residence"
-        class="investigator-sheet__display"
+        class="investigator-personal-data-card__display"
       />
       <DisplayValue
         name="Birthplace"
         :display-value="props.investigator?.birthPlace"
-        class="investigator-sheet__display"
+        class="investigator-personal-data-card__display"
       />
     </QCardSection>
   </QCard>
 </template>
+
+<style lang="scss">
+.investigator-personal-data-card {
+  &__display {
+    margin: 1rem;
+  }
+}
+</style>
