@@ -23,7 +23,7 @@ const ageInfo = computed(() => getInfoForAge(props.age));
           <QIcon name="fas fa-info-circle" size="sm" />
         </div>
         <QCardSection>
-          <QItemLabel>{{ ageInfo }}</QItemLabel>
+          <QItemLabel data-testid="age-info">{{ ageInfo }}</QItemLabel>
         </QCardSection>
       </QCardSection>
     </QCard>

@@ -12,9 +12,12 @@ export default defineConfig({
     }),
     quasar({
       autoImportComponentCase: "pascal",
-      sassVariables: "src/quasar-variables.sass",
+      sassVariables: "@/quasar-variables.sass",
     }),
   ],
+  test: {
+    environment: "jsdom",
+  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
