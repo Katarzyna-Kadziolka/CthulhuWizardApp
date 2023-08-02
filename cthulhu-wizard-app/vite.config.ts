@@ -15,9 +15,6 @@ export default defineConfig({
       sassVariables: "@/quasar-variables.sass",
     }),
   ],
-  test: {
-    environment: "jsdom",
-  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
