@@ -13,12 +13,12 @@ const props = withDefaults(
 
 <template>
   <div class="attribute-display">
-    <div>
+    <div data-testid="label">
       <span
         ><b>{{ props.label }}</b></span
       >
     </div>
-    <div>
+    <div data-testid="value">
       <span>{{ props.value }}</span>
     </div>
   </div>
