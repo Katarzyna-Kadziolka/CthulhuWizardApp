@@ -1,6 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { config, mount } from "@vue/test-utils";
 import AttributeDisplay from "../AttributeDisplay.vue";
+
 beforeAll(() => {
   config.global.renderStubDefaultSlot = true;
 });
@@ -38,6 +39,8 @@ describe("AttributeDisplay", () => {
         value: expectedValue,
       },
     });
-    expect(wrapper.find('[data-testid="value"]').text()).toBe(expectedValue.toString());
+    expect(wrapper.find('[data-testid="value"]').text()).toBe(
+      expectedValue.toString()
+    );
   });
 });

@@ -38,11 +38,12 @@ const quarterValue = computed(() => Math.floor(Number(value.value) / 4));
         type="number"
         class="points-field__main-input"
         input-class="number-without-arrows"
+        data-testid="points-field"
       />
-      <div class="points-field__half">
+      <div data-testid="halfValue" class="points-field__half">
         <span>{{ halfValue }}</span>
       </div>
-      <div class="points-field__quarter">
+      <div data-testid="quarterValue" class="points-field__quarter">
         <span>{{ quarterValue }}</span>
       </div>
     </div>
